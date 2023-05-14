@@ -1,34 +1,30 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { Dialog, Popover } from "@headlessui/react";
 import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
 
   return (
-    <header className="bg-white border-b-2 ">
+    <header className="bg-black overflow-hidden">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between lg:px-8"
+        className="flex justify-between lg:px-0 mx-2 md:mx-11 my-4 overflow-hidden"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
-          <Link href="/" className="m-2">
-            <span className="sr-only">POWERKRAFT</span>
-            <Image
-              className="h-16 w-auto "
-              width={1000}
-              height={300}
-              src="https://firebasestorage.googleapis.com/v0/b/powerkraft-02.appspot.com/o/other%20images%2FLogo.webp?alt=media&token=faab2682-7787-465a-9a5f-82ec66ace27b"
-              alt=""
-            />
-          </Link>
-        </div>
+        <Link href="/" className="overflow-hidden">
+          <h1 className="text-3xl md:text-4xl font-extralight text-white py-1">
+            The <span className="font-extrabold">OCTULUS</span>
+          </h1>
+        </Link>
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className=" inline-flex items-center justify-center rounded-md text-gray-100"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
@@ -36,18 +32,42 @@ export default function Example() {
           </button>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12"></Popover.Group>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-6">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center space-x-6 ">
           <Link
             href="/"
-            className="text-sm font-semibold leading-6 text-gray-500 hover:text-black"
+            className={`text-lg font-semibold text-gray-100 hover:text-white hover:border-b-4 hover:border-emerald-400 rounded-sm`}
           >
-            ABOUT
+            HOME
           </Link>
           <Link
-            href="/"
-            className="text-sm font-semibold leading-6 text-gray-500 hover:text-black"
+            href="/movies"
+            className={`text-lg font-semibold text-gray-100 hover:text-white rounded-sm ${
+              router.pathname === "/movies"
+                ? "border-b-4 border-white"
+                : "hover:border-b-4 border-emerald-400 hover:border-emerald-400"
+            }}`}
           >
-            CONTACT
+            MOVIES
+          </Link>
+          <Link
+            href="/series"
+            className={`text-lg font-semibold text-gray-100 hover:text-white active:border-emerald-400 rounded-sm ${
+              router.pathname === "/series"
+                ? "border-b-4 border-white"
+                : "hover:border-b-4 border-emerald-400"
+            }`}
+          >
+            TV SHOWS
+          </Link>
+          <Link
+            href="/request"
+            className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
+              router.pathname === "/request"
+                ? "border-b-4 border-white hover:text-transparent"
+                : "hover:border-b-4 border-emerald-400"
+            }`}
+          >
+            REQUEST
           </Link>
         </div>
       </nav>
@@ -58,21 +78,18 @@ export default function Example() {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-black px-4 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="">
-              <span className="sr-only">POWERKRAFT</span>
-              <Image
-                className="h-16 w-auto"
-                width={1000}
-                height={300}
-                src="https://firebasestorage.googleapis.com/v0/b/powerkraft-02.appspot.com/o/other%20images%2FLogo.webp?alt=media&token=faab2682-7787-465a-9a5f-82ec66ace27b"
-                alt=""
-              />
+              <Link href="/" className="">
+                <h1 className="text-3xl font-extralight text-white py-1">
+                  The <span className="font-extrabold">OCTULUS</span>
+                </h1>
+              </Link>
             </a>
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              className="rounded-md text-gray-100"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -80,19 +97,33 @@ export default function Example() {
             </button>
           </div>
           <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
+            <div className=" divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 <Link
                   href="/"
-                  className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-blue-600 hover:text-white"
+                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
                 >
-                  ABOUT
+                  <div className="w-fit border-b-2">HOME</div>
                 </Link>
                 <Link
-                  href="/"
-                  className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-blue-600 hover:text-white"
+                  href="/movies"
+                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
                 >
-                  CONTACT
+                  <div className="border-b-2 w-fit">MOVIES</div>
+                </Link>
+                <Link
+                  href="/series"
+                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
+                >
+                  <div className="border-b-2 w-fit">SERIES</div>
+                </Link>
+                <Link
+                  href="/request"
+                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl "
+                >
+                  <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
+                    REQUEST
+                  </div>
                 </Link>
               </div>
             </div>
