@@ -1,64 +1,64 @@
 .main {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .index {
-    height: 100vh;
-    width: 100vw;
+  height: 100vh;
+  width: 100vw;
 }
 
 .Wrapper {
-    width: max-content;
-    margin-left: 2.5vw;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    border-radius: 25px;
+  width: max-content;
+  margin-left: 2.5vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 25px;
 }
 
 .wrap_div {
-    border-radius: 30px;
-    background-color: antiquewhite;
-    color: aquamarine;
+  border-radius: 30px;
+  background-color: antiquewhite;
+  color: aquamarine;
 }
 
 .h2 {
-    color: rgb(255, 255, 255);
-    font-size: 1rem;
-    font-weight: 600;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 550px) {
-    .Wrapper {
-        width: 40vw;
-        display: grid;
-        grid-template-columns: 45vw 45vw;
-        margin-right: 5vw;
-    }
+  .Wrapper {
+    width: 40vw;
+    display: grid;
+    grid-template-columns: 45vw 45vw;
+    margin-right: 5vw;
+  }
 }
 
 .progress {
-    width: 134.4px;
-    height: 24.6px;
-    border-radius: 22.4px;
-    color: #474bff;
-    border: 2.2px solid;
-    position: relative;
+  width: 134.4px;
+  height: 24.6px;
+  border-radius: 22.4px;
+  color: #474bff;
+  border: 2.2px solid;
+  position: relative;
 }
 
 .progress::before {
-    content: "";
-    position: absolute;
-    margin: 2.2px;
-    inset: 0 100% 0 0;
-    border-radius: inherit;
-    background: currentColor;
-    animation: progress-pf82op 2s infinite;
+  content: "";
+  position: absolute;
+  margin: 2.2px;
+  inset: 0 100% 0 0;
+  border-radius: inherit;
+  background: currentColor;
+  animation: progress-pf82op 2s infinite;
 }
 
 @keyframes progress-pf82op {
-    100% {
-        inset: 0;
-    }
+  100% {
+    inset: 0;
+  }
 }

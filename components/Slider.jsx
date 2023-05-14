@@ -5,10 +5,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 
 function Slider({ slider }) {
-    console.log(slider)
-    return (
-        <>{"hello" + slider }</>
-    )
+  console.log(slider);
+  return <>{"hello" + slider}</>;
 }
 
 export async function getServerSideProps() {
@@ -16,8 +14,8 @@ export async function getServerSideProps() {
   //   .from("products")
   //   .select("*").match({Category: "alu"});
 
-    let { data } = await supabase.from("slider").select();
-    console.log(data)
+  let { data } = await supabase.from("slider").select();
+  console.log(data);
 
   return {
     props: {

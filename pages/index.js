@@ -2,11 +2,10 @@ import Image from "next/image";
 import { supabase } from "./../lib/supabaseClient";
 import Link from "next/link";
 import Head from "next/head";
-import styles from "../styles/Home.module.css"
+import styles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
 
 function Page({ movies }) {
-
   return (
     <div className={styles.main}>
       <Head>

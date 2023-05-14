@@ -12,7 +12,7 @@
   :root {
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 0, 25, 25;
-    --background-end-rgb:0,25,25;
+    --background-end-rgb: 0, 25, 25;
   }
 }
 
@@ -25,7 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 
-    background: #01051c;
+  background: #01051c;
 }
 
 html,
