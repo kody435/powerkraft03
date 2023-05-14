@@ -8,7 +8,7 @@ import { Dialog } from "@headlessui/react";
 
 export default function Post({ movies }) {
   // const {tmdb, name} = movies
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState({});
   const [tmdb, setTmdb] = useState("");
 
@@ -39,8 +39,6 @@ export default function Post({ movies }) {
     return <div>Loading...</div>;
   }
 
-  // ok ?
-
   return (
     <div className={styles.main}>
       <Head>
@@ -58,75 +56,85 @@ export default function Post({ movies }) {
         <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <iframe
-        src={`https://2embed.org/embed/movie?tmdb=${movies.tmdb}`}
-        className="w-full h-full"
-        allowFullScreen
-      /> */}
 
-      <h1 className="pl-5 text-3xl pt-8 w-screen mr-2 text-white">
-        {movies.name}
-        <br />
-      </h1>
+      <div
+        style={{
+          backgroundImage: `url("https://image.tmdb.org/t/p/w500/${data.backdrop_path}")`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+        }}
 
-      <div className="bg-zinc-800 m-5 rounded-3xl text-white">
-        <p className="pt-6 pb-6 pl-4 pr-4 ">
-          <button onClick={() => setIsOpen(true)}>Watch Now</button>
-          <Dialog
-            open={isOpen}
-            onClose={() => setIsOpen(false)}
-            className="relative z-50 "
-          >
-            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-            <div className="fixed inset-0 flex items-center justify-center p-4">
-              <Dialog.Panel className="w-5/6 h-5/6 rounded bg-white">
-                <iframe
-                  src={`https://2embed.org/embed/movie?tmdb=${movies.tmdb}`}
-                  className="w-full h-full"
-                  allowFullScreen
-                />
-              </Dialog.Panel>
-            </div>
-          </Dialog>
+        className="h-screen"
+      >
+        <h1 className="pl-5 text-4xl pt-8 w-screen mr-2 text-white font-bold">
+          {movies.name}
           <br />
-          <br />
-          <span className="font-bold">The Storyline</span> : {data.overview}
-          <br></br>
-          <br></br>
-          <span className="font-bold">Duration</span> : {data.runtime}m<br></br>
-          <br></br>
-          <span className="font-bold">Release Year</span> : {data.release_date}
-          <br></br>
-          <br></br>
-          <span className="font-bold">Genre</span> :{" "}
-          {data &&
-            data?.genres?.map((genre, index) => {
-              return (
-                <>
-                  <span className="" key={genre.id}>
-                    {genre.name}
-                    {index !== data.genres.length - 1 && <span>, &nbsp;</span>}
-                  </span>
-                </>
-              );
-            })}
-          <br></br>
-          <br></br>
-          <span className="font-bold">Spoken Language</span> :{" "}
-          {data &&
-            data?.spoken_languages?.map((genre, index) => {
-              return (
-                <>
-                  <span className="" key={genre.id}>
-                    {genre.name}
-                    {index !== data.spoken_languages.length - 1 && (
-                      <span>, &nbsp;</span>
-                    )}
-                  </span>
-                </>
-              );
-            })}
-        </p>
+        </h1>
+
+        <div className=" rounded-3xl text-white">
+          <p className="pt-6 pb-6 pl-4 pr-4 ">
+            <button onClick={() => setIsOpen(true)}>Watch Now</button>
+            <Dialog
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+              className="relative z-50 "
+            >
+              <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+              <div className="fixed inset-0 flex items-center justify-center p-4">
+                <Dialog.Panel className="w-5/6 h-5/6 rounded bg-white">
+                  <iframe
+                    src={`https://2embed.org/embed/movie?tmdb=${movies.tmdb}`}
+                    className="w-full h-full"
+                    allowFullScreen
+                  />
+                </Dialog.Panel>
+              </div>
+            </Dialog>
+            <br />
+            <br />
+            <span className="font-bold">The Storyline</span> : {data.overview}
+            <br></br>
+            <br></br>
+            <span className="font-bold">Duration</span> : {data.runtime}m
+            <br></br>
+            <br></br>
+            <span className="font-bold">Release Year</span> :{" "}
+            {data.release_date}
+            <br></br>
+            <br></br>
+            <span className="font-bold">Genre</span> :{" "}
+            {data &&
+              data?.genres?.map((genre, index) => {
+                return (
+                  <>
+                    <span className="" key={genre.id}>
+                      {genre.name}
+                      {index !== data.genres.length - 1 && (
+                        <span>, &nbsp;</span>
+                      )}
+                    </span>
+                  </>
+                );
+              })}
+            <br></br>
+            <br></br>
+            <span className="font-bold">Spoken Language</span> :{" "}
+            {data &&
+              data?.spoken_languages?.map((genre, index) => {
+                return (
+                  <>
+                    <span className="" key={genre.id}>
+                      {genre.name}
+                      {index !== data.spoken_languages.length - 1 && (
+                        <span>, &nbsp;</span>
+                      )}
+                    </span>
+                  </>
+                );
+              })}
+          </p>
+        </div>
       </div>
     </div>
   );
