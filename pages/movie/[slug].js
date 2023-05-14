@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabaseClient";
 import Image from "next/image";
@@ -6,29 +5,12 @@ import Head from "next/head";
 import styles from "../../styles/Home.module.css";
 import { useState, useEffect } from "react";
 
-/**
- yep, now what is problem. So I am trying to fetch the data from tmdb api. But it's, causing error.
- ok. What kind of error I am getting here, idk you ll say, first fix that errors.
- WTF you just did?, i am leaving you. Bro no. It's confusing, no no i meant "i am leaving it to you", first fix errors, ohk
- IDK what's this and how to solve it.
- >> if (sth) ... [everything you write here behaves as else block, here], huhh?
- so you cant write hook in conditinoal 
-
-
- nvm let's continue. It's again showing error, now we can look error.Can you look at the error or it's not opening
- no errors on me. Lemme restart server. See the terminal. It's the data being fetc
- Cannot read properties of null (reading 'overview'), yep that's it
-
- So data is coming from tmdb api, but it's showing error on the page, this is the error I was facing earlier, but I don't know how to solve it.
- */
-
 export default function Post({ movies }) {
   const [data, setData] = useState({});
   const [tmdb, setTmdb] = useState('');
 
   useEffect(() => {
-    if (movies.tmdb) {
-      setTmdb(movies.tmdb);
+    if (tmdb) {
       const fetchData = async () => {
         try {
           const response = await fetch(
@@ -36,14 +18,15 @@ export default function Post({ movies }) {
           );
           if (response.ok) {
             const jsonData = await response.json();
-            console.log("Data: ", jsonData)
-            setData(jsonData);
+            console.log("Data: ", jsonData);
+            setMovie(jsonData);
           }
         } catch (error) {
           console.error(error);
         }
       };
       fetchData();
+      setTmdb(tmdb);
     }
   }, [movies, tmdb]);
 
@@ -72,7 +55,7 @@ export default function Post({ movies }) {
       </Head>
       {/* <iframe
         src={`https://2embed.org/embed/movie?tmdb=${movies.tmdb}`}
-        className="w-screen h-96"
+        className="w-screen h-screen"
         allowFullScreen
       /> */}
       <h1 className="pl-5 text-3xl pt-8 w-screen mr-2 text-white">
