@@ -61,7 +61,7 @@ export default function Post({ movies }) {
         style={{
           backgroundImage: `url("https://image.tmdb.org/t/p/w1280/${data.backdrop_path}")`,
           backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
+          backgroundSize: "fit",
         }}
         className="h-screen bg-cover bg-center flex flex-col justify-end relative"
       >
@@ -82,7 +82,7 @@ export default function Post({ movies }) {
             />
           </div>
           <div className="backdrop-blur-sm">
-            <h1 className="pl-5 text-4xl mr-2 text-white font-bold bg-transparent backdrop-blur-sm">
+            <h1 className="pl-5 text-4xl mr-2 h-fit text-white font-bold bg-transparent backdrop-blur-sm">
               {movies.name}
               <br />
             </h1>

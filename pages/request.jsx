@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { supabase } from "../lib/supabaseClient";
 
-
 export default function Request() {
   const router = useRouter();
   const [name, setName] = useState("");
@@ -19,13 +18,14 @@ export default function Request() {
     }
     const { data, error } = await supabase
       .from("requests")
-        .insert([{ name: name, category: category, year: year, imdb: imdb }]);
-      setName("");
+      .insert([{ name: name, category: category, year: year, imdb: imdb }]);
+    
+    setName("");
     setYear("");
     setImdb("");
-      setCategory("");
-      console.log(data);
-      console.log(error);
+    setCategory("");
+      toast.success("Request added successfully");
+      router.push("/requested");
   };
 
   return (

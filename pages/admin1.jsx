@@ -16,10 +16,10 @@ export default function Request() {
     slug = name.split(" ").join("-").toLowerCase();
     const { data, error } = await supabase
       .from("movies")
-        .insert([{ name: name, slug: slug, tmdb: tmdb, mainImage: mainImage }]);
-      setImage("");
-      setName("");
-        setTmdb("");
+      .insert([{ name: name, slug: slug, tmdb: tmdb, mainImage: mainImage }]);
+    setImage("");
+    setName("");
+    setTmdb("");
   };
 
   return (
