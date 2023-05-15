@@ -39,7 +39,7 @@ export default function Example() {
           >
             HOME
           </Link>
-          <Link
+          {/* <Link
             href="/movies"
             className={`text-lg font-semibold text-gray-100 hover:text-white rounded-sm ${
               router.pathname === "/movies"
@@ -58,7 +58,7 @@ export default function Example() {
             }`}
           >
             TV SHOWS
-          </Link>
+          </Link> */}
           <Link
             href="/request"
             className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
@@ -105,7 +105,7 @@ export default function Example() {
                 >
                   <div className="w-fit border-b-2">HOME</div>
                 </Link>
-                <Link
+                {/* <Link
                   href="/movies"
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
                 >
@@ -116,7 +116,7 @@ export default function Example() {
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
                 >
                   <div className="border-b-2 w-fit">SERIES</div>
-                </Link>
+                </Link> */}
                 <Link
                   href="/request"
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl "
