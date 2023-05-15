@@ -35,7 +35,7 @@ function Page({ movies }) {
                 <Image
                   alt=""
                   className="rounded-lg hover:opacity-75 opacity-100"
-                  src={movie.mainImage}
+                  src={`https://image.tmdb.org/t/p/w300/${movie.mainImage}`}
                   loading="lazy"
                   width={150}
                   height={100}

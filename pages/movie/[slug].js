@@ -76,7 +76,7 @@ export default function Post({ movies }) {
             <Image
               alt=""
               className="opacity-100"
-              src={movies.mainImage}
+              src={`https://image.tmdb.org/t/p/w300/${movies.mainImage}`}
               loading="lazy"
               width={150}
               height={100}
