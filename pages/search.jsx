@@ -29,8 +29,23 @@ function Page() {
         />
         <div
           onClick={searchMovies}
-          className="text-black bg-white rounded-full w-fit px-5 py-2 mx-5"
+          className="text-black bg-white rounded-full w-fit px-5 py-2 mx-5 flex flex-row justify-center items-center"
         >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className={`text-lg font-bold w-4 h-4 flex items-center rounded-sm `}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+                  </svg>
+                  &nbsp;
           Search
         </div>
       </div>

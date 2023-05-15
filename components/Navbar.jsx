@@ -42,8 +42,8 @@ export default function Example() {
               stroke="currentColor"
               className={`text-lg font-semibold w-6 h-6 rounded-sm ${
                 router.pathname === "/search"
-                  ? "text-white"
-                  : "text-emerald-400 "
+                ? "text-emerald-400 "
+                  : "text-white z-50"
               }}`}
             >
               <path
@@ -56,7 +56,7 @@ export default function Example() {
 
           <Link
             href="/"
-            className={`text-lg font-semibold text-gray-100 hover:text-white hover:border-b-4 hover:border-emerald-400 rounded-sm`}
+            className={`text-lg font-semibold text-gray-100 hover:text-white hover:border-b-4 hover:border-emerald-400 rounded-sm ${router.pathname === "/" ? "border-b-4 border-white" : "hover:border-b-4 border-emerald-400"}`}
           >
             HOME
           </Link>
