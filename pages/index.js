@@ -24,7 +24,7 @@ function Page({ movies }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container mx-auto my-10 px-4 ">
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-6">
           {movies.map((movie) => (
             <Link
               href={`/movie/${movie.slug}`}
@@ -57,7 +57,7 @@ export async function getServerSideProps() {
   //   .from("products")
   //   .select("*").match({Category: "alu"});
 
-  let { data } = await supabase.from("movies").select();
+  let { data } = await supabase.from("movies").select().range(0,56);
 
   return {
     props: {
