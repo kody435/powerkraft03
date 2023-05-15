@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 
 export default function Post({ movies }) {
-  // const {tmdb, name} = movies
   let [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState({});
   const [tmdb, setTmdb] = useState("");
@@ -22,7 +21,6 @@ export default function Post({ movies }) {
           );
           if (response.ok) {
             const jsonData = await response.json();
-            console.log("Data: ", jsonData);
             setData(jsonData);
           }
         } catch (error) {
@@ -36,7 +34,7 @@ export default function Post({ movies }) {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div className="text-xl flex justify-center items-center">Loading...</div>;
   }
 
   return (
@@ -62,6 +60,7 @@ export default function Post({ movies }) {
           backgroundImage: `url("https://image.tmdb.org/t/p/w1280/${data.backdrop_path}")`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
+          opacity: "1"
         }}
         className="h-screen bg-cover bg-center flex flex-col justify-end relative"
       >
@@ -69,26 +68,30 @@ export default function Post({ movies }) {
           style={{
             backgroundImage: "linear-gradient(to top, black, transparent)",
           }}
-          className="h-5/6 flex flex-col justify-end"
+          className="flex flex-col justify-end"
         >
-            <div className="text-center flex flex-col justify-end items-start w-screen ml-5">
-              <Image
-                alt=""
-                className="opacity-100"
-                src={movies.mainImage}
-                loading="lazy"
-                width={150}
-                height={100}
-              />
-            </div>
-          <h1 className="pl-5 text-4xl pt-8  mr-2 text-white font-bold bg-transparent">
-            {movies.name}
-            <br />
-          </h1>
+          <div className="text-center flex flex-col justify-end items-start w-screen ml-5 pb-5">
+            <Image
+              alt=""
+              className="opacity-100"
+              src={movies.mainImage}
+              loading="lazy"
+              width={150}
+              height={100}
+            />
+          </div>
+          <div className="backdrop-blur-sm">
+            <h1 className="pl-5 text-4xl mr-2 text-white font-bold bg-transparent backdrop-blur-sm">
+              {movies.name}
+              <br />
+            </h1>
+            <p className="text-white pl-5 backdrop-blur-sm">
+              {`"` + data.tagline + `"`}
+            </p>
 
-          <div className=" rounded-3xl text-white bg-transparent relative">
-            <div className="pt-6 pb-6 pl-4 pr-4 ">
-              <button onClick={() => setIsOpen(true)}>Watch Now</button>
+            <div className=" rounded-3xl text-white bg-transparent relative pt-2">
+              <div className=" pb-6 pl-4 pr-4 ">
+                {/* <button onClick={() => setIsOpen(true)}>Watch Now</button>
               <Dialog
                 open={isOpen}
                 onClose={() => setIsOpen(false)}
@@ -104,44 +107,48 @@ export default function Post({ movies }) {
                     />
                   </Dialog.Panel>
                 </div>
-              </Dialog>
-              <br />
-              <span className="font-bold">The Storyline</span> : {data.overview}
-              <br></br>
-              <span className="font-bold">Duration</span> : {data.runtime}m
-              <br></br>
-              <span className="font-bold">Release Year</span> :{" "}
-              {data.release_date}
-              <br></br>
-              <span className="font-bold">Genre</span> :{" "}
-              {data &&
-                data?.genres?.map((genre, index) => {
-                  return (
-                    <>
-                      <span className="" key={genre.id}>
-                        {genre.name}
-                        {index !== data.genres.length - 1 && (
-                          <span>, &nbsp;</span>
-                        )}
-                      </span>
-                    </>
-                  );
-                })}
-              <br></br>
-              <span className="font-bold">Spoken Language</span> :{" "}
-              {data &&
-                data?.spoken_languages?.map((genre, index) => {
-                  return (
-                    <>
-                      <span className="" key={genre.id}>
-                        {genre.name}
-                        {index !== data.spoken_languages.length - 1 && (
-                          <span>, &nbsp;</span>
-                        )}
-                      </span>
-                    </>
-                  );
-                })}
+              </Dialog> */}
+
+                <br />
+                <p className="font-medium text-md">{data.overview}</p>
+                <br />
+                <div className="flex lg:flex-row flex-col mt-2 md:mt-5 lg:mt-2">
+                  <div className="flex flex-row space-x-5">
+                    <p className="font-medium text-md">{data.release_date}</p>
+                    <p className="font-medium text-md">{data.runtime}m</p>
+                    {data &&
+                      data?.spoken_languages?.map((genre, index) => {
+                        return (
+                            <span
+                              className="font-medium text-md"
+                              key={genre.id}
+                            >
+                              {genre.name}
+                              {index !== data.spoken_languages.length - 1 && (
+                                <span>, &nbsp;</span>
+                              )}
+                            </span>
+                        );
+                      })}
+                  </div>
+                  <div className="lg:mx-5">
+                    {data &&
+                      data?.genres?.map((genre, index) => {
+                        return (
+                          <span
+                            className="font-medium text-md space-x-0"
+                            key={genre.id}
+                          >
+                            {genre.name}
+                            {index !== data.genres.length - 1 && (
+                              <span>,&nbsp;</span>
+                            )}
+                          </span>
+                        );
+                      })}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
