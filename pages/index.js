@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
 
 function Page({ movies }) {
+  console.log(movies)
   return (
     <div className="flex flex-col bg-black">
       <Head>
@@ -53,9 +54,9 @@ function Page({ movies }) {
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
           {movies.map((movie) => (
             <Link
-              href={`/movies/${movie.slug}`}
+              href={`/movie/${movie.slug}`}
               className="shadow-lg rounded-lg"
-              key=""
+              key={movie.id}
             >
               <div className="text-center">
                 <Image
