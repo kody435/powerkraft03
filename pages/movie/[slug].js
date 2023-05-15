@@ -62,7 +62,6 @@ export default function Post({ movies }) {
           backgroundImage: `url("https://image.tmdb.org/t/p/w1280/${data.backdrop_path}")`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          opacity: "1",
         }}
         className="h-screen bg-cover bg-center flex flex-col justify-end relative"
       >
