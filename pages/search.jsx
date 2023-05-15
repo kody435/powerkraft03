@@ -5,15 +5,16 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
 
-function Page({ movies }) {
+function Page() {
 
-    const [searchQuery, setSearchQuery] = useState("");
+    let [searchQuery, setSearchQuery] = useState("");
 
     async function searchMovies() {
+        searchQuery = searchQuery.split(" ").join("|");
         const { data, error } = await supabase
           .from("movies")
           .select()
-          .textSearch("name", "fast");
+          .textSearch("name", searchQuery);
         console.log(data, error);
     }
 
