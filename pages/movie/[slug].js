@@ -112,7 +112,7 @@ export default function Post({ movies }) {
                 <br />
                 <p className="font-medium text-md">{data.overview}</p>
                 <br />
-                <div className="flex lg:flex-row flex-col mt-2 md:mt-5 lg:mt-2">
+                <div className="flex md:flex-row flex-col mt-2 md:mt-5 lg:mt-2">
                   <div className="flex flex-row space-x-5">
                     <p className="font-medium text-md">{data.release_date}</p>
                     <p className="font-medium text-md">{data.runtime}m</p>
@@ -131,7 +131,7 @@ export default function Post({ movies }) {
                         );
                       })}
                   </div>
-                  <div className="md:mx-5 mt-4">
+                  <div className="md:mx-5 mt-4 md:mt-0">
                     {data &&
                       data?.genres?.map((genre, index) => {
                         return (
