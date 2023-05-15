@@ -131,7 +131,7 @@ export default function Post({ movies }) {
                         );
                       })}
                   </div>
-                  <div className="lg:mx-5">
+                  <div className="md:mx-5 mt-4">
                     {data &&
                       data?.genres?.map((genre, index) => {
                         return (
