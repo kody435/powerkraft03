@@ -33,6 +33,27 @@ export default function Example() {
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12"></Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center space-x-6 ">
+          <Link href="/search">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className={`text-lg font-semibold w-6 h-6 rounded-sm ${
+                router.pathname === "/search"
+                  ? "text-white"
+                  : "text-emerald-400 "
+              }}`}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+          </Link>
+
           <Link
             href="/"
             className={`text-lg font-semibold text-gray-100 hover:text-white hover:border-b-4 hover:border-emerald-400 rounded-sm`}

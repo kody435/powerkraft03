@@ -57,7 +57,7 @@ export async function getServerSideProps() {
   //   .from("products")
   //   .select("*").match({Category: "alu"});
 
-  let { data } = await supabase.from("movies").select().range(0,56);
+  let { data } = await supabase.from("movies").select().range(0, 56);
 
   return {
     props: {

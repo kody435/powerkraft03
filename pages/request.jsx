@@ -19,13 +19,13 @@ export default function Request() {
     const { data, error } = await supabase
       .from("requests")
       .insert([{ name: name, category: category, year: year, imdb: imdb }]);
-    
+
     setName("");
     setYear("");
     setImdb("");
     setCategory("");
-      toast.success("Request added successfully");
-      router.push("/requested");
+    toast.success("Request added successfully");
+    router.push("/requested");
   };
 
   return (
