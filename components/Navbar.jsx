@@ -11,7 +11,7 @@ export default function Example() {
   const router = useRouter();
 
   return (
-    <header className="bg-black overflow-hidden">
+    <header className="bg-black relative overflow-hidden z-50">
       <nav
         className="flex justify-between lg:px-0 mx-2 md:mx-11 my-4 overflow-hidden"
         aria-label="Global"
