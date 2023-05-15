@@ -34,7 +34,9 @@ export default function Post({ movies }) {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <div className="text-xl flex justify-center items-center">Loading...</div>;
+    return (
+      <div className="text-xl flex justify-center items-center">Loading...</div>
+    );
   }
 
   return (
@@ -60,7 +62,7 @@ export default function Post({ movies }) {
           backgroundImage: `url("https://image.tmdb.org/t/p/w1280/${data.backdrop_path}")`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          opacity: "1"
+          opacity: "1",
         }}
         className="h-screen bg-cover bg-center flex flex-col justify-end relative"
       >
@@ -85,53 +87,31 @@ export default function Post({ movies }) {
               {movies.name}
               <br />
             </h1>
-            <p className="text-white pl-5 backdrop-blur-sm">
+            <p className="text-white pl-5 backdrop-blur-sm italic">
               {`"` + data.tagline + `"`}
             </p>
 
-            <div className=" rounded-3xl text-white bg-transparent relative pt-2">
-              <div className=" pb-6 pl-4 pr-4 ">
-                {/* <button onClick={() => setIsOpen(true)}>Watch Now</button>
-              <Dialog
-                open={isOpen}
-                onClose={() => setIsOpen(false)}
-                className="relative z-50 "
-              >
-                <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-                <div className="fixed inset-0 flex items-center justify-center p-4">
-                  <Dialog.Panel className="w-5/6 h-5/6 rounded bg-white">
-                    <iframe
-                      src={`https://2embed.org/embed/movie?tmdb=${movies.tmdb}`}
-                      className="w-full h-full"
-                      allowFullScreen
-                    />
-                  </Dialog.Panel>
-                </div>
-              </Dialog> */}
-
+            <div className=" rounded-3xl text-white bg-transparent relative">
+              <div className="mb-6 pl-4 pr-4 ">
                 <br />
                 <p className="font-medium text-md">{data.overview}</p>
-                <br />
-                <div className="flex md:flex-row flex-col mt-2 md:mt-5 lg:mt-2">
+                <div className="flex md:flex-row flex-col mb-7 mt-5">
                   <div className="flex flex-row space-x-5">
                     <p className="font-medium text-md">{data.release_date}</p>
                     <p className="font-medium text-md">{data.runtime}m</p>
                     {data &&
                       data?.spoken_languages?.map((genre, index) => {
                         return (
-                            <span
-                              className="font-medium text-md"
-                              key={genre.id}
-                            >
-                              {genre.name}
-                              {index !== data.spoken_languages.length - 1 && (
-                                <span>, &nbsp;</span>
-                              )}
-                            </span>
+                          <span className="font-medium text-md" key={genre.id}>
+                            {genre.name}
+                            {index !== data.spoken_languages.length - 1 && (
+                              <span>, &nbsp;</span>
+                            )}
+                          </span>
                         );
                       })}
                   </div>
-                  <div className="md:mx-5 mt-4 md:mt-0">
+                  <div className="md:mx-5 mt-2 md:mt-0">
                     {data &&
                       data?.genres?.map((genre, index) => {
                         return (
@@ -148,6 +128,45 @@ export default function Post({ movies }) {
                       })}
                   </div>
                 </div>
+                <div
+                  onClick={() => setIsOpen(true)}
+                  className="flex justify-center items-center w-fit p-0.5 rounded-full border border-white cursor-pointer"
+                >
+                  <div className="flex flex-row bg-lime-600 w-fit px-6 py-2 rounded-full ">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    &nbsp; Watch Now
+                  </div>
+                </div>
+                <Dialog
+                  open={isOpen}
+                  onClose={() => setIsOpen(false)}
+                  className="relative z-50 "
+                >
+                  <div
+                    className="fixed inset-0 bg-black/80"
+                    aria-hidden="true"
+                  />
+                  <div className="fixed inset-0 flex items-center justify-center p-2">
+                    <Dialog.Panel className="lg:w-5/6 lg:h-5/6 w-screen h-2/6 md:w-5/6 md:h-3/6 rounded bg-white">
+                      <iframe
+                        src={`https://2embed.org/embed/movie?tmdb=${movies.tmdb}`}
+                        className="w-full h-full"
+                        allowFullScreen
+                      />
+                    </Dialog.Panel>
+                  </div>
+                </Dialog>
               </div>
             </div>
           </div>
