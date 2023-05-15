@@ -42,7 +42,7 @@ export default function Example() {
               stroke="currentColor"
               className={`text-lg font-semibold w-6 h-6 rounded-sm ${
                 router.pathname === "/search"
-                ? "text-emerald-400 "
+                  ? "text-emerald-400 "
                   : "text-white z-50"
               }}`}
             >
@@ -56,7 +56,11 @@ export default function Example() {
 
           <Link
             href="/"
-            className={`text-lg font-semibold text-gray-100 hover:text-white hover:border-b-4 hover:border-emerald-400 rounded-sm ${router.pathname === "/" ? "border-b-4 border-white" : "hover:border-b-4 border-emerald-400"}`}
+            className={`text-lg font-semibold text-gray-100 hover:text-white hover:border-b-4 hover:border-emerald-400 rounded-sm ${
+              router.pathname === "/"
+                ? "border-b-4 border-white"
+                : "hover:border-b-4 border-emerald-400"
+            }`}
           >
             HOME
           </Link>
@@ -120,6 +124,26 @@ export default function Example() {
           <div className="mt-6 flow-root">
             <div className=" divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
+                <a href="/search">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className={`text-lg font-semibold w-6 h-6 rounded-sm ${
+                      router.pathname === "/search"
+                        ? "text-emerald-400 "
+                        : "text-white z-50"
+                    }}`}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                    />
+                  </svg>
+                </a>
                 <a
                   href="/"
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
