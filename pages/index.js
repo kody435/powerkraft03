@@ -23,7 +23,7 @@ function Page({ movies }) {
         <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="container mx-auto my-10 px-4">
+      <main className="container px-auto py-10 px-4 bg-black w-screen">
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
           {movies.map((movie) => (
             <Link
