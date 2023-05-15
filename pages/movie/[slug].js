@@ -99,6 +99,8 @@ export default function Post({ movies }) {
                   <div className="flex flex-row space-x-5">
                     <p className="font-medium text-md">{data.release_date}</p>
                     <p className="font-medium text-md">{data.runtime}m</p>
+                  </div>
+                  <div className="md:mx-5 mt-2 md:mt-0">
                     {data &&
                       data?.spoken_languages?.map((genre, index) => {
                         return (
