@@ -21,27 +21,25 @@ function Page({ movies }) {
         <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="container mx-auto my-10 px-4 ">
+      <main className="container mx-auto my-10 ">
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
           {movies.map((movie) => (
             <Link
               href={`/movie/${movie.slug}`}
-              className="shadow-lg rounded-lg"
+              className="shadow-lg rounded-lg flex flex-col justify-center items-center"
               key={movie.id}
             >
-              <div className="text-center">
-                <Image
-                  alt=""
-                  className="rounded-lg hover:opacity-75 opacity-100"
-                  src={`https://image.tmdb.org/t/p/w300/${movie.mainImage}`}
-                  loading="lazy"
-                  width={150}
-                  height={100}
-                />
-                <h3 className="text-white font-bolder text-md  ">
-                  {movie.name}
-                </h3>
-              </div>
+              <Image
+                alt=""
+                className="rounded-lg hover:opacity-75 opacity-100"
+                src={`https://image.tmdb.org/t/p/w300/${movie.mainImage}`}
+                loading="lazy"
+                width={150}
+                height={100}
+              />
+              <h3 className="text-white font-bolder text-md text-center ">
+                {movie.name}
+              </h3>
             </Link>
           ))}
         </div>

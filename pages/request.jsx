@@ -12,9 +12,7 @@ export default function Request() {
   const [year, setYear] = useState("");
   const [imdb, setImdb] = useState("");
 
-  const addRequest = async (e) => {
-
-    console.log(name, category)
+  const addRequest = async () => {
 
     if (name === "" && category === "") {
       toast.error("Please fill all fields correctly");
@@ -24,15 +22,11 @@ export default function Request() {
     } else {
       const { data, error } = await supabase
         .from("requests")
-        .insert([{ name: name, category: category, year: year, imdb: imdb }]);
+        .insert([{ name: name, category: category }]);
 
       if (data) {
         console.log(data);
         toast.success("Request added successfully");
-        setName("");
-        setYear("");
-        setImdb("");
-        setCategory("");
         router.push("/requested");
       } else if (error) {
         console.log(error);
