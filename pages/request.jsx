@@ -37,12 +37,12 @@ export default function Request() {
 
   return (
     <div className="isolate bg-black h-screen px-6 py-24 -z-10 sm:py-32 lg:px-8">
-      <Toaster />
       <div
         className="absolute inset-x-10 top-[110rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
         aria-hidden="true"
       ></div>
       <div className="mx-auto max-w-2xl text-center">
+      <Toaster />
         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl py-2 ">
           Request a Movie or Series
         </h2>

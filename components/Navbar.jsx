@@ -100,7 +100,7 @@ export default function Example() {
             REQUEST
           </Link>
           <Link
-            href="/request"
+            href="/login"
             className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
               router.pathname === "/login" || router.pathname === "/signup"
                 ? "border-b-4 border-white hover:text-transparent"
