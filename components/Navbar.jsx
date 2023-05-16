@@ -44,7 +44,7 @@ export default function Example() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className={`text-lg font-semibold w-6 h-6 rounded-sm ${
+              className={`text-lg font-semibold w-6 h-6 rounded-sm hover:text-emerald-500 ${
                 router.pathname === "/search"
                   ? "text-emerald-400 "
                   : "text-white z-50"
@@ -103,7 +103,7 @@ export default function Example() {
             className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
               router.pathname === "/login" || router.pathname === "/signup"
                 ? "border-b-4 border-white hover:text-transparent"
-                : "hover:border-b-4 border-emerald-400"
+                : "hover:border-b-4 border-emerald-400 "
             }`}
           >
             ACCOUNT
@@ -119,11 +119,11 @@ export default function Example() {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-black px-4 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-              <Link href="/" className="">
-                <h1 className="text-3xl font-extralight text-white py-1">
-                  The <span className="font-extrabold">OCTULUS</span>
-                </h1>
-              </Link>
+            <Link href="/" className="">
+              <h1 className="text-3xl font-extralight text-white py-1">
+                The <span className="font-extrabold">OCTULUS</span>
+              </h1>
+            </Link>
             <button
               type="button"
               className="rounded-md text-gray-100"
@@ -182,14 +182,14 @@ export default function Example() {
                     REQUEST
                   </div>
                 </a>
-                <Link
+                <a
                   href="account"
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl "
                 >
-                  <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit hover:border-b-2">
+                  <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
                     ACCOUNT
                   </div>
-                </Link>
+                </a>
               </div>
             </div>
           </div>

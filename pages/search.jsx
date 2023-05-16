@@ -37,7 +37,7 @@ function Page() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={`text-lg font-bold w-4 h-4 flex items-center rounded-sm `}
+            className={`text-lg text-black z-50 bg-white font-bold w-4 h-4 flex items-center rounded-sm `}
           >
             <path
               strokeLinecap="round"

@@ -4,6 +4,7 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
 
 const Home = () => {
   const user = useUser();
@@ -18,25 +19,28 @@ const Home = () => {
 
   useEffect(() => {
     getProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  const updateProfile = async () => { 
+  const updateProfile = async () => {
     const { data, error } = await supabase
       .from("profiles")
       .update({ username: newUsername })
       .eq("id", user.id)
       .single();
-    
+
     setNewUsername("");
-  
+
     if (error) {
       console.log(error);
+      toast.error("Error updating profile, try again later");
     } else {
       console.log(data);
+      toast.success("Profile updated successfully");
     }
 
     getProfile();
-  }
+  };
 
   async function getProfile() {
     if (!user) {
@@ -48,12 +52,13 @@ const Home = () => {
           .select(`username`)
           .eq("id", user.id)
           .single();
-        
+
         if (data) {
           setUsername(data.username);
           console.log(data);
         } else if (error) {
           console.log(error);
+          toast.error("Error fetching profile, try again later");
         }
       } catch (error) {
         console.log(error);
@@ -63,6 +68,7 @@ const Home = () => {
 
   return (
     <div className="container" style={{ padding: "50px 0 100px 0" }}>
+      <Toaster />
       {!user ? (
         <div className="mx-2 sm:mx-8 md:mx-20 lg:mx-36 xl:mx-64 2xl:mx-72">
           <Auth
@@ -72,16 +78,28 @@ const Home = () => {
           />
         </div>
       ) : (
-          <div className="gap-10 flex flex-col px-5">
-            <Image
-              src={user.user_metadata.avatar_url}
-              alt="Avatar"
-              width={100}
-              height={100}
-              className="rounded-full"
-            />
-            Logged in as {username ? <>{username}</> : <>{user.email}</>}
+        <div className="gap-10 flex flex-col px-5">
+          {/* <Image
+            src={user.user_metadata.avatar_url}
+            alt="Avatar"
+            width={100}
+            height={100}
+            className="rounded-full"
+          /> */}
             
+            {user.user_metadata.avatar_url ? (
+              <Image
+            src={user.user_metadata.avatar_url}
+            alt="Avatar"
+            width={100}
+            height={100}
+            className="rounded-full"
+              />
+            ) : (
+              <></>)
+            }
+
+          Logged in as {username ? <>{username}</> : <>{user.email}</>}
           <br />
           {username ? (
             <>Email: {user.email}</>

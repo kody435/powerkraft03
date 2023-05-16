@@ -6,7 +6,7 @@ const nextConfig = {
       "firebasestorage.googleapis.com",
       "image.tmdb.org",
       "cdn.sanity.io",
-      "lh3.googleusercontent.com"
+      "lh3.googleusercontent.com",
     ],
   },
 };
