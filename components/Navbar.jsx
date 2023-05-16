@@ -110,13 +110,15 @@ export default function Navbar() {
             {userData ? (
               <>
                 {userData.user_metadata.picture ? (
-                  <Image
-                    src={userData.user_metadata.picture}
-                    alt="profile"
-                    width={30}
-                    height={30}
-                    className="rounded-full"
-                  />
+                  <div className="p-1 border border-blue-500 z-50 rounded-full">
+                    <Image
+                      src={userData.user_metadata.picture}
+                      alt="profile"
+                      width={30}
+                      height={30}
+                      className="rounded-full"
+                    />
+                  </div>
                 ) : (
                   <>
                     {userData.user_metadata.full_name ? (
@@ -212,17 +214,21 @@ export default function Navbar() {
                   {userData ? (
                     <>
                       {userData.user_metadata.picture ? (
-                        <Image
-                          src={userData.user_metadata.picture}
-                          alt="profile"
-                          width={30}
-                          height={30}
-                          className="rounded-full"
-                        />
+                        <div className="p-1 border border-blue-500 z-50 w-fit rounded-full">
+                          <Image
+                            src={userData.user_metadata.picture}
+                            alt="profile"
+                            width={30}
+                            height={30}
+                            className="rounded-full"
+                          />
+                        </div>
                       ) : (
                         <>
                           {userData.user_metadata.full_name ? (
-                            <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2div">{userData.user_metadata.full_name}</div>
+                            <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2div">
+                              {userData.user_metadata.full_name}
+                            </div>
                           ) : (
                             <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
                               PROFILE
