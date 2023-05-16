@@ -14,7 +14,6 @@ export default function Navbar() {
 
   console.log(userData);
 
-
   return (
     <header className="bg-black relative overflow-hidden z-50">
       <nav
@@ -209,7 +208,7 @@ export default function Navbar() {
                 </a>
                 <a
                   href="/account"
-                  className="-mx-3 block rounded-lg py-2 pt-10 px-3 font-bold text-xl text-gray-200 "
+                  className="-mx-3 block rounded-lg py-2 mt-10 px-3 font-bold text-xl text-gray-200 "
                 >
                   {userData ? (
                     <>

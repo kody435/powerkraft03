@@ -2,17 +2,15 @@ import Image from "next/image";
 import { supabase } from "./../lib/supabaseClient";
 import Link from "next/link";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import { useState, useEffect } from "react";
 
 function Page({ movies }) {
   return (
     <div className="flex flex-col bg-black">
       <Head>
-        <title>OCTULUS | Movies</title>
+        <title>OCTULUS</title>
         <meta
           name="description"
-          content="WebApp made by Param Patel, to watch Movies, Series and Animes"
+          content="Watch Movies, Series and Animes for free"
         />
         <meta property="og:title" content="Watch Movies, Series and Animes" />
         <meta
@@ -24,7 +22,7 @@ function Page({ movies }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container mx-auto my-10 px-4 ">
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-6">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
           {movies.map((movie) => (
             <Link
               href={`/movie/${movie.slug}`}
