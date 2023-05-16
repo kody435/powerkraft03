@@ -24,8 +24,7 @@ export default function Request() {
         .from("requests")
         .insert([{ name: name, category: category }]);
 
-      if (data) {
-        console.log(data);
+      if (data == null) {
         toast.success("Request added successfully");
         router.push("/requested");
       } else if (error) {
