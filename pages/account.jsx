@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -10,19 +10,15 @@ const Home = () => {
   const user = useUser();
   const supabase = useSupabaseClient();
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [newUsername, setNewUsername] = useState("");
-  const router = useRouter();
-
-  console.log(user);
 
   useEffect(() => {
     getProfile();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const updateProfile = async () => {
+    setLoading(true);
     const { data, error } = await supabase
       .from("profiles")
       .update({ username: newUsername })
@@ -40,6 +36,7 @@ const Home = () => {
     }
 
     getProfile();
+    setLoading(false);
   };
 
   async function getProfile() {
@@ -74,54 +71,54 @@ const Home = () => {
           <Auth
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
+            socialLayout="horizontal"
+            providers={["google", "github"]}
             theme="dark"
           />
         </div>
       ) : (
         <div className="gap-10 flex flex-col px-5">
-          {/* <Image
-            src={user.user_metadata.avatar_url}
-            alt="Avatar"
-            width={100}
-            height={100}
-            className="rounded-full"
-          /> */}
-            
-            {user.user_metadata.avatar_url ? (
-              <Image
-            src={user.user_metadata.avatar_url}
-            alt="Avatar"
-            width={100}
-            height={100}
-            className="rounded-full"
-              />
-            ) : (
-              <></>)
-            }
-
-          Logged in as {username ? <>{username}</> : <>{user.email}</>}
-          <br />
-          {username ? (
-            <>Email: {user.email}</>
+          {user.user_metadata.avatar_url ? (
+            <Image
+              src={user.user_metadata.avatar_url}
+              alt="Avatar"
+              width={100}
+              height={100}
+              className="rounded-full"
+            />
           ) : (
-            <div className="flex flex-col gap-2 px-0.5">
-              Please enter a username
-              <input
-                type="text"
-                placeholder="USERNAME"
-                value={newUsername}
-                className="rounded-full px-4 w-72"
-                onChange={(e) => {
-                  setNewUsername(e.target.value);
-                }}
-              />
-              <button
-                className="bg-emerald-500 w-fit rounded-full"
-                onClick={updateProfile}
-              >
-                Update
-              </button>
-            </div>
+            <></>
+          )}
+
+          {loading ? (
+            <>Loading...</>
+          ) : (
+            <>
+              Logged in as {username ? <>{username}</> : <>{user.email}</>}
+              <br />
+              {username ? (
+                <>Email: {user.email}</>
+              ) : (
+                <div className="flex flex-col gap-2 px-0.5">
+                  Please enter a username
+                  <input
+                    type="text"
+                    placeholder="USERNAME"
+                    value={newUsername}
+                    className="rounded-full px-4 w-72"
+                    onChange={(e) => {
+                      setNewUsername(e.target.value);
+                    }}
+                  />
+                  <button
+                    className="bg-emerald-500 w-fit rounded-full"
+                    onClick={updateProfile}
+                  >
+                    Update
+                  </button>
+                </div>
+              )}
+            </>
           )}
           <br />
           <button

@@ -7,12 +7,13 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
-export default function Example() {
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const userData = useUser();
 
-  const supabaseClient = useSupabaseClient();
-  const user = useUser();
+  console.log(userData);
+
 
   return (
     <header className="bg-black relative overflow-hidden z-50">
@@ -100,13 +101,35 @@ export default function Example() {
           </Link>
           <Link
             href="/account"
-            className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
+            className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white active:border-emerald-400 rounded-sm ${
               router.pathname === "/login" || router.pathname === "/signup"
-                ? "border-b-4 border-white hover:text-transparent"
-                : "hover:border-b-4 border-emerald-400 "
+                ? ""
+                : ""
             }`}
           >
-            ACCOUNT
+            {userData ? (
+              <>
+                {userData.user_metadata.picture ? (
+                  <Image
+                    src={userData.user_metadata.picture}
+                    alt="profile"
+                    width={30}
+                    height={30}
+                    className="rounded-full"
+                  />
+                ) : (
+                  <>
+                    {userData.user_metadata.full_name ? (
+                      <>{userData.user_metadata.full_name}</>
+                    ) : (
+                      <>PROFILE</>
+                    )}
+                  </>
+                )}
+              </>
+            ) : (
+              <>LOGIN</>
+            )}
           </Link>
         </div>
       </nav>
@@ -183,12 +206,36 @@ export default function Example() {
                   </div>
                 </a>
                 <a
-                  href="account"
-                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl "
+                  href="/account"
+                  className="-mx-3 block rounded-lg py-2 pt-10 px-3 font-bold text-xl text-gray-200 "
                 >
-                  <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
-                    ACCOUNT
-                  </div>
+                  {userData ? (
+                    <>
+                      {userData.user_metadata.picture ? (
+                        <Image
+                          src={userData.user_metadata.picture}
+                          alt="profile"
+                          width={30}
+                          height={30}
+                          className="rounded-full"
+                        />
+                      ) : (
+                        <>
+                          {userData.user_metadata.full_name ? (
+                            <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2div">{userData.user_metadata.full_name}</div>
+                          ) : (
+                            <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
+                              PROFILE
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
+                      LOGIN
+                    </div>
+                  )}
                 </a>
               </div>
             </div>
