@@ -100,14 +100,14 @@ export default function Example() {
             REQUEST
           </Link>
           <Link
-            href="/login"
-            className={`text-lg font-semibold text-emerald-400 hover:text-white rounded-sm ${
-              router.pathname === "/login"
-                ? "border-b-4 border-white"
-                : "hover:border-b-4 border-emerald-400 hover:border-emerald-400"
-            }}`}
+            href="/request"
+            className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
+              router.pathname === "/login" || router.pathname === "/signup"
+                ? "border-b-4 border-white hover:text-transparent"
+                : "hover:border-b-4 border-emerald-400"
+            }`}
           >
-            Log In
+            LOG IN
           </Link>
         </div>
       </nav>
@@ -181,8 +181,16 @@ export default function Example() {
                   href="/request"
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl "
                 >
-                  <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
+                  <div className="bg-clip-text text-white w-fit border-b-2">
                     REQUEST
+                  </div>
+                </a>
+                <a
+                  href="/login"
+                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl "
+                >
+                  <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
+                    LOG IN
                   </div>
                 </a>
               </div>
