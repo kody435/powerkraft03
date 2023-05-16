@@ -3,6 +3,7 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Home = () => {
   const user = useUser();
@@ -71,7 +72,14 @@ const Home = () => {
           />
         </div>
       ) : (
-        <div className="gap-10 flex flex-col px-5">
+          <div className="gap-10 flex flex-col px-5">
+            <Image
+              src={user.user_metadata.avatar_url}
+              alt="Avatar"
+              width={100}
+              height={100}
+              className="rounded-full"
+            />
             Logged in as {username ? <>{username}</> : <>{user.email}</>}
             
           <br />
