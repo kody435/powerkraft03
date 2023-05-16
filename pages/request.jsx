@@ -13,6 +13,9 @@ export default function Request() {
   const [imdb, setImdb] = useState("");
 
   const addRequest = async (e) => {
+
+    console.log(name, category)
+
     if (name === "" && category === "") {
       toast.error("Please fill all fields correctly");
       return;

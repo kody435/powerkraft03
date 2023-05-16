@@ -180,7 +180,7 @@ export default function Navbar() {
                 </a>
                 <a
                   href="/"
-                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
+                  className="block rounded-lg py-2 font-bold text-xl text-gray-200 "
                 >
                   <div className="w-fit border-b-2">HOME</div>
                 </a>
@@ -198,7 +198,7 @@ export default function Navbar() {
                 </a> */}
                 <a
                   href="/request"
-                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl "
+                  className="block rounded-lg py-2 font-bold text-xl "
                 >
                   <div className="bg-clip-text text-white w-fit border-b-2">
                     REQUEST
@@ -206,7 +206,7 @@ export default function Navbar() {
                 </a>
                 <a
                   href="/account"
-                  className="-mx-3 block w-fit rounded-full mt-10 font-bold text-xl text-gray-200 "
+                  className="block w-fit rounded-full mt-10 font-bold text-xl text-gray-200 "
                 >
                   {userData ? (
                     <>

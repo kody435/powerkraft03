@@ -20,10 +20,13 @@ export default function Request() {
     setImage("");
     setName("");
     setTmdb("");
+
+    console.log(data);
+    console.log(error);
   };
 
   return (
-    <>
+    <div className=" bg-white h-screen">
       <Toaster />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -40,7 +43,7 @@ export default function Request() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full bg-white rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -60,7 +63,7 @@ export default function Request() {
                   type="text"
                   value={tmdb}
                   onChange={(e) => setTmdb(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full bg-white rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -80,7 +83,7 @@ export default function Request() {
                   type="text"
                   value={mainImage}
                   onChange={(e) => setImage(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full bg-white rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -96,6 +99,6 @@ export default function Request() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
