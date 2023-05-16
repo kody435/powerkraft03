@@ -23,12 +23,17 @@ export default function Request() {
         .from("requests")
         .insert([{ name: name, category: category, year: year, imdb: imdb }]);
 
-      setName("");
-      setYear("");
-      setImdb("");
-      setCategory("");
-      toast.success("Request added successfully");
-      router.push("/requested");
+      if (data) {
+        setName("");
+        setYear("");
+        setImdb("");
+        setCategory("");
+        toast.success("Request added successfully");
+        router.push("/requested");
+      } else if (error) {
+        console.log(error);
+        toast.error("Error adding request, try again later");
+      }
     }
   };
 

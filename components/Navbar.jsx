@@ -109,7 +109,7 @@ export default function Navbar() {
             {userData ? (
               <>
                 {userData.user_metadata.picture ? (
-                  <div className="p-1 border border-blue-500 z-50 rounded-full">
+                  <div className="p-0.5 border-2 border-white z-50 rounded-full">
                     <Image
                       src={userData.user_metadata.picture}
                       alt="profile"
@@ -208,12 +208,12 @@ export default function Navbar() {
                 </a>
                 <a
                   href="/account"
-                  className="-mx-3 block rounded-lg py-2 mt-10 px-3 font-bold text-xl text-gray-200 "
+                  className="-mx-3 block w-fit rounded-full mt-10 font-bold text-xl text-gray-200 "
                 >
                   {userData ? (
                     <>
                       {userData.user_metadata.picture ? (
-                        <div className="p-1 border border-blue-500 z-50 w-fit rounded-full">
+                        <div className="p-0.5 border-2 border-white z-50 rounded-full w-fit">
                           <Image
                             src={userData.user_metadata.picture}
                             alt="profile"

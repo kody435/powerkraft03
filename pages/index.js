@@ -17,7 +17,7 @@ function Page({ movies }) {
           property="og:description"
           content="Only go-to site for watching Movies, Series and Animes"
         />
-        <meta property="og:url" content="https://riddles-mocha.vercel.app/" />
+        <meta property="og:url" content="https://theoctulus.vercel.app/" />
         <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -51,12 +51,7 @@ function Page({ movies }) {
 }
 
 export async function getServerSideProps() {
-  // let { data } = await supabase
-  //   .from("products")
-  //   .select("*").match({Category: "alu"});
-
   let { data } = await supabase.from("movies").select().range(0, 56);
-
   return {
     props: {
       movies: data,
