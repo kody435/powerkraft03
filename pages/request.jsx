@@ -3,6 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { supabase } from "../lib/supabaseClient";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 export default function Request() {
   const router = useRouter();
@@ -15,18 +16,24 @@ export default function Request() {
     if (name === "" && category === "") {
       toast.error("Please fill all fields correctly");
       return;
-    }
-    const { data, error } = await supabase
+    } else if (!user){
+      toast.error("Please login first");  
+    } else {
+      const { data, error } = await supabase
       .from("requests")
       .insert([{ name: name, category: category, year: year, imdb: imdb }]);
 
-    setName("");
-    setYear("");
-    setImdb("");
-    setCategory("");
-    toast.success("Request added successfully");
-    router.push("/requested");
+      setName("");
+      setYear("");
+      setImdb("");
+      setCategory("");
+      toast.success("Request added successfully");
+      router.push("/requested");
+    }
   };
+
+  const supabaseClient = useSupabaseClient();
+  const user = useUser();
 
   return (
     <div className="isolate bg-black h-screen px-6 py-24 -z-10 sm:py-32 lg:px-8">

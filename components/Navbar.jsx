@@ -5,10 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+
+  const supabaseClient = useSupabaseClient();
+  const user = useUser();
 
   return (
     <header className="bg-black relative overflow-hidden z-50">
@@ -86,13 +91,23 @@ export default function Example() {
           </Link> */}
           <Link
             href="/request"
-            className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
+            className={`text-lg font-semibold bg-clip-text text-white hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
               router.pathname === "/request"
                 ? "border-b-4 border-white hover:text-transparent"
                 : "hover:border-b-4 border-emerald-400"
             }`}
           >
             REQUEST
+          </Link>
+          <Link
+            href="/login"
+            className={`text-lg font-semibold text-emerald-400 hover:text-white rounded-sm ${
+              router.pathname === "/login"
+                ? "border-b-4 border-white"
+                : "hover:border-b-4 border-emerald-400 hover:border-emerald-400"
+            }}`}
+          >
+            Log In
           </Link>
         </div>
       </nav>
