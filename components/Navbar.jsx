@@ -7,7 +7,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
-
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
@@ -100,14 +99,14 @@ export default function Example() {
             REQUEST
           </Link>
           <Link
-            href="/login"
+            href="/account"
             className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
               router.pathname === "/login" || router.pathname === "/signup"
                 ? "border-b-4 border-white hover:text-transparent"
                 : "hover:border-b-4 border-emerald-400"
             }`}
           >
-            LOG IN
+            ACCOUNT
           </Link>
         </div>
       </nav>
@@ -120,13 +119,11 @@ export default function Example() {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-black px-4 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="">
               <Link href="/" className="">
                 <h1 className="text-3xl font-extralight text-white py-1">
                   The <span className="font-extrabold">OCTULUS</span>
                 </h1>
               </Link>
-            </a>
             <button
               type="button"
               className="rounded-md text-gray-100"
@@ -185,14 +182,14 @@ export default function Example() {
                     REQUEST
                   </div>
                 </a>
-                <a
-                  href="/login"
+                <Link
+                  href="account"
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl "
                 >
-                  <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
-                    LOG IN
+                  <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit hover:border-b-2">
+                    ACCOUNT
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

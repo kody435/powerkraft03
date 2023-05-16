@@ -1,16 +1,15 @@
-import "@/styles/globals.css";
-import Navbar from "@/components/Navbar";
+import "../styles/globals.css";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { useState } from "react";
+import Navbar from "../components/Navbar";
 
-export default function MyApp({ Component, pageProps }) {
-  // Create a new supabase browser client on every first render.
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+function MyApp({ Component, pageProps }) {
+  const [supabase] = useState(() => createBrowserSupabaseClient());
 
   return (
     <SessionContextProvider
-      supabaseClient={supabaseClient}
+      supabaseClient={supabase}
       initialSession={pageProps.initialSession}
     >
       <Navbar />
@@ -18,3 +17,4 @@ export default function MyApp({ Component, pageProps }) {
     </SessionContextProvider>
   );
 }
+export default MyApp;

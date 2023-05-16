@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 
 export default function Requests(requests) {
-  console.log(requests.requests);
   return (
     <div className="h-screen bg-black">
       <h1 className="mx-2 md:mx-4 mt-6 mb-9 w-fit text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-l from-sky-400 to-emerald-400 py-1 ">
