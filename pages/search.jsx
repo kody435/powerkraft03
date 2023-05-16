@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { supabase } from "./../lib/supabaseClient";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Page() {
   let [searchQuery, setSearchQuery] = useState("");
@@ -9,10 +9,12 @@ function Page() {
 
   async function searchMovies() {
     searchQuery = searchQuery.split(" ").join("|");
+    const modifiedQuery = searchQuery.replace(/[^a-zA-Z0-9\s]/g, "");
+
     const { data, error } = await supabase
       .from("movies")
       .select()
-      .textSearch("name", searchQuery);
+      .textSearch("name", modifiedQuery);
     console.log(data, error);
     setSearchData(data);
   }
