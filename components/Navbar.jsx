@@ -12,8 +12,6 @@ export default function Navbar() {
   const router = useRouter();
   const userData = useUser();
 
-  console.log(userData);
-
   return (
     <header className="bg-black relative overflow-hidden z-50">
       <nav
@@ -109,7 +107,7 @@ export default function Navbar() {
             {userData ? (
               <>
                 {userData.user_metadata.picture ? (
-                  <div className="p-0.5 border-2 border-white z-50 rounded-full">
+                  <div className="p-0.5 border-2 border-emerald-400 hover:border-white z-50 rounded-full">
                     <Image
                       src={userData.user_metadata.picture}
                       alt="profile"
@@ -213,7 +211,7 @@ export default function Navbar() {
                   {userData ? (
                     <>
                       {userData.user_metadata.picture ? (
-                        <div className="p-0.5 border-2 border-white z-50 rounded-full w-fit">
+                        <div className="p-0.5 border-2 hover:border-white border-emerald-500 z-50 rounded-full w-fit">
                           <Image
                             src={userData.user_metadata.picture}
                             alt="profile"

@@ -24,11 +24,12 @@ export default function Request() {
         .insert([{ name: name, category: category, year: year, imdb: imdb }]);
 
       if (data) {
+        console.log(data);
+        toast.success("Request added successfully");
         setName("");
         setYear("");
         setImdb("");
         setCategory("");
-        toast.success("Request added successfully");
         router.push("/requested");
       } else if (error) {
         console.log(error);
