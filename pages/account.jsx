@@ -17,28 +17,6 @@ const Home = () => {
     getProfile();
   }, [user]);
 
-  const updateProfile = async () => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("profiles")
-      .update({ username: newUsername })
-      .eq("id", user.id)
-      .single();
-
-    setNewUsername("");
-
-    if (error) {
-      console.log(error);
-      toast.error("Error updating profile, try again later");
-    } else {
-      console.log(data);
-      toast.success("Profile updated successfully");
-    }
-
-    getProfile();
-    setLoading(false);
-  };
-
   async function getProfile() {
     if (!user) {
       return;
@@ -63,11 +41,33 @@ const Home = () => {
     }
   }
 
+  const updateProfile = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("profiles")
+      .update({ username: newUsername })
+      .eq("id", user.id)
+      .single();
+
+    setNewUsername("");
+
+    if (error) {
+      console.log(error);
+      toast.error("Error updating profile, try again later");
+    } else {
+      console.log(data);
+      toast.success("Profile updated successfully");
+    }
+
+    getProfile();
+    setLoading(false);
+  };
+
   return (
-    <div className="container" style={{ padding: "50px 0 100px 0" }}>
+    <div className="bg-black h-screen w-screen text-white">
       <Toaster />
       {!user ? (
-        <div className="mx-2 sm:mx-8 md:mx-20 lg:mx-36 xl:mx-64 2xl:mx-72">
+        <div className="mx-2 sm:mx-8 md:mx-20 lg:mx-36 xl:mx-64 2xl:mx-80">
           <Auth
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
@@ -77,7 +77,7 @@ const Home = () => {
           />
         </div>
       ) : (
-        <div className="gap-10 flex flex-col px-5">
+        <div className="gap-10 flex flex-col justify-center items-center mx-2 sm:mx-8 md:mx-20 lg:mx-36 xl:mx-64 2xl:mx-80 ">
           {user.user_metadata.avatar_url ? (
             <Image
               src={user.user_metadata.avatar_url}
@@ -99,19 +99,19 @@ const Home = () => {
               {username ? (
                 <>Email: {user.email}</>
               ) : (
-                <div className="flex flex-col gap-2 px-0.5">
+                <div className="flex flex-col gap-2 px-0.5 items-center">
                   Please enter a username
                   <input
                     type="text"
                     placeholder="USERNAME"
                     value={newUsername}
-                    className="rounded-full px-4 w-72"
+                    className="rounded-full px-4 w-72 ring-1 ring-white py-1"
                     onChange={(e) => {
                       setNewUsername(e.target.value);
                     }}
                   />
                   <button
-                    className="bg-emerald-500 w-fit rounded-full"
+                    className="bg-emerald-500 w-fit rounded-full px-7 py-2 mt-10"
                     onClick={updateProfile}
                   >
                     Update
@@ -122,7 +122,7 @@ const Home = () => {
           )}
           <br />
           <button
-            className="bg-red-500"
+            className="bg-red-500 rounded-full px-16 py-2"
             onClick={() => supabase.auth.signOut()}
           >
             Sign out
