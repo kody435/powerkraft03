@@ -26,7 +26,7 @@ function Page({ movies }) {
           {movies.map((movie) => (
             <Link
               href={`/movie/${movie.slug}`}
-              className="shadow-lg rounded-lg flex flex-col justify-center items-center"
+              className="shadow-lg rounded-lg flex flex-col items-center"
               key={movie.id}
             >
               <Image
