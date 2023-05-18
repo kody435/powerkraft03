@@ -17,11 +17,12 @@ export default function Watchlist() {
   async function fetchWatchlist() {
     if (user) {
       try {
-        let { data, error } = await supabase
-          .from("favourites")
-          .select(`*`)
-          .eq("user_id", user.id)
-          .single();
+        const { data, error } = await supabase
+          .from("movies")
+          .select("watchlist.user_id, movies.*")
+          .join("watchlist", { "movies.id": "watchlist.movie_id" })
+          .join("profiles", { "profiles.id": "watchlist.user_id" })
+          .eq("profiles.id", "a6a61765-c2a2-406a-a465-695b8ee10b80");
 
         if (data) {
           console.log(data);
@@ -47,7 +48,11 @@ export default function Watchlist() {
         </>
       ) : (
         <div className="text-center w-screen h-screen bg-black text-white flex items-center justify-center text-md md:text-lg xl:text-xl 2xl:text-2xl">
-          Please&nbsp;<Link href="/account" className="text-red-500">sign in</Link>&nbsp;first to see your Watchlist
+          Please&nbsp;
+          <Link href="/account" className="text-red-500">
+            sign in
+          </Link>
+          &nbsp;first to see your Watchlist
         </div>
       )}
     </div>

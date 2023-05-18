@@ -30,7 +30,6 @@ const Home = () => {
 
         if (data) {
           setUsername(data.username);
-          console.log(data);
         } else if (error) {
           console.log(error);
           toast.error("Error fetching profile, try again later");

@@ -6,26 +6,30 @@ import styles from "../../styles/Home.module.css";
 import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import { useUser } from "@supabase/auth-helpers-react";
+import { Tab } from "@headlessui/react";
 
-export default function Post({ movies }) {
+export default function Post({ series }) {
   let [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState({});
   const [tmdb, setTmdb] = useState("");
   const user = useUser();
+  const [select, setSelect] = useState("1");
+  const [selectedEpisode, setSelectedEpisode] = useState("1");
+  let s = 1;
 
   useEffect(() => {
-    if (movies.tmdb) {
-      setTmdb(movies.tmdb);
+    console.log("Series: ",series);
+    if (series.tmdb) {
+      setTmdb(series.tmdb);
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `https://api.themoviedb.org/3/movie/${tmdb}?api_key=9a6cc794e0d32ccd83dc9b5bebda750b`
+            `https://api.themoviedb.org/3/tv/${tmdb}?api_key=9a6cc794e0d32ccd83dc9b5bebda750b`
           );
           if (response.ok) {
             const jsonData = await response.json();
             setData(jsonData);
-            console.log(user.id);
-            console.log(movies.id);
+            console.log(jsonData);
           }
         } catch (error) {
           console.error(error);
@@ -33,18 +37,7 @@ export default function Post({ movies }) {
       };
       fetchData();
     }
-  }, [movies, tmdb, user]);
-
-  async function watchLater() {
-    const { data, error } = await supabase
-      .from("watchlist")
-      .insert([{ user_id: user.id, movie_id: movies.id }]);
-    if (data) {
-      return;
-    } else {
-      console.log(error);
-    }
-  }
+  }, [series, tmdb, user]);
   const router = useRouter();
 
   if (router.isFallback) {
@@ -53,10 +46,16 @@ export default function Post({ movies }) {
     );
   }
 
+  const handleChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedEpi(selectedValue);
+    console.log("Selected value: ", selectedValue);
+  };
+
   return (
     <div className={styles.main}>
       <Head>
-        <title>OCTULUS | {movies.name}</title>
+        <title>OCTULUS | {series.name}</title>
         <meta
           name="description"
           content="Watch Movies, Series and Animes for free"
@@ -89,7 +88,7 @@ export default function Post({ movies }) {
             <Image
               alt=""
               className="opacity-100"
-              src={`https://image.tmdb.org/t/p/w300/${movies.mainImage}`}
+              src={`https://image.tmdb.org/t/p/w300/${series.mainImage}`}
               loading="lazy"
               width={150}
               height={100}
@@ -97,7 +96,7 @@ export default function Post({ movies }) {
           </div>
           <div className="backdrop-blur-sm">
             <h1 className="pl-5 text-4xl mr-2 h-fit text-white font-bold bg-transparent backdrop-blur-sm">
-              {movies.name}
+              {series.name}
               <br />
             </h1>
             <p className="text-white pl-5 backdrop-blur-sm italic">
@@ -110,8 +109,10 @@ export default function Post({ movies }) {
                 <p className="font-medium text-md">{data.overview}</p>
                 <div className="flex md:flex-row flex-col mb-7 mt-5">
                   <div className="flex flex-row space-x-5">
-                    <p className="font-medium text-md">{data.release_date}</p>
-                    <p className="font-medium text-md">{data.runtime}m</p>
+                    <p className="font-medium text-md">{data.first_air_date}</p>
+                    <p className="font-medium text-md">
+                      {data.episode_run_time}m
+                    </p>
                   </div>
                   <div className="md:mx-5 mt-2 md:mt-0">
                     {data &&
@@ -143,9 +144,37 @@ export default function Post({ movies }) {
                       })}
                   </div>
                 </div>
+                <div>
+                  Select season &nbsp;
+                  <select
+                    value={select}
+                    onChange={(e) => setSelect(e.target.value)}
+                  >
+                    {series.dataArray.map((_, index) => (
+                      <option key={index}>{index + 1}</option>
+                    ))}
+                  </select>
+                  {select && (
+                    <div>
+                      Select episode &nbsp;
+                      <select
+                        value={selectedEpisode}
+                        onChange={(e) => setSelectedEpisode(e.target.value)}
+                      >
+                        {[...Array(series.dataArray[select - 1].maxEpisodes)].map(
+                          (_, index) => (
+                            <option key={index}>{index + 1}</option>
+                          )
+                        )}
+                      </select>
+                    </div>
+                  )}
+                </div>
+
+                {/* Watch Now button */}
                 <div className="flex flex-col md:flex-row gap-5">
                   <div
-                    onClick={watchLater}
+                    onClick={() => setIsOpen(true)}
                     className="flex justify-center items-center w-fit p-0.5 rounded-full border border-white cursor-pointer"
                   >
                     <div className="flex flex-row bg-lime-600 w-fit px-6 py-2 rounded-full ">
@@ -164,28 +193,6 @@ export default function Post({ movies }) {
                       &nbsp; Watch Now
                     </div>
                   </div>
-                  <div
-                    onClick={watchLater}
-                    className="flex justify-center items-center w-fit p-0.5 rounded-full border border-white cursor-pointer"
-                  >
-                    <div className="flex flex-row bg-blue-600 w-fit px-6 py-2 rounded-full ">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 4.5v15m7.5-7.5h-15"
-                        />
-                      </svg>
-                      &nbsp;Watch List
-                    </div>
-                  </div>
                 </div>
                 <Dialog
                   open={isOpen}
@@ -199,7 +206,7 @@ export default function Post({ movies }) {
                   <div className="fixed inset-0 flex items-center justify-center p-2">
                     <Dialog.Panel className="lg:w-5/6 lg:h-5/6 w-screen h-2/6 md:w-5/6 md:h-3/6 rounded bg-white">
                       <iframe
-                        src={`https://2embed.org/embed/movie?tmdb=${movies.tmdb}`}
+                        src={`https://2embed.org/embed/series?tmdb=${series.tmdb}&s=${select}&e=${selectedEpisode}`}
                         className="w-full h-full"
                         allowFullScreen
                       />
@@ -215,15 +222,8 @@ export default function Post({ movies }) {
   );
 }
 
-// SO, did you redo all the changes ? those I undid, dont remember which. Can you check discord,
-/**
- * so, is that question ? Yep, embed a video into modal. Nope. How to make a modal? I have no idea.
- *  https://headlessui.com/react/dialog, yea yea. i am on to it
- */
-
-// ! Here only works at build time !
 export async function getStaticPaths() {
-  const { data: movies } = await supabase.from("movies").select("slug");
+  const { data: movies } = await supabase.from("series").select("slug");
   const paths = movies.map(({ slug }) => ({
     params: { slug },
   }));
@@ -233,18 +233,18 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
-// ! Here only works at build time !
+
 export async function getStaticProps({ params }) {
   const { slug } = params;
-  const { data: movies } = await supabase
-    .from("movies")
+  const { data: series } = await supabase
+    .from("series")
     .select()
     .filter("slug", "eq", slug)
     .single();
 
   return {
     props: {
-      movies,
+      series,
     },
   };
 }

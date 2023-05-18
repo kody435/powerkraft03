@@ -9,13 +9,14 @@ function Page() {
 
   async function searchMovies() {
     searchQuery = searchQuery.split(" ").join("|");
-    const modifiedQuery = searchQuery.replace(/[^a-zA-Z0-9\s]/g, "");
+    const modifiedQuery = searchQuery.replace(/[^a-zA-Z0-9\s]/g, "|");
 
     const { data, error } = await supabase
       .from("movies")
       .select()
       .textSearch("name", modifiedQuery);
-    console.log(data, error);
+
+    console.log(error);
     setSearchData(data);
   }
 
