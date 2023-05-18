@@ -171,7 +171,6 @@ export default function Post({ series }) {
                   )}
                 </div>
 
-                {/* Watch Now button */}
                 <div className="flex flex-col md:flex-row gap-5">
                   <div
                     onClick={() => setIsOpen(true)}
