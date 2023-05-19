@@ -77,7 +77,7 @@ export default function Navbar() {
             MOVIES
           </Link> */}
           <Link
-            href="/series"
+            href="/serie"
             className={`text-lg font-semibold text-gray-100 hover:text-white active:border-emerald-400 rounded-sm ${
               router.pathname === "/series"
                 ? "border-b-4 border-white"
@@ -191,7 +191,7 @@ export default function Navbar() {
                   <div className="border-b-2 w-fit">MOVIES</div>
                 </a> */}
                 <a
-                  href="/series"
+                  href="/serie"
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
                 >
                   <div className="border-b-2 w-fit">TV SHOWS</div>

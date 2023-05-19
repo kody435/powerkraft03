@@ -23,7 +23,13 @@ function Page() {
         .from("series")
         .select("*")
         .textSearch("name", modifiedQuery),
-    ]).then((data) => {console.log("Data: ", data); setSearchData(data)}).catch((err) => console.error("Error: ", err));
+    ])
+      .then((data) => {
+        setSearchData(data);
+      })
+      .catch((err) => {
+        setError(err);
+      });
   }
 
   return (
@@ -57,31 +63,71 @@ function Page() {
           &nbsp; Search
         </div>
       </div>
-      <main className="container mx-auto my-10 px-4 ">
+      {/* <main className="container mx-auto my-10 px-4 ">
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-6">
-          {searchData && searchData.map((movie) => { console.log(movie); return(
-            <>{movie.data.map(mov => <Link
-              href={`/${mov.slugType}/${mov.slug}`}
-              className="shadow-lg rounded-lg"
-              key={mov.id}
-            >
-              <div className="text-center">
-                <Image
-                  alt=""
-                  className="rounded-lg hover:opacity-75 opacity-100"
-                  src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
-                  loading="lazy"
-                  width={150}
-                  height={100}
-                />
-                <h3 className="text-white font-bolder text-md  ">
-                  {mov.name}
-                </h3>
-              </div>
-            </Link>) }
-            </>
-          )})}
+          {searchData &&
+            searchData.map((movie, idx) => {
+              return (
+                <div key={idx}>
+                  {movie.data.map((mov) => (
+                    <Link
+                      href={`/${mov.slugType}/${mov.slug}`}
+                      className="shadow-lg rounded-lg"
+                      key={mov.id}
+                    >
+                      <div className="text-center">
+                        <Image
+                          alt=""
+                          className="rounded-lg hover:opacity-75 opacity-100"
+                          src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
+                          loading="lazy"
+                          width={150}
+                          height={100}
+                        />
+                        <h3 className="text-white font-bolder text-md  ">
+                          {mov.name}
+                        </h3>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              );
+            })}
         </div>
+      </main> */}
+
+      <main className="container mx-auto my-10 px-4">
+          {searchData &&
+            searchData.map((movie, idx) => {
+              return (
+                <div
+                  className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6"
+                  key={idx}
+                >
+                    {movie.data.map((mov) => (
+                      <Link
+                        href={`/${mov.slugType}/${mov.slug}`}
+                        className="shadow-lg rounded-lg"
+                        key={mov.id}
+                      >
+                        <div className="text-center">
+                          <Image
+                            alt=""
+                            className="rounded-lg hover:opacity-75 opacity-100"
+                            src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
+                            loading="lazy"
+                            width={150}
+                            height={100}
+                          />
+                          <h3 className="text-white font-bolder text-md  ">
+                            {mov.name}
+                          </h3>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+              );
+            })}
       </main>
 
       {error && searchData.length === 0 && (
