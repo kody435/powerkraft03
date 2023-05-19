@@ -6,18 +6,26 @@ import { useState } from "react";
 function Page() {
   let [searchQuery, setSearchQuery] = useState("");
   let [searchData, setSearchData] = useState([]);
+  let [error, setError] = useState(false);
 
   async function searchMovies() {
     searchQuery = searchQuery.split(" ").join("|");
-    const modifiedQuery = searchQuery.replace(/[^a-zA-Z0-9\s]/g, "|");
+    const modifiedQuery = searchQuery
+      .replace(/[^a-zA-Z0-9\s]/g, "")
+      .replace(/\s/g, "");
 
     const { data, error } = await supabase
       .from("movies")
-      .select()
+      .select("*")
       .textSearch("name", modifiedQuery);
 
-    console.log(error);
-    setSearchData(data);
+    if (error) {
+      setError(true);
+      console.log(error);
+    } else {
+      setError(false);
+      setSearchData(data);
+    }
   }
 
   return (
@@ -76,6 +84,14 @@ function Page() {
           ))}
         </div>
       </main>
+
+      {error && searchData.length === 0 && (
+        <div>
+          <h1 className="text-white text-center z-50 flex h-screen w-screen justify-center items-center text-2xl">
+            No results found for {searchQuery}
+          </h1>
+        </div>
+      )}
     </div>
   );
 }

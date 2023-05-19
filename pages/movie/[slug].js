@@ -24,8 +24,6 @@ export default function Post({ movies }) {
           if (response.ok) {
             const jsonData = await response.json();
             setData(jsonData);
-            console.log(user.id);
-            console.log(movies.id);
           }
         } catch (error) {
           console.error(error);
@@ -117,7 +115,7 @@ export default function Post({ movies }) {
                     {data &&
                       data?.spoken_languages?.map((genre, index) => {
                         return (
-                          <span className="font-medium text-md" key={genre.id}>
+                          <span className="font-medium text-md" key={index}>
                             {genre.name}
                             {index !== data.spoken_languages.length - 1 && (
                               <span>, &nbsp;</span>
@@ -164,7 +162,7 @@ export default function Post({ movies }) {
                       &nbsp; Watch Now
                     </div>
                   </div>
-                  <div
+                  {/* <div
                     onClick={watchLater}
                     className="flex justify-center items-center w-fit p-0.5 rounded-full border border-white cursor-pointer"
                   >
@@ -185,7 +183,7 @@ export default function Post({ movies }) {
                       </svg>
                       &nbsp;Watch List
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <Dialog
                   open={isOpen}

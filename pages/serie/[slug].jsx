@@ -18,7 +18,6 @@ export default function Post({ series }) {
   let s = 1;
 
   useEffect(() => {
-    console.log("Series: ",series);
     if (series.tmdb) {
       setTmdb(series.tmdb);
       const fetchData = async () => {
@@ -29,7 +28,6 @@ export default function Post({ series }) {
           if (response.ok) {
             const jsonData = await response.json();
             setData(jsonData);
-            console.log(jsonData);
           }
         } catch (error) {
           console.error(error);
@@ -45,12 +43,6 @@ export default function Post({ series }) {
       <div className="text-xl flex justify-center items-center">Loading...</div>
     );
   }
-
-  const handleChange = (event) => {
-    const selectedValue = event.target.value;
-    setSelectedEpi(selectedValue);
-    console.log("Selected value: ", selectedValue);
-  };
 
   return (
     <div className={styles.main}>
@@ -118,12 +110,12 @@ export default function Post({ series }) {
                     {data &&
                       data?.spoken_languages?.map((genre, index) => {
                         return (
-                          <span className="font-medium text-md" key={genre.id}>
+                          <div className="font-medium text-md" key={index}>
                             {genre.name}
                             {index !== data.spoken_languages.length - 1 && (
                               <span>, &nbsp;</span>
                             )}
-                          </span>
+                          </div>
                         );
                       })}
                   </div>
@@ -144,28 +136,36 @@ export default function Post({ series }) {
                       })}
                   </div>
                 </div>
-                <div>
-                  Select season &nbsp;
-                  <select
-                    value={select}
-                    onChange={(e) => setSelect(e.target.value)}
-                  >
-                    {series.dataArray.map((_, index) => (
-                      <option key={index}>{index + 1}</option>
-                    ))}
-                  </select>
+                <div className="mt-10 mb-3 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-5 lg:gap-8">
+                  <div className="flex flex-row items-center w-fit h-fit">
+                    <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
+                      Select season &nbsp;
+                    </h3>
+                    <select
+                      value={select}
+                      onChange={(e) => setSelect(e.target.value)}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit h-fit p-1 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      {series.dataArray.map((_, index) => (
+                        <option key={index}>{index + 1}</option>
+                      ))}
+                    </select>
+                  </div>
                   {select && (
-                    <div>
-                      Select episode &nbsp;
+                    <div className="flex flex-row items-center w-fit h-fit">
+                      <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
+                        Select episode &nbsp;
+                      </h3>
                       <select
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit h-fit p-1 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         value={selectedEpisode}
                         onChange={(e) => setSelectedEpisode(e.target.value)}
                       >
-                        {[...Array(series.dataArray[select - 1].maxEpisodes)].map(
-                          (_, index) => (
-                            <option key={index}>{index + 1}</option>
-                          )
-                        )}
+                        {[
+                          ...Array(series.dataArray[select - 1].maxEpisodes),
+                        ].map((_, index) => (
+                          <option key={index}>{index + 1}</option>
+                        ))}
                       </select>
                     </div>
                   )}
@@ -205,7 +205,7 @@ export default function Post({ series }) {
                   <div className="fixed inset-0 flex items-center justify-center p-2">
                     <Dialog.Panel className="lg:w-5/6 lg:h-5/6 w-screen h-2/6 md:w-5/6 md:h-3/6 rounded bg-white">
                       <iframe
-                        src={`https://2embed.org/embed/series?tmdb=${series.tmdb}&s=${select}&e=${selectedEpisode}`}
+                        src={`https://vidsrc.me/embed/${series.tmdb}/${select}-${selectedEpisode}`}
                         className="w-full h-full"
                         allowFullScreen
                       />

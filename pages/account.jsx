@@ -76,7 +76,7 @@ const Home = () => {
           />
         </div>
       ) : (
-        <div className="gap-10 flex flex-col justify-center items-center mx-2 sm:mx-8 md:mx-20 lg:mx-36 xl:mx-64 2xl:mx-80 ">
+        <div className="gap-2 flex flex-col justify-center items-center mx-2 sm:mx-8 md:mx-20 lg:mx-36 xl:mx-64 2xl:mx-80 ">
           {user.user_metadata.avatar_url ? (
             <Image
               src={user.user_metadata.avatar_url}
@@ -93,16 +93,16 @@ const Home = () => {
             <>Loading...</>
           ) : (
             <>
-              Logged in as {username ? <>{username}</> : <>{user.email}</>}
+              <div>{username ? <>{username}</> : <>{user.email}</>}</div>
               <br />
               {username ? (
-                <>Email: {user.email}</>
+                <>{user.email}</>
               ) : (
                 <div className="flex flex-col gap-2 px-0.5 items-center">
                   Please enter a username
                   <input
                     type="text"
-                    placeholder="USERNAME"
+                    placeholder="username"
                     value={newUsername}
                     className="rounded-full px-4 w-72 ring-1 ring-white py-1"
                     onChange={(e) => {
