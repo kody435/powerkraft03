@@ -17,11 +17,11 @@ function Page() {
     Promise.all([
       await supabase
         .from("movies")
-        .select("*")
+        .select(`mainImage, slug, name, slugType`)
         .textSearch("name", modifiedQuery),
       await supabase
         .from("series")
-        .select("*")
+        .select(`mainImage, slug, name, slugType`)
         .textSearch("name", modifiedQuery),
     ])
       .then((data) => {
