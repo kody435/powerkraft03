@@ -14,18 +14,16 @@ function Page() {
       .replace(/[^a-zA-Z0-9\s]/g, "")
       .replace(/\s/g, "");
 
-    const { data, error } = await supabase
-      .from("movies")
-      .select("*")
-      .textSearch("name", modifiedQuery);
-
-    if (error) {
-      setError(true);
-      console.log(error);
-    } else {
-      setError(false);
-      setSearchData(data);
-    }
+    Promise.all([
+      await supabase
+        .from("movies")
+        .select("*")
+        .textSearch("name", modifiedQuery),
+      await supabase
+        .from("series")
+        .select("*")
+        .textSearch("name", modifiedQuery),
+    ]).then((data) => {console.log("Data: ", data); setSearchData(data)}).catch((err) => console.error("Error: ", err));
   }
 
   return (
@@ -61,27 +59,28 @@ function Page() {
       </div>
       <main className="container mx-auto my-10 px-4 ">
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-6">
-          {searchData.map((movie) => (
-            <Link
-              href={`/movie/${movie.slug}`}
+          {searchData && searchData.map((movie) => { console.log(movie); return(
+            <>{movie.data.map(mov => <Link
+              href={`/${mov.slugType}/${mov.slug}`}
               className="shadow-lg rounded-lg"
-              key={movie.id}
+              key={mov.id}
             >
               <div className="text-center">
                 <Image
                   alt=""
                   className="rounded-lg hover:opacity-75 opacity-100"
-                  src={`https://image.tmdb.org/t/p/w300/${movie.mainImage}`}
+                  src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
                   loading="lazy"
                   width={150}
                   height={100}
                 />
                 <h3 className="text-white font-bolder text-md  ">
-                  {movie.name}
+                  {mov.name}
                 </h3>
               </div>
-            </Link>
-          ))}
+            </Link>) }
+            </>
+          )})}
         </div>
       </main>
 

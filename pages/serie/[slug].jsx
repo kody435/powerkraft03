@@ -16,7 +16,7 @@ export default function Post({ series }) {
   const [select, setSelect] = useState("1");
   const [selectedEpisode, setSelectedEpisode] = useState("1");
 
-  console.log(series);
+
 
   useEffect(() => {
     if (series.tmdb) {
@@ -29,6 +29,7 @@ export default function Post({ series }) {
           if (response.ok) {
             const jsonData = await response.json();
             setData(jsonData);
+              console.log(jsonData);
           }
         } catch (error) {
           console.error(error);
@@ -103,9 +104,13 @@ export default function Post({ series }) {
                 <div className="flex md:flex-row flex-col mb-7 mt-5">
                   <div className="flex flex-row space-x-5">
                     <p className="font-medium text-md">{data.first_air_date}</p>
-                    <p className="font-medium text-md">
-                      {data.episode_run_time}m
-                    </p>
+                    {data.episode_run_time ? (
+                      <p className="font-medium text-md">
+                        {` ${data.episode_run_time}m `}
+                      </p>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <div className="md:mx-5 mt-2 md:mt-0">
                     {data &&
@@ -191,19 +196,6 @@ export default function Post({ series }) {
                         />
                       </svg>
                       &nbsp; Watch Now{" "}
-                      {/* We dont wanna redirect users to other website, yea i am only testing URLs. seems working, if they don't work how can you see url any way 
-                      https://v2.vidsrc.me/embed/tt3107288/1-1/ from Test
-                      https://2embed.org/embed/series?tmdb=60735&s=1&e=1 from Test 1
-                      now you only need to write this to iframe src. then done.
-                      when i select 4, 14 from select, it gives me this link
-                      https://v2.vidsrc.me/embed/tt3107288/4-14/
-                      https://2embed.org/embed/series?tmdb=60735&s=4&e=14
-                          check localhost pls, working.
-                          http://localhost:3000/serie/the-flash +
-                          http://localhost:3000/serie/13-reasons-why/
-
-                          checl both of them
-                      */}
                     </div>
                   </div>
                 </div>
@@ -283,45 +275,3 @@ export async function getStaticProps({ params }) {
     },
   };
 }
-
-
-// SO we are here
-/**
- * series, tmdb, select and selectEpisode is your params. you are pasing them to URL, so this fetches related serie from
- * API itself it converts to https://2embed.org/embed/series?imdb=234546&s=1&e=1
- * but you are trying to fetch this series from DB, but its URL at DB is this:
- * https://2embed.org/embed/series?imdb=${series.tmdb}&s=${select}&e=${selectedEpisode}
- * so when you pass src={series.url} it converts this to 
- * src={"https://2embed.org/embed/series?imdb=${series.tmdb}&s=${select}&e=${selectedEpisode}"} then it doesnt work.
- *  it should like this to work correct. "https://2embed.org/embed/series?imdb=q32456&s=1&e=1", then how the value will be set dynamically?, 
- * 
- * 
- * you ll pass your params to DB, not URL and fetch data from there. in POST request at here like this
- * ?? I am totally confused, Why are we even doing Post REQUEST? pass your params to DB,
- * how you are storing that series at your DB, the data of series?
- *  how you are inserting that values to DB, where it is, directly from DB.
- * 
- * this is the data of series
-//  * [
-//   {
-//     "maxEpisodes": 13
-//   },
-//   {
-//     "maxEpisodes": 13
-//   },
-//   {
-//     "maxEpisodes": 13
-//   },
-//   {
-//     "maxEpisodes": 10
-//   }
-// ] no i am asking table value, url, I am not storing it any more, I am now just storing numbers lol
-// I wanna ask sth: - Why you are not using API directly
-// src={`https://2embed.org/embed/series?imdb=${series.tmdb}&s=${select}&e=${selectedEpisode}`}, I tried this, it didn't work. We need to fix why this is not working, cuz this solves everyting, no we dont', let me try once
-
-
-      
- * https://2embed.org/embed/series?imdb=${series.tmdb}&s=${select}&e=${selectedEpisode} this is your dynamic URL, yep it is
- */
-
-

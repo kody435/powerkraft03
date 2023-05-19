@@ -75,7 +75,7 @@ export default function Navbar() {
             }}`}
           >
             MOVIES
-          </Link>
+          </Link> */}
           <Link
             href="/series"
             className={`text-lg font-semibold text-gray-100 hover:text-white active:border-emerald-400 rounded-sm ${
@@ -85,7 +85,7 @@ export default function Navbar() {
             }`}
           >
             TV SHOWS
-          </Link> */}
+          </Link>
           <Link
             href="/request"
             className={`text-lg font-semibold bg-clip-text text-white hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
@@ -189,13 +189,13 @@ export default function Navbar() {
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
                 >
                   <div className="border-b-2 w-fit">MOVIES</div>
-                </a>
+                </a> */}
                 <a
                   href="/series"
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
                 >
-                  <div className="border-b-2 w-fit">SERIES</div>
-                </a> */}
+                  <div className="border-b-2 w-fit">TV SHOWS</div>
+                </a>
                 <a
                   href="/request"
                   className="block rounded-lg py-2 font-bold text-xl "

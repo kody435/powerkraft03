@@ -93,7 +93,9 @@ const Home = () => {
             <>Loading...</>
           ) : (
             <>
-              <div className="underline">{username ? <>{username}</> : <>{user.email}</>}</div>
+              <div className="underline">
+                {username ? <>{username}</> : <>{user.email}</>}
+              </div>
               <br />
               {username ? (
                 <>{user.email}</>
