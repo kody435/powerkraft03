@@ -98,7 +98,7 @@ export default function Navbar() {
           </Link>
           <Link
             href="/account"
-            className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white active:border-emerald-400 rounded-sm ${
+            className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white active:border-emerald-400 ${
               router.pathname === "/login" || router.pathname === "/signup"
                 ? ""
                 : ""
@@ -117,13 +117,13 @@ export default function Navbar() {
                     />
                   </div>
                 ) : (
-                  <>
+                  <div className="rounded-none">
                     {userData.user_metadata.full_name ? (
                       <>{userData.user_metadata.full_name}</>
                     ) : (
                       <>PROFILE</>
                     )}
-                  </>
+                  </div>
                 )}
               </>
             ) : (
@@ -206,10 +206,10 @@ export default function Navbar() {
                 </a>
                 <a
                   href="/account"
-                  className="block w-fit rounded-full mt-10 font-bold text-xl text-gray-200 "
+                  className="block w-fit h-fit mt-10 font-bold text-xl text-gray-200 "
                 >
                   {userData ? (
-                    <>
+                    <div className="mt-16">
                       {userData.user_metadata.picture ? (
                         <div className="p-0.5 border-2 hover:border-white border-emerald-500 z-50 rounded-full w-fit">
                           <Image
@@ -233,7 +233,7 @@ export default function Navbar() {
                           )}
                         </>
                       )}
-                    </>
+                    </div>
                   ) : (
                     <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 w-fit border-b-2">
                       LOGIN
