@@ -52,7 +52,7 @@ export default function Post({ movies }) {
   }
 
   return (
-    <div className={styles.main}>
+    <div className="flex flex-col">
       <Head>
         <title>OCTULUS | {movies.name}</title>
         <meta
@@ -75,7 +75,7 @@ export default function Post({ movies }) {
           backgroundRepeat: "no-repeat",
           backgroundSize: "fit",
         }}
-        className="h-screen bg-cover bg-center flex flex-col justify-end relative"
+        className="bg-cover bg-center sm:h-screen flex flex-col justify-end relative"
       >
         <div
           style={{

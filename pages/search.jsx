@@ -22,7 +22,7 @@ function Page() {
       await supabase
         .from("series")
         .select(`mainImage, slug, name, slugType`)
-        .textSearch("name", modifiedQuery),
+        .textSearch("name", modifiedQuery)
     ])
       .then((data) => {
         setSearchData(data);
