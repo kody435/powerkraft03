@@ -189,7 +189,7 @@ export default function Post({ movies }) {
       <div className="flex md:flex-row md:mx-6 mb-16 justify-center md:justify-start">
         <div
           onClick={() => setIsOpen(true)}
-          className="flex justify-center items-center w-fit p-0.5 h-fit rounded-full border border-white cursor-pointer"
+          className="flex justify-center items-center w-fit p-0.5 h-fit rounded-full border-2 border-white cursor-pointer"
         >
           <div className="flex flex-row bg-lime-500 w-fit px-6 py-2 rounded-full cursor-pointer">
             <svg

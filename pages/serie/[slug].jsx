@@ -18,6 +18,8 @@ export default function Post({ series }) {
   const [director, setDirector] = useState([]);
   const [cast, setCast] = useState([]);
   const [videos, setVideos] = useState([]);
+  const [runTime, setRunTime] = useState("");
+  const [relDate, setRelDate] = useState('N/A');
 
   useEffect(() => {
     if (series.tmdb) {
@@ -49,18 +51,23 @@ export default function Post({ series }) {
             cast = cast.filter((cast) => {
               return cast.order < 12;
             });
+            setCast(cast);
 
             // videos
             let videos = jsonData.videos.results;
             videos = videos.filter((video) => {
-              return video.type === "Trailer";
+              return video;
             });
+            setVideos(videos);
 
-            if (jsonData.credits.crew) {
-              setDirector(director[0].name);
-              setWriter(writer[0].name);
-              setCast(cast);
-              setVideos(videos);
+            if (jsonData.credits !== undefined) {
+              if (director[0].name !== undefined) {
+                setDirector(director[0].name);
+              } else if (writer[0].name !== undefined) {
+                setWriter(writer[0].name);
+              } else {
+                return
+              }
             }
           }
         } catch (error) {
@@ -69,16 +76,24 @@ export default function Post({ series }) {
       };
       fetchData();
     }
+    let releaseDate = data.first_air_date;
+    releaseDate = releaseDate?.split("-")[0];
+    setRelDate(releaseDate);
+  
+    let runtime = data.episode_run_time;
+    if (runtime === undefined) {
+      setRunTime("N/A");
+    } else if (typeof runtime === 'string') {
+      let hours = Math.floor(runtime / 60);
+      let minutes = runtime % 60;
+      let runtimeString = `${hours}h ${minutes}m`;
+      setRunTime(runtimeString);
+    } else if (Array.isArray(runtime)) {
+      setRunTime('N/A')
+    }
   }, [series, tmdb, user]);
   const router = useRouter();
 
-  let releaseDate = data.first_air_date;
-  releaseDate = releaseDate?.split("-")[0];
-
-  let runtime = data.episode_run_time;
-  let hours = Math.floor(runtime / 60);
-  let minutes = runtime % 60;
-  let runtimeString = `${hours}h ${minutes}m`;
 
   if (router.isFallback) {
     return (
@@ -123,12 +138,12 @@ export default function Post({ series }) {
             </div>
 
             <div className="flex justify-center flex-row my-3 gap-5 md:justify-start">
-              <div className="font-medium text-md text-white">
-                {releaseDate}
-              </div>
-              <div className="font-medium text-md text-white">
-                {runtimeString}
-              </div>
+              <div className="font-medium text-md text-white">{relDate}</div>
+              {runTime === null ? (
+                <></>
+              ) : (
+                <div className="font-medium text-md text-white">{runTime}</div>
+              )}
             </div>
             <div className="flex text-white justify-center md:justify-start">
               {data &&
@@ -157,7 +172,7 @@ export default function Post({ series }) {
               })}
             </div>
 
-            <div className="flex flex-col justify-end md:py-4 text-white text-center md:text-left">
+            <div className="flex flex-col justify-end md:py-2 text-white text-center md:text-left">
               {data.overview}
             </div>
             <div className="flex flex-col justify-end text-white my-6 text-center md:text-left">
@@ -180,7 +195,7 @@ export default function Post({ series }) {
         </div>
       </div>
 
-      <div className="mb-10 mx-6 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-5 lg:gap-8">
+      <div className="mb-8 md:mb-5 mx-6 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-5 lg:gap-8">
         <div className="flex flex-row items-center w-fit h-fit">
           <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
             Select season &nbsp;
@@ -270,7 +285,7 @@ export default function Post({ series }) {
         </div>
       </Dialog>
 
-      <div className="flex flex-col my-7 gap-6 ">
+      <div className="flex flex-col mb-7 gap-6 ">
         <div className="text-white flex flex-col mx-2 sm:mx-3 md:mx-5 mb-10">
           {cast.length > 0 ? (
             <>
