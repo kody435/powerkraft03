@@ -6,7 +6,6 @@ import styles from "../../styles/Home.module.css";
 import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import { useUser } from "@supabase/auth-helpers-react";
-import { Tab } from "@headlessui/react";
 
 export default function Post({ series }) {
   let [isOpen, setIsOpen] = useState(false);
@@ -16,7 +15,6 @@ export default function Post({ series }) {
   const [select, setSelect] = useState("1");
   const [selectedEpisode, setSelectedEpisode] = useState("1");
 
-  console.log(series);
 
   useEffect(() => {
     if (series.tmdb) {

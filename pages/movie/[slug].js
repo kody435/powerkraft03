@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabaseClient";
 import Image from "next/image";
 import Head from "next/head";
-import styles from "../../styles/Home.module.css";
 import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import { useUser } from "@supabase/auth-helpers-react";
@@ -15,6 +14,7 @@ export default function Post({ movies }) {
   const [writer, setWriter] = useState([]);
   const [director, setDirector] = useState([]);
   const [cast, setCast] = useState([]);
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     if (movies.tmdb) {
@@ -46,9 +46,16 @@ export default function Post({ movies }) {
             // cast
             let cast = jsonData.credits.cast;
             cast = cast.filter((cast) => {
-              return cast.order < 10;
+              return cast.order < 12;
             });
             setCast(cast);
+
+            // videos
+            let videos = jsonData.videos.results;
+            videos = videos.filter((video) => {
+              return video.type === "Trailer";
+            });
+            setVideos(videos);
           }
         } catch (error) {
           console.error(error);
@@ -98,7 +105,7 @@ export default function Post({ movies }) {
         <div className="flex flex-col gap-6 justify-end items-center w-screen md:items-start backdrop-blur-sm backdrop-brightness-75 ">
           <Image
             alt=""
-            className="opacity-100 grid-cols-1 rounded-lg shadow-black shadow-2xl md:ml-10 my-12"
+            className="opacity-100 grid-cols-1 rounded-lg shadow-black shadow-2xl md:ml-10 my-12  md:mt-36 "
             src={`https://image.tmdb.org/t/p/w300/${movies.mainImage}`}
             loading="lazy"
             width={150}
@@ -139,7 +146,7 @@ export default function Post({ movies }) {
               ) : (
                 <div></div>
               )}
-              {writer !== "" ? (
+              {writer.length > 0 ? (
                 <div className="text-gray-300">
                   Written by: <span className="text-white">{writer}</span>
                 </div>
@@ -153,36 +160,79 @@ export default function Post({ movies }) {
 
       <div className="flex flex-col my-7 gap-6 ">
         <div className="text-white flex flex-col mx-2 sm:mx-3 md:mx-5 mb-10">
-          <h2 className="text-white font-bold text-xl md:text-2xl">Cast</h2>
-          <br />
-          <div className="flex whitespace-nowrap md:space-x-3 overflow-x-scroll h-fit">
-            {cast.map((cast, index) => (
-              <div
-                className="flex flex-col text-center px-1 py-3 md:px-3 gap-2 cursor-pointer justify-center items-center"
-                key={index}
-              >
-                <Image
-                  alt=""
-                  className="opacity-100 rounded-full border h-28 w-28"
-                  src={`https://image.tmdb.org/t/p/w300_and_h300_face/${cast.profile_path}`}
-                  loading="lazy"
-                  width={200}
-                  height={200}
-                />
-                <div className="text-white text-sm w-28 overflow-x-hidden text-center">
-                  <div className="text-white" title={cast.name}>{cast.name}</div>
-                  <div className="text-gray-400" title={cast.character}>{cast.character}</div>
-                </div>
+          {cast.length > 0 ? (
+            <>
+              <h2 className="text-white font-bold text-xl md:text-2xl">Cast</h2>
+              <br />
+              <div className="flex whitespace-nowrap md:space-x-3 overflow-x-scroll scroll-ms-72 h-fit">
+                {cast.map((cast, index) => (
+                  <div
+                    className="flex flex-col text-center px-3 py-3 md:px-3 gap-2 cursor-pointer justify-center items-center"
+                    key={index}
+                  >
+                    <Image
+                      alt=""
+                      className="opacity-100 rounded-full border-2 h-28 w-28"
+                      src={`https://image.tmdb.org/t/p/w300_and_h300_face/${cast.profile_path}`}
+                      loading="lazy"
+                      width={200}
+                      height={200}
+                    />
+                    <div className="text-white text-sm w-28 overflow-x-hidden text-center">
+                      <div className="text-white" title={cast.name}>
+                        {cast.name}
+                      </div>
+                      <div className="text-gray-400" title={cast.character}>
+                        {cast.character}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : (
+            <></>
+          )}
+
+          <br />
+          {videos.length > 0 ? (
+            <div>
+              <h2 className="text-white font-bold text-xl md:text-2xl">
+                Videos
+              </h2>
+              <br />
+              <div className="flex flex-row justify-start overflow-x-scroll gap-3 ">
+                {videos.map((video, index) => (
+                  <div
+                    className="flex flex-col text-center px-1 py-3 md:px-3 gap-0 cursor-pointer justify-center items-start"
+                    key={index}
+                  >
+                    <iframe
+                      className="rounded-lg shadow-black shadow-2xl"
+                      width="300"
+                      height="200"
+                      src={`https://www.youtube.com/embed/${video.key}`}
+                      title={video.name}
+                      allowFullScreen
+                    ></iframe>
+                    <div className="text-white text-sm font-semibold overflow-x-hidden text-center">
+                      <div className="text-white" title={video.name}>
+                        {video.name}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-// ! Here only works at build time !
 export async function getStaticPaths() {
   const { data: movies } = await supabase.from("movies").select("slug");
   const paths = movies.map(({ slug }) => ({
@@ -194,7 +244,6 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
-// ! Here only works at build time !
 export async function getStaticProps({ params }) {
   const { slug } = params;
   const { data: movies } = await supabase
