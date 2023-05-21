@@ -15,7 +15,6 @@ export default function Post({ movies }) {
   const [director, setDirector] = useState([]);
   const [cast, setCast] = useState([]);
   const [videos, setVideos] = useState([]);
-  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     if (movies.tmdb) {
@@ -23,7 +22,7 @@ export default function Post({ movies }) {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `https://api.themoviedb.org/3/movie/${tmdb}?api_key=9a6cc794e0d32ccd83dc9b5bebda750b&append_to_response=videos,reviews,credits`
+            `https://api.themoviedb.org/3/movie/${tmdb}?api_key=9a6cc794e0d32ccd83dc9b5bebda750b&append_to_response=videos,credits`
           );
           if (response.ok) {
             const jsonData = await response.json();
@@ -57,13 +56,6 @@ export default function Post({ movies }) {
               return video.type === "Trailer";
             });
             setVideos(videos);
-
-            // reviews
-            let review = jsonData.reviews.results;
-            review = review.filter((review) => {
-              return review.author_details.rating > 0;
-            });
-            setReviews(review);
           }
         } catch (error) {
           console.error(error);
@@ -81,21 +73,22 @@ export default function Post({ movies }) {
   let minutes = runtime % 60;
   let runtimeString = `${hours}h ${minutes}m`;
 
-  async function watchLater() {
-    const { data, error } = await supabase
-      .from("watchlist")
-      .insert([{ user_id: user.id, movie_id: movies.id }]);
-    if (data) {
-      return;
-    } else {
-      console.log(error);
-    }
-  }
+  // async function watchLater() {
+  //   const { data, error } = await supabase
+  //     .from("watchlist")
+  //     .insert([{ user_id: user.id, movie_id: movies.id }]);
+  //   if (data) {
+  //     return;
+  //   } else {
+  //     console.log(error);
+  //   }
+  // }
+
   const router = useRouter();
 
   if (router.isFallback) {
     return (
-      <div className="text-xl flex justify-center items-center">Loading...</div>
+      <div className="text-xl text-white bg-black w-screen h-screen flex justify-center items-center">Loading...</div>
     );
   }
 
@@ -142,6 +135,28 @@ export default function Post({ movies }) {
               <div className="font-medium text-md text-white">
                 {runtimeString}
               </div>
+              <div className="font-medium text-md text-white">
+                {data.languages.map((language, index) => { 
+                  return (
+                    <span key={index}>
+                      {language.name}
+                      {index !== data.languages.length - 1 ? ", " : ""}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="flex flex-row justify-center md:justify-start mb-7 mt-4 space-x-2">
+              {data.genres?.map((genre) => {
+                return (
+                  <div
+                    key={genre.id}
+                    className="flex flex-row rounded-full text-sm font-semibold text-white"
+                  >
+                    {genre.name}
+                  </div>
+                );
+              })}
             </div>
             <div className="flex flex-col justify-end md:py-4 text-white text-center md:text-left">
               {data.overview}
@@ -166,13 +181,12 @@ export default function Post({ movies }) {
         </div>
       </div>
 
-
       <div className="flex md:flex-row md:mx-6 mb-16 justify-center md:justify-start">
         <div
           onClick={() => setIsOpen(true)}
-          className="flex justify-center items-center w-fit p-0.5 rounded-full border border-white cursor-pointer"
+          className="flex justify-center items-center w-fit p-0.5 h-fit rounded-full border border-white cursor-pointer"
         >
-          <div className="flex flex-row bg-lime-500 w-fit px-6 py-2 rounded-full ">
+          <div className="flex flex-row bg-lime-500 w-fit px-6 py-2 rounded-full cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -197,15 +211,14 @@ export default function Post({ movies }) {
         <div className="fixed inset-0 bg-black/80" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-2">
           <Dialog.Panel className="lg:w-5/6 lg:h-5/6 w-screen h-2/6 md:w-5/6 md:h-3/6 rounded bg-white">
-              <iframe
-                src={`https://vidsrc.me/embed/${movies.tmdb}`}
-                className="w-full h-full"
-                allowFullScreen
-              />
+            <iframe
+              src={`https://vidsrc.me/embed/${movies.tmdb}`}
+              className="w-full h-full"
+              allowFullScreen
+            />
           </Dialog.Panel>
         </div>
       </Dialog>
-
 
       <div className="flex flex-col my-7 gap-6 ">
         <div className="text-white flex flex-col mx-2 sm:mx-3 md:mx-5 mb-10">
