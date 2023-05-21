@@ -49,7 +49,10 @@ function Page({ movies }) {
 }
 
 export async function getServerSideProps() {
-  let { data } = await supabase.from("series").select(`mainImage, name, slug`).range(0, 56);
+  let { data } = await supabase
+    .from("series")
+    .select(`mainImage, name, slug`)
+    .range(0, 56);
   return {
     props: {
       movies: data,

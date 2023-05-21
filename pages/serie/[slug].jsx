@@ -29,7 +29,7 @@ export default function Post({ series }) {
           if (response.ok) {
             const jsonData = await response.json();
             setData(jsonData);
-              console.log(jsonData);
+            console.log(jsonData);
           }
         } catch (error) {
           console.error(error);

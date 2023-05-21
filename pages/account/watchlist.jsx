@@ -17,12 +17,11 @@ export default function Watchlist() {
   async function fetchWatchlist() {
     if (user) {
       try {
+        console.log(user.id);
         const { data, error } = await supabase
-          .from("movies")
-          .select("watchlist.user_id, movies.*")
-          .join("watchlist", { "movies.id": "watchlist.movie_id" })
-          .join("profiles", { "profiles.id": "watchlist.user_id" })
-          .eq("profiles.id", "a6a61765-c2a2-406a-a465-695b8ee10b80");
+          .from(`movies`)
+          .select("*", "watchlist(*)", "profiles(*)")
+          .eq(`id, watchlist.movie_id`);
 
         if (data) {
           console.log(data);
