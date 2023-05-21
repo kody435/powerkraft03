@@ -6,7 +6,6 @@ import styles from "../../styles/Home.module.css";
 import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import { useUser } from "@supabase/auth-helpers-react";
-import { Tab } from "@headlessui/react";
 
 export default function Post({ series }) {
   let [isOpen, setIsOpen] = useState(false);
@@ -15,8 +14,10 @@ export default function Post({ series }) {
   const user = useUser();
   const [select, setSelect] = useState("1");
   const [selectedEpisode, setSelectedEpisode] = useState("1");
-
-  console.log(series);
+  const [writer, setWriter] = useState([]);
+  const [director, setDirector] = useState([]);
+  const [cast, setCast] = useState([]);
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     if (series.tmdb) {
@@ -24,12 +25,43 @@ export default function Post({ series }) {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `https://api.themoviedb.org/3/tv/${tmdb}?api_key=9a6cc794e0d32ccd83dc9b5bebda750b`
+            `https://api.themoviedb.org/3/tv/${tmdb}?api_key=9a6cc794e0d32ccd83dc9b5bebda750b&append_to_response=videos,credits`
           );
           if (response.ok) {
             const jsonData = await response.json();
             setData(jsonData);
-              console.log(jsonData);
+            console.log(jsonData);
+
+            // director
+            let director = jsonData.credits.crew;
+            director = director.filter((crew) => {
+              return crew.job === "Director";
+            });
+
+            // writer
+            let writer = jsonData.credits.crew;
+            writer = writer.filter((crew) => {
+              return crew.job === "Writer" || crew.job === "Story";
+            });
+
+            // cast
+            let cast = jsonData.credits.cast;
+            cast = cast.filter((cast) => {
+              return cast.order < 12;
+            });
+
+            // videos
+            let videos = jsonData.videos.results;
+            videos = videos.filter((video) => {
+              return video.type === "Trailer";
+            });
+
+            if (jsonData.credits.crew) {
+              setDirector(director[0].name);
+              setWriter(writer[0].name);
+              setCast(cast);
+              setVideos(videos);
+            }
           }
         } catch (error) {
           console.error(error);
@@ -40,6 +72,14 @@ export default function Post({ series }) {
   }, [series, tmdb, user]);
   const router = useRouter();
 
+  let releaseDate = data.first_air_date;
+  releaseDate = releaseDate?.split("-")[0];
+
+  let runtime = data.episode_run_time;
+  let hours = Math.floor(runtime / 60);
+  let minutes = runtime % 60;
+  let runtimeString = `${hours}h ${minutes}m`;
+
   if (router.isFallback) {
     return (
       <div className="text-xl flex justify-center items-center">Loading...</div>
@@ -47,196 +87,256 @@ export default function Post({ series }) {
   }
 
   return (
-    <div className={styles.main}>
-      <Head>
-        <title>OCTULUS | {series.name}</title>
-        <meta
-          name="description"
-          content="Watch Movies, Series and Animes for free"
-        />
-        <meta property="og:title" content="Watch Movies, Series and Animes" />
-        <meta
-          property="og:description"
-          content="Only go-to site for watching Movies, Series and Animes"
-        />
-        <meta property="og:url" content="https://riddles-mocha.vercel.app/" />
-        <meta property="og:type" content="website" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <div className="flex flex-col bg-black">
       <div
         style={{
           backgroundImage: `url("https://image.tmdb.org/t/p/w1280/${data.backdrop_path}")`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "fit",
+          backgroundPosition: "center",
         }}
-        className="h-screen bg-cover bg-center flex flex-col justify-end relative"
+        className="bg-cover bg-center flex flex-col justify-end relative backdrop-opacity-30 "
       >
-        <div
-          style={{
-            backgroundImage: "linear-gradient(to top, black, transparent)",
-          }}
-          className="flex flex-col justify-end"
-        >
-          <div className="text-center flex flex-col justify-end items-start w-screen ml-5 pb-5">
-            <Image
-              alt=""
-              className="opacity-100"
-              src={`https://image.tmdb.org/t/p/w300/${series.mainImage}`}
-              loading="lazy"
-              width={150}
-              height={100}
-            />
-          </div>
-          <div className="backdrop-blur-sm">
-            <h1 className="pl-5 text-4xl mr-2 h-fit text-white font-bold bg-transparent backdrop-blur-sm">
+        <div className="flex flex-col gap-6 justify-end items-center w-screen md:items-start backdrop-blur-sm backdrop-brightness-75 ">
+          <Image
+            alt=""
+            className="opacity-100 grid-cols-1 rounded-lg shadow-black shadow-2xl md:ml-10 my-12  md:mt-36 "
+            src={`https://image.tmdb.org/t/p/w300/${series.mainImage}`}
+            loading="lazy"
+            width={150}
+            height={100}
+          />
+
+          <div
+            className="w-screen px-6"
+            style={{
+              backgroundImage:
+                "linear-gradient(to top, black, black, transparent)",
+            }}
+          >
+            <h1 className="text-4xl h-fit text-white font-bold bg-transparent text-center md:text-left">
               {series.name}
               <br />
             </h1>
-            <p className="text-white pl-5 backdrop-blur-sm italic">
+            <div className="text-white text-md font-light italic text-center md:text-left">
               {`"` + data.tagline + `"`}
-            </p>
+            </div>
 
-            <div className=" rounded-3xl text-white bg-transparent relative">
-              <div className="mb-6 pl-4 pr-4 ">
-                <br />
-                <p className="font-medium text-md">{data.overview}</p>
-                <div className="flex md:flex-row flex-col mb-7 mt-5">
-                  <div className="flex flex-row space-x-5">
-                    <p className="font-medium text-md">{data.first_air_date}</p>
-                    {data.episode_run_time ? (
-                      <p className="font-medium text-md">
-                        {` ${data.episode_run_time}m `}
-                      </p>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                  <div className="md:mx-5 mt-2 md:mt-0">
-                    {data &&
-                      data?.spoken_languages?.map((genre, index) => {
-                        return (
-                          <div className="font-medium text-md" key={index}>
-                            {genre.name}
-                            {index !== data.spoken_languages.length - 1 && (
-                              <span>, &nbsp;</span>
-                            )}
-                          </div>
-                        );
-                      })}
-                  </div>
-                  <div className="md:mx-5 mt-2 md:mt-0">
-                    {data &&
-                      data?.genres?.map((genre, index) => {
-                        return (
-                          <span
-                            className="font-medium text-md space-x-0"
-                            key={genre.id}
-                          >
-                            {genre.name}
-                            {index !== data.genres.length - 1 && (
-                              <span>,&nbsp;</span>
-                            )}
-                          </span>
-                        );
-                      })}
-                  </div>
-                </div>
-                <div className="mt-10 mb-3 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-5 lg:gap-8">
-                  <div className="flex flex-row items-center w-fit h-fit">
-                    <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
-                      Select season &nbsp;
-                    </h3>
-                    <select
-                      value={select}
-                      onChange={(e) => setSelect(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit h-fit p-1 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    >
-                      {series.dataArray.map((_, index) => (
-                        <option key={index}>{index + 1}</option>
-                      ))}
-                    </select>
-                  </div>
-                  {select && (
-                    <div className="flex flex-row items-center w-fit h-fit">
-                      <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
-                        Select episode &nbsp;
-                      </h3>
-                      <select
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit h-fit p-1 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        value={selectedEpisode}
-                        onChange={(e) => setSelectedEpisode(e.target.value)}
-                      >
-                        {[
-                          ...Array(series.dataArray[select - 1].maxEpisodes),
-                        ].map((_, index) => (
-                          <option key={index}>{index + 1}</option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex flex-col md:flex-row gap-5">
-                  <div
-                    onClick={() => setIsOpen(true)}
-                    className="flex justify-center items-center w-fit p-0.5 rounded-full border border-white cursor-pointer"
-                  >
-                    <div className="flex flex-row bg-lime-600 w-fit px-6 py-2 rounded-full ">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      &nbsp; Watch Now{" "}
-                    </div>
-                  </div>
-                </div>
-                <Dialog
-                  open={isOpen}
-                  onClose={() => setIsOpen(false)}
-                  className="relative z-50 "
-                >
-                  <div
-                    className="fixed inset-0 bg-black/80"
-                    aria-hidden="true"
-                  />
-                  <div className="fixed inset-0 flex items-center justify-center p-2">
-                    <Dialog.Panel className="lg:w-5/6 lg:h-5/6 w-screen h-2/6 md:w-5/6 md:h-3/6 rounded bg-white">
-                      {series.provider == 1 && (
-                        <iframe
-                          src={`https://vidsrc.me/embed/${series.tmdb}/${select}-${selectedEpisode}`}
-                          className="w-full h-full"
-                          allowFullScreen
-                        />
-                      )}
-                      {series.provider == 2 && (
-                        <iframe
-                          src={`https://2embed.org/embed/series?tmdb=${series.tmdb}&s=${select}&e=${selectedEpisode}`}
-                          className="w-full h-full"
-                          allowFullScreen
-                        />
-                      )}
-                      {series.provider == "" && (
-                        <iframe
-                          src={`https://v2.vidsrc.me/embed/${series.tmdb}/${select}-${selectedEpisode}`}
-                          className="w-full h-full"
-                          allowFullScreen
-                        />
-                      )}
-                    </Dialog.Panel>
-                  </div>
-                </Dialog>
+            <div className="flex justify-center flex-row my-3 gap-5 md:justify-start">
+              <div className="font-medium text-md text-white">
+                {releaseDate}
+              </div>
+              <div className="font-medium text-md text-white">
+                {runtimeString}
               </div>
             </div>
+            <div className="flex text-white justify-center md:justify-start">
+              {data &&
+                data?.spoken_languages?.map((genre, index) => {
+                  return (
+                    <span className="font-medium text-md" key={index}>
+                      {genre.name}
+                      {index !== data.spoken_languages.length - 1 && (
+                        <span>, &nbsp;</span>
+                      )}
+                    </span>
+                  );
+                })}
+            </div>
+
+            <div className="flex flex-row justify-center md:justify-start mb-7 mt-4 space-x-2">
+              {data.genres?.map((genre) => {
+                return (
+                  <div
+                    key={genre.id}
+                    className="flex flex-row rounded-full text-sm font-semibold text-white"
+                  >
+                    {genre.name}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-col justify-end md:py-4 text-white text-center md:text-left">
+              {data.overview}
+            </div>
+            <div className="flex flex-col justify-end text-white my-6 text-center md:text-left">
+              {director > 0 ? (
+                <div className="text-gray-300">
+                  Directed by: <span className="text-white">{director}</span>
+                </div>
+              ) : (
+                <div></div>
+              )}
+              {writer.length > 0 ? (
+                <div className="text-gray-300">
+                  Written by: <span className="text-white">{writer}</span>
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
           </div>
+        </div>
+      </div>
+
+      <div className="mb-10 mx-6 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-5 lg:gap-8">
+        <div className="flex flex-row items-center w-fit h-fit">
+          <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
+            Select season &nbsp;
+          </h3>
+          <select
+            value={select}
+            onChange={(e) => setSelect(e.target.value)}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit h-fit p-1 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            {series.dataArray.map((_, index) => (
+              <option key={index}>{index + 1}</option>
+            ))}
+          </select>
+        </div>
+        {select && (
+          <div className="flex flex-row items-center w-fit h-fit">
+            <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
+              Select episode &nbsp;
+            </h3>
+            <select
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit h-fit p-1 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value={selectedEpisode}
+              onChange={(e) => setSelectedEpisode(e.target.value)}
+            >
+              {[...Array(series.dataArray[select - 1].maxEpisodes)].map(
+                (_, index) => (
+                  <option key={index}>{index + 1}</option>
+                )
+              )}
+            </select>
+          </div>
+        )}
+      </div>
+
+      <div className="flex md:flex-row md:mx-6 mb-16 justify-center md:justify-start">
+        <div
+          onClick={() => setIsOpen(true)}
+          className="flex justify-center items-center w-fit p-0.5 rounded-full border-2 border-white cursor-pointer"
+        >
+          <div className="flex flex-row bg-lime-500 w-fit px-6 py-2 rounded-full cursor-pointer ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                fillRule="evenodd"
+                d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                clipRule="evenodd"
+              />
+            </svg>
+            &nbsp; Watch Now{" "}
+          </div>
+        </div>
+      </div>
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="relative z-50 "
+      >
+        <div className="fixed inset-0 bg-black/80" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-2">
+          <Dialog.Panel className="lg:w-5/6 lg:h-5/6 w-screen h-2/6 md:w-5/6 md:h-3/6 rounded bg-white">
+            {series.provider == 1 && (
+              <iframe
+                src={`https://vidsrc.me/embed/${series.tmdb}/${select}-${selectedEpisode}`}
+                className="w-full h-full"
+                allowFullScreen
+              />
+            )}
+            {series.provider == 2 && (
+              <iframe
+                src={`https://2embed.org/embed/series?tmdb=${series.tmdb}&s=${select}&e=${selectedEpisode}`}
+                className="w-full h-full"
+                allowFullScreen
+              />
+            )}
+            {series.provider == "" && (
+              <iframe
+                src={`https://v2.vidsrc.me/embed/${series.tmdb}/${select}-${selectedEpisode}`}
+                className="w-full h-full"
+                allowFullScreen
+              />
+            )}
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+
+      <div className="flex flex-col my-7 gap-6 ">
+        <div className="text-white flex flex-col mx-2 sm:mx-3 md:mx-5 mb-10">
+          {cast.length > 0 ? (
+            <>
+              <h2 className="text-white font-bold text-xl md:text-2xl">Cast</h2>
+              <div className="flex whitespace-nowrap md:space-x-3 overflow-x-scroll scroll-ms-72 h-fit cursor-pointer">
+                {cast.map((cast, index) => (
+                  <div
+                    className="flex flex-col text-center px-3 py-3 md:px-3 gap-2 cursor-pointer justify-center items-center "
+                    key={index}
+                  >
+                    <Image
+                      alt=""
+                      className="opacity-100 rounded-full border-2 h-28 w-28 cursor-pointer"
+                      src={`https://image.tmdb.org/t/p/w300_and_h300_face/${cast.profile_path}`}
+                      loading="lazy"
+                      width={200}
+                      height={200}
+                    />
+                    <div className="text-white text-sm w-28 overflow-x-hidden text-center">
+                      <div className="text-white" title={cast.name}>
+                        {cast.name}
+                      </div>
+                      <div className="text-gray-400" title={cast.character}>
+                        {cast.character}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+          <br />
+          <br />
+          {videos.length > 0 ? (
+            <div>
+              <h2 className="text-white font-bold text-xl md:text-2xl">
+                Videos
+              </h2>
+              <div className="flex flex-row justify-start overflow-x-scroll gap-3 ">
+                {videos.map((video, index) => (
+                  <div
+                    className="flex flex-col text-center px-1 py-3 md:px-3 gap-0 cursor-pointer justify-center items-start"
+                    key={index}
+                  >
+                    <iframe
+                      className="rounded-lg shadow-black shadow-2xl"
+                      width="300"
+                      height="200"
+                      src={`https://www.youtube.com/embed/${video.key}`}
+                      title={video.name}
+                      allowFullScreen
+                    ></iframe>
+                    <div className="text-white text-sm font-semibold overflow-x-hidden text-center">
+                      <div className="text-white" title={video.name}>
+                        {video.name}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
