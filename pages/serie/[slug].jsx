@@ -129,19 +129,19 @@ export default function Post({ series }) {
               <div className="font-medium text-md text-white">
                 {runtimeString}
               </div>
-              <div className="font-medium text-md text-white">
-                {data &&
-                  data?.spoken_languages?.map((genre, index) => {
-                    return (
-                      <span className="font-medium text-md" key={index}>
-                        {genre.name}
-                        {index !== data.spoken_languages.length - 1 && (
-                          <span>, &nbsp;</span>
-                        )}
-                      </span>
-                    );
-                  })}
-              </div>
+            </div>
+            <div className="flex text-white justify-center md:justify-start">
+              {data &&
+                data?.spoken_languages?.map((genre, index) => {
+                  return (
+                    <span className="font-medium text-md" key={index}>
+                      {genre.name}
+                      {index !== data.spoken_languages.length - 1 && (
+                        <span>, &nbsp;</span>
+                      )}
+                    </span>
+                  );
+                })}
             </div>
 
             <div className="flex flex-row justify-center md:justify-start mb-7 mt-4 space-x-2">

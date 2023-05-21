@@ -137,6 +137,8 @@ export default function Post({ movies }) {
               <div className="font-medium text-md text-white">
                 {runtimeString}
               </div>
+            </div>
+            <div className="flex text-white justify-center md:justify-start">
               {data &&
                 data?.spoken_languages?.map((genre, index) => {
                   return (
