@@ -88,7 +88,9 @@ export default function Post({ movies }) {
 
   if (router.isFallback) {
     return (
-      <div className="text-xl text-white bg-black w-screen h-screen flex justify-center items-center">Loading...</div>
+      <div className="text-xl text-white bg-black w-screen h-screen flex justify-center items-center">
+        Loading...
+      </div>
     );
   }
 
@@ -135,16 +137,17 @@ export default function Post({ movies }) {
               <div className="font-medium text-md text-white">
                 {runtimeString}
               </div>
-              <div className="font-medium text-md text-white">
-                {data.languages.map((language, index) => { 
+              {data &&
+                data?.spoken_languages?.map((genre, index) => {
                   return (
-                    <span key={index}>
-                      {language.name}
-                      {index !== data.languages.length - 1 ? ", " : ""}
+                    <span className="font-medium text-md" key={index}>
+                      {genre.name}
+                      {index !== data.spoken_languages.length - 1 && (
+                        <span>, &nbsp;</span>
+                      )}
                     </span>
                   );
                 })}
-              </div>
             </div>
             <div className="flex flex-row justify-center md:justify-start mb-7 mt-4 space-x-2">
               {data.genres?.map((genre) => {
