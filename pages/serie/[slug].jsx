@@ -180,6 +180,41 @@ export default function Post({ series }) {
         </div>
       </div>
 
+      <div className="mb-10 mx-6 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-5 lg:gap-8">
+        <div className="flex flex-row items-center w-fit h-fit">
+          <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
+            Select season &nbsp;
+          </h3>
+          <select
+            value={select}
+            onChange={(e) => setSelect(e.target.value)}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit h-fit p-1 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            {series.dataArray.map((_, index) => (
+              <option key={index}>{index + 1}</option>
+            ))}
+          </select>
+        </div>
+        {select && (
+          <div className="flex flex-row items-center w-fit h-fit">
+            <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
+              Select episode &nbsp;
+            </h3>
+            <select
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit h-fit p-1 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value={selectedEpisode}
+              onChange={(e) => setSelectedEpisode(e.target.value)}
+            >
+              {[...Array(series.dataArray[select - 1].maxEpisodes)].map(
+                (_, index) => (
+                  <option key={index}>{index + 1}</option>
+                )
+              )}
+            </select>
+          </div>
+        )}
+      </div>
+
       <div className="flex md:flex-row md:mx-6 mb-16 justify-center md:justify-start">
         <div
           onClick={() => setIsOpen(true)}
@@ -210,11 +245,27 @@ export default function Post({ series }) {
         <div className="fixed inset-0 bg-black/80" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-2">
           <Dialog.Panel className="lg:w-5/6 lg:h-5/6 w-screen h-2/6 md:w-5/6 md:h-3/6 rounded bg-white">
-            <iframe
-              src={`https://vidsrc.me/embed/${series.tmdb}`}
-              className="w-full h-full"
-              allowFullScreen
-            />
+            {series.provider == 1 && (
+              <iframe
+                src={`https://vidsrc.me/embed/${series.tmdb}/${select}-${selectedEpisode}`}
+                className="w-full h-full"
+                allowFullScreen
+              />
+            )}
+            {series.provider == 2 && (
+              <iframe
+                src={`https://2embed.org/embed/series?tmdb=${series.tmdb}&s=${select}&e=${selectedEpisode}`}
+                className="w-full h-full"
+                allowFullScreen
+              />
+            )}
+            {series.provider == "" && (
+              <iframe
+                src={`https://v2.vidsrc.me/embed/${series.tmdb}/${select}-${selectedEpisode}`}
+                className="w-full h-full"
+                allowFullScreen
+              />
+            )}
           </Dialog.Panel>
         </div>
       </Dialog>
