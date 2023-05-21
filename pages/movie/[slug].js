@@ -15,6 +15,7 @@ export default function Post({ movies }) {
   const [director, setDirector] = useState([]);
   const [cast, setCast] = useState([]);
   const [videos, setVideos] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     if (movies.tmdb) {
@@ -56,6 +57,13 @@ export default function Post({ movies }) {
               return video.type === "Trailer";
             });
             setVideos(videos);
+
+            // reviews
+            let review = jsonData.reviews.results;
+            review = review.filter((review) => {
+              return review.author_details.rating > 0;
+            });
+            setReviews(review);
           }
         } catch (error) {
           console.error(error);
@@ -158,21 +166,61 @@ export default function Post({ movies }) {
         </div>
       </div>
 
+
+      <div className="flex md:flex-row md:mx-6 mb-16 justify-center md:justify-start">
+        <div
+          onClick={() => setIsOpen(true)}
+          className="flex justify-center items-center w-fit p-0.5 rounded-full border border-white cursor-pointer"
+        >
+          <div className="flex flex-row bg-lime-500 w-fit px-6 py-2 rounded-full ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                fillRule="evenodd"
+                d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                clipRule="evenodd"
+              />
+            </svg>
+            &nbsp; Watch Now{" "}
+          </div>
+        </div>
+      </div>
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="relative z-50 "
+      >
+        <div className="fixed inset-0 bg-black/80" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-2">
+          <Dialog.Panel className="lg:w-5/6 lg:h-5/6 w-screen h-2/6 md:w-5/6 md:h-3/6 rounded bg-white">
+              <iframe
+                src={`https://vidsrc.me/embed/${movies.tmdb}`}
+                className="w-full h-full"
+                allowFullScreen
+              />
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+
+
       <div className="flex flex-col my-7 gap-6 ">
         <div className="text-white flex flex-col mx-2 sm:mx-3 md:mx-5 mb-10">
           {cast.length > 0 ? (
             <>
               <h2 className="text-white font-bold text-xl md:text-2xl">Cast</h2>
-              <br />
-              <div className="flex whitespace-nowrap md:space-x-3 overflow-x-scroll scroll-ms-72 h-fit">
+              <div className="flex whitespace-nowrap md:space-x-3 overflow-x-scroll scroll-ms-72 h-fit cursor-pointer">
                 {cast.map((cast, index) => (
                   <div
-                    className="flex flex-col text-center px-3 py-3 md:px-3 gap-2 cursor-pointer justify-center items-center"
+                    className="flex flex-col text-center px-3 py-3 md:px-3 gap-2 cursor-pointer justify-center items-center "
                     key={index}
                   >
                     <Image
                       alt=""
-                      className="opacity-100 rounded-full border-2 h-28 w-28"
+                      className="opacity-100 rounded-full border-2 h-28 w-28 cursor-pointer"
                       src={`https://image.tmdb.org/t/p/w300_and_h300_face/${cast.profile_path}`}
                       loading="lazy"
                       width={200}
@@ -193,14 +241,13 @@ export default function Post({ movies }) {
           ) : (
             <></>
           )}
-
+          <br />
           <br />
           {videos.length > 0 ? (
             <div>
               <h2 className="text-white font-bold text-xl md:text-2xl">
                 Videos
               </h2>
-              <br />
               <div className="flex flex-row justify-start overflow-x-scroll gap-3 ">
                 {videos.map((video, index) => (
                   <div

@@ -15,7 +15,6 @@ export default function Post({ series }) {
   const [select, setSelect] = useState("1");
   const [selectedEpisode, setSelectedEpisode] = useState("1");
 
-
   useEffect(() => {
     if (series.tmdb) {
       setTmdb(series.tmdb);
