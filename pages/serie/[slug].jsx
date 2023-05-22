@@ -19,7 +19,7 @@ export default function Post({ series }) {
   const [cast, setCast] = useState([]);
   const [videos, setVideos] = useState([]);
   const [runTime, setRunTime] = useState("");
-  const [relDate, setRelDate] = useState('N/A');
+  const [relDate, setRelDate] = useState("N/A");
 
   useEffect(() => {
     if (series.tmdb) {
@@ -66,7 +66,7 @@ export default function Post({ series }) {
               } else if (writer[0].name !== undefined) {
                 setWriter(writer[0].name);
               } else {
-                return
+                return;
               }
             }
           }
@@ -79,21 +79,20 @@ export default function Post({ series }) {
     let releaseDate = data.first_air_date;
     releaseDate = releaseDate?.split("-")[0];
     setRelDate(releaseDate);
-  
+
     let runtime = data.episode_run_time;
     if (runtime === undefined) {
       setRunTime("N/A");
-    } else if (typeof runtime === 'string') {
+    } else if (typeof runtime === "string") {
       let hours = Math.floor(runtime / 60);
       let minutes = runtime % 60;
       let runtimeString = `${hours}h ${minutes}m`;
       setRunTime(runtimeString);
     } else if (Array.isArray(runtime)) {
-      setRunTime('N/A')
+      setRunTime("N/A");
     }
   }, [series, tmdb, user]);
   const router = useRouter();
-
 
   if (router.isFallback) {
     return (

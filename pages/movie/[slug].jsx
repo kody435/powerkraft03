@@ -73,16 +73,16 @@ export default function Post({ movies }) {
   let minutes = runtime % 60;
   let runtimeString = `${hours}h ${minutes}m`;
 
-  // async function watchLater() {
-  //   const { data, error } = await supabase
-  //     .from("watchlist")
-  //     .insert([{ user_id: user.id, movie_id: movies.id }]);
-  //   if (data) {
-  //     return;
-  //   } else {
-  //     console.log(error);
-  //   }
-  // }
+  async function watchLater() {
+    const { data, error } = await supabase
+      .from("watchlist")
+      .insert([{ user_id: user.id, movie_id: movies.id }]);
+    if (data) {
+      return;
+    } else {
+      console.log(error);
+    }
+  }
 
   const router = useRouter();
 
@@ -186,17 +186,19 @@ export default function Post({ movies }) {
         </div>
       </div>
 
-      <div className="flex md:flex-row md:mx-6 mb-16 justify-center md:justify-start">
+      <div className="flex flex-col md:flex-row gap-5 md:mx-6 items-center md:justify-start">
         <div
-          onClick={() => setIsOpen(true)}
-          className="flex justify-center items-center w-fit p-0.5 h-fit rounded-full border-2 border-white cursor-pointer"
+          className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
+          onClick={() => {
+            setIsOpen(true);
+          }}
         >
-          <div className="flex flex-row bg-lime-500 w-fit px-6 py-2 rounded-full cursor-pointer">
+          <div className="bg-lime-500 flex flex-row rounded-full py-2.5 px-7 cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6"
+              className="w-6 h-6 cursor-pointer"
             >
               <path
                 fillRule="evenodd"
@@ -204,10 +206,35 @@ export default function Post({ movies }) {
                 clipRule="evenodd"
               />
             </svg>
-            &nbsp; Watch Now{" "}
+            <h3 className="cursor-pointer">&nbsp; Watch Now </h3>
+          </div>
+        </div>
+
+        <div
+          className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
+          onClick={watchLater}
+        >
+          <div className="bg-blue-500 flex flex-row rounded-full py-2.5 px-7 cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="w-6 h-6 cursor-pointer"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+
+            <h3>&nbsp; Watch Later </h3>
           </div>
         </div>
       </div>
+
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}
