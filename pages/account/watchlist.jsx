@@ -15,10 +15,9 @@ export default function Watchlist() {
     if (user) {
       const { data, error } = await supabase
         .from(`movies`)
-        .select("*, watchlist!inner(*), profiles(*)")
-        .eq("watchlist.user_id", `${user.id}`);
+        .select("*, mwatchlist!inner(*), profiles(*)")
+        .eq("mwatchlist.user_id", `${user.id}`);
       if (data) {
-        console.log(data);
         setMovie(data);
       } else {
         console.log(error);
