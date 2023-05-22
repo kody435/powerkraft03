@@ -254,10 +254,10 @@ export default function Navbar() {
                 </a>
                 {userData && (
                   <a
-                  href="/serie"
+                  href="/account/watchlist"
                   className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
                 >
-                  <div className="border-b-2 w-fit">TV SHOWS</div>
+                  <div className="border-b-2 w-fit">WATCHLIST</div>
                 </a>
                 ) }
               </div>
