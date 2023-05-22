@@ -23,6 +23,8 @@ export default function Watchlist() {
       } else {
         console.log(error);
       }
+    } else {
+      return
     }
   }, [user]);
 
@@ -34,8 +36,8 @@ export default function Watchlist() {
     <div className="bg-black text-white h-screen">
       <Toaster />
       {user && movie ? (
-        <>
-          <h1>Watchlist</h1>
+        <div className="py-10 z-50">
+          <h1 className="text-white text-2xl ml-6 font-bold">Movies</h1>
           <div className="text-white">
             <main className="container mx-auto my-10 px-3 md:px-0">
               <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
@@ -61,7 +63,7 @@ export default function Watchlist() {
               </div>
             </main>
           </div>
-        </>
+        </div>
       ) : (
         <div className="text-center w-screen h-screen bg-black text-white flex items-center justify-center text-md md:text-lg xl:text-xl 2xl:text-2xl">
           Please&nbsp;

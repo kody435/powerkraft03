@@ -3,7 +3,7 @@ import { Dialog, Popover } from "@headlessui/react";
 import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { use, useState } from "react";
 import { useRouter } from "next/router";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
@@ -79,13 +79,26 @@ export default function Navbar() {
           <Link
             href="/serie"
             className={`text-lg font-semibold text-gray-100 hover:text-white active:border-emerald-400 rounded-sm ${
-              router.pathname === "/series"
+              router.pathname === "/serie"
                 ? "border-b-4 border-white"
                 : "hover:border-b-4 border-emerald-400"
             }`}
           >
             TV SHOWS
           </Link>
+          {userData ? (
+            <Link
+            href="/account/watchlist"
+            className={`text-lg font-semibold text-gray-100 hover:text-white active:border-emerald-400 rounded-sm ${
+              router.pathname === "/account/watchlist"
+                ? "border-b-4 border-white"
+                : "hover:border-b-4 border-emerald-400"
+            }`}
+          >
+            WATCHLIST
+            </Link>
+          ) : (
+            <></>)}
           <Link
             href="/request"
             className={`text-lg font-semibold bg-clip-text text-white hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
