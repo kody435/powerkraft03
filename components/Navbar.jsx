@@ -86,7 +86,7 @@ export default function Navbar() {
           >
             TV SHOWS
           </Link>
-          {userData ? (
+          {userData && (
             <Link
             href="/account/watchlist"
             className={`text-lg font-semibold text-gray-100 hover:text-white active:border-emerald-400 rounded-sm ${
@@ -97,8 +97,7 @@ export default function Navbar() {
           >
             WATCHLIST
             </Link>
-          ) : (
-            <></>)}
+          )}
           <Link
             href="/request"
             className={`text-lg font-semibold bg-clip-text text-white hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
@@ -253,6 +252,14 @@ export default function Navbar() {
                     </div>
                   )}
                 </a>
+                {userData && (
+                  <a
+                  href="/serie"
+                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
+                >
+                  <div className="border-b-2 w-fit">TV SHOWS</div>
+                </a>
+                ) }
               </div>
             </div>
           </div>
