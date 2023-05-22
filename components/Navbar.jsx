@@ -88,14 +88,14 @@ export default function Navbar() {
           </Link>
           {userData && (
             <Link
-            href="/account/watchlist"
-            className={`text-lg font-semibold text-gray-100 hover:text-white active:border-emerald-400 rounded-sm ${
-              router.pathname === "/account/watchlist"
-                ? "border-b-4 border-white"
-                : "hover:border-b-4 border-emerald-400"
-            }`}
-          >
-            WATCHLIST
+              href="/account/watchlist"
+              className={`text-lg font-semibold text-gray-100 hover:text-white active:border-emerald-400 rounded-sm ${
+                router.pathname === "/account/watchlist"
+                  ? "border-b-4 border-white"
+                  : "hover:border-b-4 border-emerald-400"
+              }`}
+            >
+              WATCHLIST
             </Link>
           )}
           <Link
@@ -254,12 +254,12 @@ export default function Navbar() {
                 </a>
                 {userData && (
                   <a
-                  href="/account/watchlist"
-                  className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
-                >
-                  <div className="border-b-2 w-fit">WATCHLIST</div>
-                </a>
-                ) }
+                    href="/account/watchlist"
+                    className="-mx-3 block rounded-lg py-2 px-3 font-bold text-xl text-gray-200 "
+                  >
+                    <div className="border-b-2 w-fit">WATCHLIST</div>
+                  </a>
+                )}
               </div>
             </div>
           </div>
