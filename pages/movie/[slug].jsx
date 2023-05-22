@@ -74,9 +74,10 @@ export default function Post({ movies }) {
   let runtimeString = `${hours}h ${minutes}m`;
 
   async function watchLater() {
+    console.log(user.id, movies.id)
     const { data, error } = await supabase
       .from("watchlist")
-      .insert([{ user_id: user.id, movie_id: movies.id }]);
+      .insert({ user_id: `${user.id}`, movie_id: `${movies.id}` });
     if (data) {
       return;
     } else {
@@ -186,7 +187,7 @@ export default function Post({ movies }) {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-5 md:mx-6 items-center md:justify-start">
+      <div className="flex flex-col md:flex-row gap-5 md:mx-6 mt-4 mb-14 items-center md:justify-start">
         <div
           className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
           onClick={() => {
@@ -210,7 +211,8 @@ export default function Post({ movies }) {
           </div>
         </div>
 
-        <div
+        {user ? (
+          <div
           className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
           onClick={watchLater}
         >
@@ -229,10 +231,12 @@ export default function Post({ movies }) {
                 d="M12 4.5v15m7.5-7.5h-15"
               />
             </svg>
-
             <h3>&nbsp; Watch Later </h3>
           </div>
         </div>
+        ) : (
+            <></>
+        )}
       </div>
 
       <Dialog
