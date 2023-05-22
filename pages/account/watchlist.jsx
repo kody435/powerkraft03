@@ -16,10 +16,10 @@ export default function Watchlist() {
       const { data, error } = await supabase
         .from(`movies`)
         .select("*, watchlist!inner(*), profiles(*)")
-        .eq("watchlist.user_id", "b3a78a0c-1760-443e-acbe-7d69b3db7e97");
+        .eq("watchlist.user_id", `${user.id}`);
       if (data) {
+        console.log(data);
         setMovie(data);
-        console.log(data.map(($) => $.name)); //
       } else {
         console.log(error);
       }
@@ -37,19 +37,29 @@ export default function Watchlist() {
         <>
           <h1>Watchlist</h1>
           <div className="text-white">
-            {movie?.map((mov, idx) => (
-              <div key={idx}>
-                <Image
-                  alt=""
-                  className="opacity-100 grid-cols-1 rounded-lg shadow-black shadow-2xl md:ml-10 my-12  md:mt-36 "
-                  src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
-                  loading="lazy"
-                  width={150}
-                  height={100}
-                />
-                {mov.name}
+            <main className="container mx-auto my-10 px-3 md:px-0">
+              <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
+                {movie.map((mov) => (
+                  <Link
+                    href={`/movie/${mov.slug}`}
+                    className="shadow-lg rounded-lg flex flex-col items-center"
+                    key={mov.id}
+                  >
+                    <Image
+                      alt=""
+                      className="rounded-lg hover:opacity-75 opacity-100"
+                      src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
+                      loading="lazy"
+                      width={150}
+                      height={100}
+                    />
+                    <h3 className="text-white font-bolder text-md text-center ">
+                      {mov.name}
+                    </h3>
+                  </Link>
+                ))}
               </div>
-            ))}
+            </main>
           </div>
         </>
       ) : (
