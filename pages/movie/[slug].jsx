@@ -77,7 +77,7 @@ export default function Post({ movies }) {
     const { data, error } = await supabase
       .from("mwatchlist")
       .insert({ user_id: `${user.id}`, movie_id: `${movies.id}` });
-      if (data) {
+    if (data) {
       router.push("/account/watchlist");
       return;
     } else {

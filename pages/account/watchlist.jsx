@@ -23,7 +23,7 @@ export default function Watchlist() {
         console.log(error);
       }
     } else {
-      return
+      return;
     }
   }, [user]);
 
@@ -37,31 +37,35 @@ export default function Watchlist() {
       {user && movie ? (
         <div className="py-10 z-50">
           <h1 className="text-white text-2xl ml-6 font-bold">Movies</h1>
-          <div className="text-white">
-            <main className="container mx-auto my-10 px-3 md:px-0">
-              <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
-                {movie.map((mov) => (
-                  <Link
-                    href={`/movie/${mov.slug}`}
-                    className="shadow-lg rounded-lg flex flex-col items-center"
-                    key={mov.id}
-                  >
-                    <Image
-                      alt=""
-                      className="rounded-lg hover:opacity-75 opacity-100"
-                      src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
-                      loading="lazy"
-                      width={150}
-                      height={100}
-                    />
-                    <h3 className="text-white font-bolder text-md text-center ">
-                      {mov.name}
-                    </h3>
-                  </Link>
-                ))}
-              </div>
-            </main>
-          </div>
+          {movie.length !== 0 ? (
+            <div className="text-white">
+              <main className="container mx-auto my-10 px-3 md:px-0">
+                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
+                  {movie.map((mov) => (
+                    <Link
+                      href={`/movie/${mov.slug}`}
+                      className="shadow-lg rounded-lg flex flex-col items-center"
+                      key={mov.id}
+                    >
+                      <Image
+                        alt=""
+                        className="rounded-lg hover:opacity-75 opacity-100"
+                        src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
+                        loading="lazy"
+                        width={150}
+                        height={100}
+                      />
+                      <h3 className="text-white font-bolder text-md text-center ">
+                        {mov.name}
+                      </h3>
+                    </Link>
+                  ))}
+                </div>
+              </main>
+            </div>
+          ) : (
+            <div className="w-screen h-20 flex items-end px-20 text-md lg:text-xl xl:text-2xl text-gray-500">Nothing to see here</div>
+          )}
         </div>
       ) : (
         <div className="text-center w-screen h-screen bg-black text-white flex items-center justify-center text-md md:text-lg xl:text-xl 2xl:text-2xl">
