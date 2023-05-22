@@ -27,7 +27,6 @@ export default function Post({ movies }) {
           if (response.ok) {
             const jsonData = await response.json();
             setData(jsonData);
-            console.log(jsonData);
 
             // director
             let director = jsonData.credits.crew;
@@ -79,6 +78,7 @@ export default function Post({ movies }) {
       .from("watchlist")
       .insert({ user_id: `${user.id}`, movie_id: `${movies.id}` });
     if (data) {
+      router.push("/account/watchlist");
       return;
     } else {
       console.log(error);

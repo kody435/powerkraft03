@@ -63,10 +63,10 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-black h-screen w-screen text-white">
+    <div className="bg-black h-screen w-screen text-white py-2">
       <Toaster />
       {!user ? (
-        <div className="mx-2 sm:mx-8 md:mx-20 lg:mx-36 xl:mx-64 2xl:mx-80">
+        <div className="mx-10 sm:mx-36 md:mx-44 lg:mx-80 xl:mx-96 2xl:mx-96">
           <Auth
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
