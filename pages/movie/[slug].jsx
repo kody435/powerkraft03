@@ -73,12 +73,12 @@ export default function Post({ movies }) {
   let runtimeString = `${hours}h ${minutes}m`;
 
   async function watchLater() {
-    console.log(user.id, movies.id)
+    console.log(user.id, movies.id);
     const { data, error } = await supabase
       .from("mwatchlist")
       .insert({ user_id: `${user.id}`, movie_id: `${movies.id}` });
+      if (data) {
       router.push("/account/watchlist");
-    if (data) {
       return;
     } else {
       console.log(error);
@@ -213,29 +213,29 @@ export default function Post({ movies }) {
 
         {user ? (
           <div
-          className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
-          onClick={watchLater}
-        >
-          <div className="bg-blue-500 flex flex-row rounded-full py-2.5 px-7 cursor-pointer">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6 cursor-pointer"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
-            <h3>&nbsp; Watch Later </h3>
+            className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
+            onClick={watchLater}
+          >
+            <div className="bg-blue-500 flex flex-row rounded-full py-2.5 px-7 cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6 cursor-pointer"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+              <h3>&nbsp; Watch Later </h3>
+            </div>
           </div>
-        </div>
         ) : (
-            <></>
+          <></>
         )}
       </div>
 
