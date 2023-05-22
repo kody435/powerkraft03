@@ -137,7 +137,9 @@ export default function Post({ series }) {
             </div>
 
             <div className="flex justify-center flex-row my-3 gap-5 md:justify-start">
-              <div className="font-medium text-md text-white">{relDate}</div>
+              {relDate !== "N/A" && (
+                <div className="font-medium text-md text-white">{relDate}</div>
+              )}
               {runTime === null ? (
                 <></>
               ) : (
