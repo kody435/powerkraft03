@@ -5,7 +5,7 @@ import Head from "next/head";
 
 function Page({ movies }) {
   return (
-    <div className="flex flex-col bg-black h-screen">
+    <div className="flex flex-col bg-black">
       <Head>
         <title>OCTULUS | TV Shows</title>
         <meta
@@ -26,7 +26,7 @@ function Page({ movies }) {
           {movies.map((movie, index) => (
             <Link
               href={`/serie/${movie.slug}`}
-              className="shadow-lg rounded-lg flex flex-col items-center"
+              className="shadow-lg rounded-lg flex flex-col items-center w-fit"
               key={index}
             >
               <Image
