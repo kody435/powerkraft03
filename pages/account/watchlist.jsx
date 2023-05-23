@@ -88,7 +88,7 @@ export default function Watchlist() {
           )}
           <br />
           <br />
-          <h1 className="text-white text-2xl ml-6 font-bold">Movies</h1>
+          <h1 className="text-white text-2xl ml-6 font-bold">Series</h1>
           {serie.length !== 0 ? (
             <div className="text-white">
               <main className="container mx-auto my-10 px-3 md:px-0">
@@ -124,7 +124,7 @@ export default function Watchlist() {
       ) : (
         <div className="text-center w-screen h-screen bg-black text-white flex items-center justify-center text-md md:text-lg xl:text-xl 2xl:text-2xl">
           Please&nbsp;
-          <Link href="/account" className="text-red-500">
+          <Link href="/account" className="text-red-500 text-bold">
             sign in
           </Link>
           &nbsp;first to see your Watchlist
