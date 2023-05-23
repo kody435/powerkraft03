@@ -50,7 +50,7 @@ export default function Watchlist() {
   }, [router, user, fetchMWatchlist, fetchSWatchlist]);
 
   return (
-    <div className="bg-black text-white sm:h-screen">
+    <div className="bg-black text-white h-screen">
       <Toaster />
       {user ? (
         <div className="">
@@ -81,7 +81,8 @@ export default function Watchlist() {
                         <button
                           className="h-10 items-center w-10 bg-red-500 flex justify-center mx-3 rounded-lg border-2"
                           onClick={async() => {
-                            const { data, error } = await supabase.from("mwatchlist").delete().match({ user_id: user.id, movie_id: mov.id });
+                            const { data, error } = await supabase.from("mwatchlist").delete().eq("user_id", user.id).eq("movie_id", mov.id);
+                            console.log(user.id, mov.id)
                             if (data) {
                               console.log(data);
                               fetchMWatchlist();
