@@ -58,7 +58,7 @@ export default function Watchlist() {
           {movie.length !== 0 ? (
             <div className="text-white">
               <main className="container mx-auto my-10 px-3 md:px-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6 mx-5">
                   {movie.map((mov) => (
                     <div
                       className="shadow-lg rounded-lg flex flex-row items-center "

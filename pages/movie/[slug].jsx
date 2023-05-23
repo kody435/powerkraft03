@@ -188,7 +188,7 @@ export default function Post({ movies }) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-5 md:mx-6 mt-4 mb-14 items-center md:justify-start">
-        <div
+        <button
           className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
           onClick={() => {
             setIsOpen(true);
@@ -207,9 +207,9 @@ export default function Post({ movies }) {
                 clipRule="evenodd"
               />
             </svg>
-            <h3 className="cursor-pointer">&nbsp; Watch Now </h3>
+            <h3 className="cursor-pointer font-bold">&nbsp; Watch Now </h3>
           </div>
-        </div>
+        </button>
 
         {user ? (
           <button
@@ -231,7 +231,7 @@ export default function Post({ movies }) {
                   d="M12 4.5v15m7.5-7.5h-15"
                 />
               </svg>
-              <h3>&nbsp; Watch Later </h3>
+              <h3 className="cursor-pointer font-bold">&nbsp; Watch Later </h3>
             </div>
           </button>
         ) : (
