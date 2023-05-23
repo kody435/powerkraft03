@@ -50,7 +50,7 @@ export default function Watchlist() {
   }, [router, user, fetchMWatchlist, fetchSWatchlist]);
 
   return (
-    <div className="bg-black text-white h-screen">
+    <div className="bg-black text-white ">
       <Toaster />
       {user ? (
         <div className="">
@@ -122,7 +122,7 @@ export default function Watchlist() {
           <br />
           <h1 className="text-white text-2xl px-6 font-bold">Series</h1>
           {serie.length !== 0 ? (
-            <div className="text-white">
+            <div className="text-white bg-black">
               <main className="container mx-auto my-10 px-3 md:px-0">
                 <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
                   {serie.map((mov) => (
