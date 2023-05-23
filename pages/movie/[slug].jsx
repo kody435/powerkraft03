@@ -212,7 +212,7 @@ export default function Post({ movies }) {
         </div>
 
         {user ? (
-          <div
+          <button
             className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
             onClick={watchLater}
           >
@@ -233,7 +233,7 @@ export default function Post({ movies }) {
               </svg>
               <h3>&nbsp; Watch Later </h3>
             </div>
-          </div>
+          </button>
         ) : (
           <></>
         )}
