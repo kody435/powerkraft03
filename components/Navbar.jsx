@@ -156,10 +156,10 @@ export default function Navbar() {
             </h1>
             <button
               type="button"
-              className="rounded-md text-gray-100 cursor-pointer"
+              className="rounded-md text-gray-100 "
               onClick={() => setMobileMenuOpen(false)}
             >
-              <span className="sr-only cursor-pointer">Close menu</span>
+              <span className="sr-only ">Close menu</span>
               <XMarkIcon
                 className="h-6 w-6 cursor-pointer"
                 aria-hidden="true"

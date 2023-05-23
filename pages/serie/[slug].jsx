@@ -24,8 +24,10 @@ export default function Post({ series }) {
   useEffect(() => {
     if (series.tmdb) {
       setTmdb(series.tmdb);
-      const fetchData = async () => {
+      const fetchData = async () => { // don't change anything till I build, you can now access npm run dev server @ port 3001, 3001 not opening, woof
         try {
+          // https://supabase.com/docs/reference/javascript/delete + ik and we can't do anything about it
+          // its breaking app, can you do something about it? 
           const response = await fetch(
             `https://api.themoviedb.org/3/tv/${tmdb}?api_key=9a6cc794e0d32ccd83dc9b5bebda750b&append_to_response=videos,credits`
           );
@@ -93,6 +95,19 @@ export default function Post({ series }) {
     }
   }, [series, tmdb, user]);
   const router = useRouter();
+// so, what we re waiting
+// ! message: 'new row violates row-level security policy for table "mwatchlist"'
+  async function watchLater() {
+    console.log(user.id, series.id);
+    const { data, error } = await supabase.from("swatchlist").insert({ user_id: `${user.id}`, serie_id: `${series.id}` });
+    if (data) {
+      // ! not pushing here cuz of error
+      router.push("/account/watchlist");
+      return;
+    } else {
+      console.log(error);
+    }
+  }
 
   if (router.isFallback) {
     return (
@@ -112,14 +127,14 @@ export default function Post({ series }) {
         className="bg-cover bg-center flex flex-col justify-end relative backdrop-opacity-30 "
       >
         <div className="flex flex-col gap-6 justify-end items-center w-screen md:items-start backdrop-blur-sm backdrop-brightness-75 ">
-          <Image
+          {series && <Image
             alt=""
             className="opacity-100 grid-cols-1 rounded-lg shadow-black shadow-2xl md:ml-10 my-12  md:mt-36 "
             src={`https://image.tmdb.org/t/p/w300/${series.mainImage}`}
             loading="lazy"
             width={150}
-            height={100}
-          />
+            height={100} // i need to go now, wait build. i ll check, then you can go
+          />}
 
           <div
             className="w-screen px-6"
@@ -231,17 +246,19 @@ export default function Post({ series }) {
         )}
       </div>
 
-      <div className="flex md:flex-row md:mx-6 mb-16 justify-center md:justify-start">
-        <div
-          onClick={() => setIsOpen(true)}
-          className="flex justify-center items-center w-fit p-0.5 rounded-full border-2 border-white cursor-pointer"
+      <div className="flex flex-col md:flex-row gap-5 md:mx-6 mt-4 mb-14 items-center md:justify-start">
+        <button
+          className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
+          onClick={() => {
+            setIsOpen(true);
+          }}
         >
-          <div className="flex flex-row bg-lime-500 w-fit px-6 py-2 rounded-full cursor-pointer ">
+          <div className="bg-lime-500 flex flex-row rounded-full py-2.5 px-7 cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6"
+              className="w-6 h-6 cursor-pointer"
             >
               <path
                 fillRule="evenodd"
@@ -249,10 +266,38 @@ export default function Post({ series }) {
                 clipRule="evenodd"
               />
             </svg>
-            &nbsp; Watch Now{" "}
+            <h3 className="cursor-pointer font-bold">&nbsp; Watch Now </h3>
           </div>
-        </div>
+        </button>
+
+        {user ? (
+          <button
+            className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
+            onClick={watchLater}
+          >
+            <div className="bg-blue-500 flex flex-row rounded-full py-2.5 px-7 cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6 cursor-pointer"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+              <h3 className="cursor-pointer font-bold">&nbsp; Watch Later </h3>
+            </div>
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
+      {/* le me ask sth. Why i cant see "delete" button at watchlist, or should i see even without anything on watchlist. Cuz because of i cant see that button, i cant test its functionality. */}
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}

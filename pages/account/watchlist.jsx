@@ -59,7 +59,7 @@ export default function Watchlist() {
             <div className="text-white">
               <main className="container mx-auto my-10 px-3 md:px-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6 mx-5">
-                  {movie.map((mov) => (
+                  {movie && movie.map((mov) => (
                     <div
                       className="shadow-lg rounded-lg flex flex-row items-center "
                       key={mov.id}
@@ -84,8 +84,12 @@ export default function Watchlist() {
                             const { data, error } = await supabase
                               .from("mwatchlist")
                               .delete()
-                            .eq("user_id", user.id)
-                              .eq("movie_id", mov.id);
+                              .eq(
+                                `user_id`,
+                                `b3a78a0c-1760-443e-acbe-7d69b3db7e97`
+                              )
+                              .eq(`movie_id`, 2);
+                          
                             
                             console.log(user.id, mov.id);
                             if (data) {
@@ -93,7 +97,6 @@ export default function Watchlist() {
                               fetchMWatchlist();
                             } else {
                               console.log(error);
-                              fetchMWatchlist();
                             }
                           }}
                         >
