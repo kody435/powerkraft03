@@ -73,6 +73,8 @@ const Home = () => {
             socialLayout="horizontal"
             providers={["google", "github"]}
             theme="dark"
+            socialColors={true}
+            redirectTo="/account"
           />
         </div>
       ) : (

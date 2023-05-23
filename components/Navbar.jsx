@@ -18,11 +18,9 @@ export default function Navbar() {
         className="flex justify-between lg:px-0 mx-2 md:mx-11 my-4 overflow-hidden"
         aria-label="Global"
       >
-        <Link href="/" className="overflow-hidden">
-          <h1 className="text-3xl md:text-4xl font-extralight text-white py-1">
-            The <span className="font-extrabold">OCTULUS</span>
-          </h1>
-        </Link>
+        <h1 className="text-3xl md:text-4xl font-extralight text-white py-1">
+          The <span className="font-extrabold">OCTULUS</span>
+        </h1>
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -153,11 +151,9 @@ export default function Navbar() {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-black px-4 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <Link href="/" className="">
-              <h1 className="text-3xl font-extralight text-white py-1">
-                The <span className="font-extrabold">OCTULUS</span>
-              </h1>
-            </Link>
+            <h1 className="text-3xl font-extralight text-white py-1">
+              The <span className="font-extrabold">OCTULUS</span>
+            </h1>
             <button
               type="button"
               className="rounded-md text-gray-100"
