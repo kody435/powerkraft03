@@ -22,6 +22,7 @@ const Home = () => {
       return;
     } else {
       try {
+        setLoading(true);
         let { data, error } = await supabase
           .from("profiles")
           .select(`username`)
@@ -34,6 +35,8 @@ const Home = () => {
           console.log(error);
           toast.error("Error fetching profile, try again later");
         }
+
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
