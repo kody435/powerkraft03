@@ -14,6 +14,7 @@ export default function Watchlist() {
   const [loading, setLoading] = useState(false);
 
   const fetchMWatchlist = useCallback(async () => {
+    setLoading(true);
     if (user) {
       const { data, error } = await supabase
         .from(`movies`)
@@ -27,6 +28,8 @@ export default function Watchlist() {
     } else {
       return;
     }
+
+    setLoading(false);
   }, [user]);
 
   const fetchSWatchlist = useCallback(async () => {
@@ -156,16 +159,12 @@ export default function Watchlist() {
                             </Link>
                             <div className="w-full flex flex-col items-center gap-4">
                               <h3 className="text-white font-semibold text-lg text-center ">
-                                {mov.name}
+                                {mov.id}
                               </h3>
                               <button
                                 className="h-10 items-center w-10 bg-red-500 flex justify-center mx-3 rounded-lg border-2"
                                 onClick={async () => {
-                                  const { data, error } = await supabase
-                                    .from("swatchlist")
-                                    .delete()
-                                    .eq("user_id", `${user.id}`)
-                                    .eq("serie_id", mov.id);
+                                  const { data, error } = await supabase.from("swatchlist").delete().eq("user_id", `${user.id}`).eq("serie_id", mov.id);
                                   fetchSWatchlist();
                                   if (data) {
                                     console.log(data);
@@ -196,7 +195,7 @@ export default function Watchlist() {
                   </main>
                 </div>
               ) : (
-                <div className="w-screen h-20 flex items-end px-6 text-md lg:text-xl xl:text-2xl text-gray-400">
+                <div className="w-screen h-20 flex items-end px-6 text-md lg:text-xl xl:text-2xl text-gray-400 mb-96">
                   Nothing to see here
                 </div>
               )}
