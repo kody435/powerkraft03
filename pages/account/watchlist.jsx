@@ -159,7 +159,7 @@ export default function Watchlist() {
                             </Link>
                             <div className="w-full flex flex-col items-center gap-4">
                               <h3 className="text-white font-semibold text-lg text-center ">
-                                {mov.id}
+                                {mov.name}
                               </h3>
                               <button
                                 className="h-10 items-center w-10 bg-red-500 flex justify-center mx-3 rounded-lg border-2"
