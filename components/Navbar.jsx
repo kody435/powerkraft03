@@ -15,13 +15,13 @@ export default function Navbar() {
   return (
     <header className="bg-black relative overflow-hidden z-50">
       <nav
-        className="flex justify-between lg:px-0 mx-2 md:mx-11 my-4 overflow-hidden"
+        className="flex justify-between lg:px-0 mx-2 md:mx-11 my-4 overflow-hidden cursor-pointer"
         aria-label="Global"
       >
-        <h1 className="text-3xl md:text-4xl font-extralight text-white py-1">
+        <h1 className="text-3xl md:text-4xl font-extralight text-white py-1 cursor-pointer">
           The <span className="font-extrabold">OCTULUS</span>
         </h1>
-        <div className="flex lg:hidden">
+        <div className="flex lg:hidden cursor-pointer">
           <button
             type="button"
             className=" inline-flex items-center justify-center rounded-md text-gray-100"
@@ -150,17 +150,20 @@ export default function Navbar() {
       >
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-black px-4 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-extralight text-white py-1">
+          <div className="flex items-center justify-between cursor-pointer">
+            <h1 className="text-3xl font-extralight text-white py-1 cursor-pointer">
               The <span className="font-extrabold">OCTULUS</span>
             </h1>
             <button
               type="button"
-              className="rounded-md text-gray-100"
+              className="rounded-md text-gray-100 "
               onClick={() => setMobileMenuOpen(false)}
             >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              <span className="sr-only ">Close menu</span>
+              <XMarkIcon
+                className="h-6 w-6 cursor-pointer"
+                aria-hidden="true"
+              />
             </button>
           </div>
           <div className="mt-6 flow-root">

@@ -73,7 +73,6 @@ export default function Post({ movies }) {
   let runtimeString = `${hours}h ${minutes}m`;
 
   async function watchLater() {
-    console.log(user.id, movies.id);
     const { data, error } = await supabase
       .from("mwatchlist")
       .insert({ user_id: `${user.id}`, movie_id: `${movies.id}` });
@@ -139,11 +138,11 @@ export default function Post({ movies }) {
                 {runtimeString}
               </div>
             </div>
-            <div className="flex text-white justify-center md:justify-start">
+            <div className="flex text-white justify-center text-center md:justify-start flex-row">
               {data &&
                 data?.spoken_languages?.map((genre, index) => {
                   return (
-                    <span className="font-medium text-md" key={index}>
+                    <span className="font-medium text-md flex flex-row" key={index}>
                       {genre.name}
                       {index !== data.spoken_languages.length - 1 && (
                         <span>, &nbsp;</span>
@@ -157,7 +156,7 @@ export default function Post({ movies }) {
                 return (
                   <div
                     key={genre.id}
-                    className="flex flex-row rounded-full text-sm font-semibold text-white"
+                    className="flex flex-row rounded-full text-md font-semibold text-white"
                   >
                     {genre.name}
                   </div>
@@ -188,7 +187,7 @@ export default function Post({ movies }) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-5 md:mx-6 mt-4 mb-14 items-center md:justify-start">
-        <div
+        <button
           className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
           onClick={() => {
             setIsOpen(true);
@@ -207,12 +206,12 @@ export default function Post({ movies }) {
                 clipRule="evenodd"
               />
             </svg>
-            <h3 className="cursor-pointer">&nbsp; Watch Now </h3>
+            <h3 className="cursor-pointer font-bold">&nbsp; Watch Now </h3>
           </div>
-        </div>
+        </button>
 
         {user ? (
-          <div
+          <button
             className="p-0.5 border-2 h-fit w-fit rounded-full cursor-pointer"
             onClick={watchLater}
           >
@@ -231,9 +230,9 @@ export default function Post({ movies }) {
                   d="M12 4.5v15m7.5-7.5h-15"
                 />
               </svg>
-              <h3>&nbsp; Watch Later </h3>
+              <h3 className="cursor-pointer font-bold">&nbsp; Watch Later </h3>
             </div>
-          </div>
+          </button>
         ) : (
           <></>
         )}
