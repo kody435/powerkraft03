@@ -57,7 +57,7 @@ export default function Watchlist() {
           <h1 className="text-white text-2xl ml-3 font-bold">Movies</h1>
           {movie.length !== 0 ? (
             <div className="text-white">
-              <main className="container mx-auto mt-10 px-3 md:px-6">
+              <main className="container mx-auto my-10 px-3 md:px-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6 mx-5">
                   {movie && movie.map((mov) => (
                     <div
@@ -128,7 +128,7 @@ export default function Watchlist() {
           <h1 className="text-white text-2xl px-6 font-bold">Series</h1>
           {serie.length !== 0 ? (
             <div className="text-white bg-black">
-              <main className="container mx-auto my-10 px-3 md:px-0">
+              <main className="container mx-auto py-10 px-3 md:px-0">
                 <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
                   {serie.map((mov) => (
                     <Link
@@ -153,7 +153,7 @@ export default function Watchlist() {
               </main>
             </div>
           ) : (
-            <div className="w-screen mt-10 flex items-center px-6 text-md lg:text-xl xl:text-2xl text-gray-400 pb-20 bg-black">
+            <div className="w-screen mt-10 flex items-center px-6 text-md lg:text-xl xl:text-2xl text-gray-400 mb-20 bg-black">
               add to see series here
             </div>
           )}
