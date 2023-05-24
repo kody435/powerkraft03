@@ -73,7 +73,6 @@ export default function Post({ movies }) {
   let runtimeString = `${hours}h ${minutes}m`;
 
   async function watchLater() {
-    console.log(user.id, movies.id);
     const { data, error } = await supabase
       .from("mwatchlist")
       .insert({ user_id: `${user.id}`, movie_id: `${movies.id}` });
@@ -139,11 +138,11 @@ export default function Post({ movies }) {
                 {runtimeString}
               </div>
             </div>
-            <div className="flex text-white justify-center md:justify-start">
+            <div className="flex text-white justify-center text-center md:justify-start flex-row">
               {data &&
                 data?.spoken_languages?.map((genre, index) => {
                   return (
-                    <span className="font-medium text-md" key={index}>
+                    <span className="font-medium text-md flex flex-row" key={index}>
                       {genre.name}
                       {index !== data.spoken_languages.length - 1 && (
                         <span>, &nbsp;</span>
@@ -157,7 +156,7 @@ export default function Post({ movies }) {
                 return (
                   <div
                     key={genre.id}
-                    className="flex flex-row rounded-full text-sm font-semibold text-white"
+                    className="flex flex-row rounded-full text-md font-semibold text-white"
                   >
                     {genre.name}
                   </div>
