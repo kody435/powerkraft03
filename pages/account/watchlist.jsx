@@ -147,7 +147,7 @@ export default function Watchlist() {
                             className="shadow-lg rounded-lg flex flex-row items-center "
                             key={mov.id}
                           >
-                            <Link href={`/movie/${mov.slug}`}>
+                            <Link href={`/serie/${mov.slug}`}>
                               <Image
                                 alt=""
                                 className="hover:opacity-75 opacity-100"
