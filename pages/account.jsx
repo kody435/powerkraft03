@@ -78,6 +78,12 @@ const Home = () => {
             theme="dark"
             socialColors={true}
             redirectTo="/account"
+            darkMode={true}
+            magicLink={true}
+            magicLinkAttempts={3}
+            view="sign_up"
+            passwordless={true}
+            passwordlessAutoSubmit={true}
           />
         </div>
       ) : (
@@ -127,8 +133,14 @@ const Home = () => {
             </>
           )}
           <br />
+          <button className="text-white mt-20 mb-10 rounded-full ">
+            <div className="rounded-full font-bold px-12 py-2 bg-gradient-to-r from-indigo-600 from-10% via-sky-600 via-30% to-emerald-600 to-90%">
+              My Watchlist
+            </div>
+          </button>
+          <br />
           <button
-            className="bg-red-500 rounded-full px-16 py-2"
+            className="bg-red-500 rounded-full px-16 py-2 font-bold"
             onClick={() => supabase.auth.signOut()}
           >
             Sign out
