@@ -57,10 +57,12 @@ export default function Watchlist() {
   }, [router, user, fetchMWatchlist, fetchSWatchlist]);
 
   return (
-    <div className="bg-black text-white ">
+    <div className="bg-black text-white md-screen">
       <Toaster />
       {user ? (
-        <div className="bg-black">
+        <div className="bg-black text">
+
+          <h1 className="text-white text-3xl font-bold ml-2 mb-14">Your Watchlist</h1>
           {loading ? (
             <div className="h-screen bg-black flex justify-center items-center">
               Loading...
@@ -70,12 +72,12 @@ export default function Watchlist() {
               <h1 className="text-white text-2xl ml-3 font-bold">Movies</h1>
               {movie.length !== 0 ? (
                 <div className="text-white">
-                  <main className="container mx-auto my-10 px-3 md:px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6 mx-5">
+                  <main className="container mx-auto my-10 pb-14">
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 mx-5">
                       {movie &&
                         movie.map((mov) => (
                           <div
-                            className="shadow-lg rounded-lg flex flex-row items-center "
+                            className="flex flex-row items-center gap-5"
                             key={mov.id}
                           >
                             <Link href={`/movie/${mov.slug}`}>
@@ -88,8 +90,8 @@ export default function Watchlist() {
                                 height={100}
                               />
                             </Link>
-                            <div className="w-full flex flex-col items-center gap-4">
-                              <h3 className="text-white font-semibold text-lg text-center ">
+                            <div className="w-full flex flex-col items-start gap-4">
+                              <h3 className="text-white font-semibold text-lg ">
                                 {mov.name}
                               </h3>
                               <button
@@ -139,12 +141,12 @@ export default function Watchlist() {
               <h1 className="text-white text-2xl ml-3 font-bold">Series</h1>
               {serie.length !== 0 ? (
                 <div className="text-white">
-                  <main className="container mx-auto mt-10 pb-14 px-3 md:px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6 mx-5">
+                  <main className="container mx-auto mt-10 pb-14">
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 mx-5">
                       {serie &&
                         serie.map((mov) => (
                           <div
-                            className="shadow-lg rounded-lg flex flex-row items-center "
+                            className="shadow-lg rounded-lg flex flex-row items-center gap-5"
                             key={mov.id}
                           >
                             <Link href={`/serie/${mov.slug}`}>
@@ -157,12 +159,12 @@ export default function Watchlist() {
                                 height={100}
                               />
                             </Link>
-                            <div className="w-full flex flex-col items-center gap-4">
+                            <div className="w-full flex flex-col items-start gap-4">
                               <h3 className="text-white font-semibold text-lg text-center ">
                                 {mov.name}
                               </h3>
                               <button
-                                className="h-10 items-center w-10 bg-red-500 flex justify-center mx-3 rounded-lg border-2"
+                                className="h-10 items-center w-10 bg-red-500 flex justify-center rounded-lg border-2"
                                 onClick={async () => {
                                   const { data, error } = await supabase.from("swatchlist").delete().eq("user_id", `${user.id}`).eq("serie_id", mov.id);
                                   fetchSWatchlist();
