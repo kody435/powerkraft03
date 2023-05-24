@@ -57,7 +57,7 @@ export default function Watchlist() {
           <h1 className="text-white text-2xl ml-3 font-bold">Movies</h1>
           {movie.length !== 0 ? (
             <div className="text-white">
-              <main className="container mx-auto my-10 px-3 md:px-6">
+              <main className="container mx-auto mt-10 px-3 md:px-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6 mx-5">
                   {movie && movie.map((mov) => (
                     <div
@@ -85,16 +85,13 @@ export default function Watchlist() {
                               .from("mwatchlist")
                               .delete()
                               .eq(
-                                `user_id`,
-                                `b3a78a0c-1760-443e-acbe-7d69b3db7e97`
+                                'user_id',
+                                `${user.id}`
                               )
-                              .eq(`movie_id`, 2);
-                          
-                            
-                            console.log(user.id, mov.id);
+                              .eq('movie_id', mov.id);
+                              fetchMWatchlist();
                             if (data) {
                               console.log(data);
-                              fetchMWatchlist();
                             } else {
                               console.log(error);
                             }
