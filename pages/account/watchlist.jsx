@@ -92,7 +92,7 @@ export default function Watchlist() {
                                 {mov.name}
                               </h3>
                               <button
-                                className="h-7 items-center w-7 bg-red-500 flex justify-center mx-3 rounded-lg border-2"
+                                className="h-6 items-center w-6 bg-red-500 flex justify-center mx-3 rounded-lg border-2"
                                 onClick={async () => {
                                   const { data, error } = await supabase
                                     .from("mwatchlist")
@@ -113,7 +113,7 @@ export default function Watchlist() {
                                   viewBox="0 0 24 24"
                                   strokeWidth="1.5"
                                   stroke="currentColor"
-                                  className="w-4 h-4"
+                                  className="w-5 h-5"
                                 >
                                   <path
                                     strokeLinecap="round"
