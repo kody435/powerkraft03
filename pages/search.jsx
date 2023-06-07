@@ -7,44 +7,66 @@ function Page() {
   let [searchQuery, setSearchQuery] = useState("");
   let [searchData, setSearchData] = useState([]);
   let [error, setError] = useState(false);
+  let [searchType, setSearchType] = useState("movies");
 
-  async function searchMovies() {
+  // async function searchMovies() {
+  //   searchQuery = searchQuery.split(" ").join("|");
+  //   const modifiedQuery = searchQuery
+  //     .replace(/[^a-zA-Z0-9\s]/g, "")
+  //     .replace(/\s/g, "");
+
+  //   Promise.all([
+  //     await supabase
+  //       .from("movies")
+  //       .select(`mainImage, slug, name, slugType`)
+  //       .textSearch("name", modifiedQuery),
+  //     await supabase
+  //       .from("series")
+  //       .select(`mainImage, slug, name, slugType`)
+  //       .textSearch("name", modifiedQuery),
+  //   ])
+  //     .then((data) => {
+  //       setSearchData(data);
+  //     })
+  //     .catch((err) => {
+  //       setError(err);
+  //     });
+  // }
+
+  async function searchResults() {
     searchQuery = searchQuery.split(" ").join("|");
-    const modifiedQuery = searchQuery
-      .replace(/[^a-zA-Z0-9\s]/g, "")
-      .replace(/\s/g, "");
-
-    Promise.all([
-      await supabase
-        .from("movies")
-        .select(`mainImage, slug, name, slugType`)
-        .textSearch("name", modifiedQuery),
-      await supabase
-        .from("series")
-        .select(`mainImage, slug, name, slugType`)
-        .textSearch("name", modifiedQuery),
-    ])
-      .then((data) => {
-        setSearchData(data);
-      })
-      .catch((err) => {
-        setError(err);
-      });
+      const modifiedQuery = searchQuery
+        .replace(/[^a-zA-Z0-9\s]/g, "")
+        .replace(/\s/g, "");
+    
+    const { data, error } = await supabase.from(searchType).select(`mainImage, slug, name, slugType`).textSearch("name", modifiedQuery)
+    console.log(data)
+    setSearchData(data)
   }
 
   return (
-    <div className="flex flex-col bg-black h-screen">
+    <div className="flex flex-col bg-black ">
       <div className="flex flex-col gap-4">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="mx-5 my-2 w-96 rounded-full px-5 py-2 text-white border "
+          className="mx-10 my-2 rounded-full px-5 py-2 text-black border "
           placeholder="Search"
         />
+
+        <div className="flex flex-row justify-center gap-5 ">
+          <select className="text-center px-5 rounded-full" value={searchType} onChange={(e) => {
+            setSearchType(e.target.value)
+          }}
+          >
+          <option value="movies">Movie</option>
+          <option value="series">Series</option>
+        </select>
+
         <div
-          onClick={searchMovies}
-          className="text-black bg-white rounded-full w-fit px-5 py-2 mx-5 flex flex-row justify-center items-center"
+          onClick={searchResults}
+          className="text-black bg-white rounded-full w-fit px-5 py-2 flex flex-row justify-center items-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -62,81 +84,43 @@ function Page() {
           </svg>
           &nbsp; Search
         </div>
+        </div>
       </div>
-      {/* <main className="container mx-auto my-10 px-4 ">
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-6">
-          {searchData &&
-            searchData.map((movie, idx) => {
-              return (
-                <div key={idx}>
-                  {movie.data.map((mov) => (
+      <div className="container mx-auto my-10 px-4">
+        {searchData &&
+          searchData.map((movie, idx) => {
+            return (
+              <div key={idx} >
+                {movie.slugType === "movie" && (
+                    <div
+                    className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6"
+                    key={movie.id}
+                    >
                     <Link
-                      href={`/${mov.slugType}/${mov.slug}`}
+                      href={`/${movie.slugType}/${movie.slug}`}
                       className="shadow-lg rounded-lg"
-                      key={mov.id}
+                      key={movie.id}
                     >
                       <div className="text-center">
                         <Image
                           alt=""
                           className="rounded-lg hover:opacity-75 opacity-100"
-                          src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
+                          src={`https://image.tmdb.org/t/p/w300/${movie.mainImage}`}
                           loading="lazy"
                           width={150}
                           height={100}
                         />
                         <h3 className="text-white font-bolder text-md  ">
-                          {mov.name}
+                          {movie.name}
                         </h3>
                       </div>
                     </Link>
-                  ))}
-                </div>
-              );
-            })}
-        </div>
-      </main> */}
-
-      <main className="container mx-auto my-10 px-4">
-        {searchData &&
-          searchData.map((movie, idx) => {
-            return (
-              <div
-                className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6"
-                key={idx}
-              >
-                {movie.data.map((mov) => (
-                  <Link
-                    href={`/${mov.slugType}/${mov.slug}`}
-                    className="shadow-lg rounded-lg"
-                    key={mov.id}
-                  >
-                    <div className="text-center">
-                      <Image
-                        alt=""
-                        className="rounded-lg hover:opacity-75 opacity-100"
-                        src={`https://image.tmdb.org/t/p/w300/${mov.mainImage}`}
-                        loading="lazy"
-                        width={150}
-                        height={100}
-                      />
-                      <h3 className="text-white font-bolder text-md  ">
-                        {mov.name}
-                      </h3>
                     </div>
-                  </Link>
-                ))}
-              </div>
+                  )}
+                </div>
             );
           })}
-      </main>
-
-      {error && searchData.length === 0 && (
-        <div>
-          <h1 className="text-white text-center z-50 flex h-screen w-screen justify-center items-center text-2xl">
-            No results found for {searchQuery}
-          </h1>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

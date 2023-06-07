@@ -61,13 +61,10 @@ export default function Watchlist() {
       <Toaster />
       {user ? (
         <div className="bg-black text">
-
-          <h1 className="text-white text-3xl font-bold ml-2 mb-14">Your Watchlist</h1>
-          {loading ? (
-            <div className="h-screen bg-black flex justify-center items-center">
-              Loading...
-            </div>
-          ) : (
+          <h1 className="text-white text-3xl font-bold ml-2 mb-14">
+            Your Watchlist
+          </h1>
+          {!loading ? (
             <>
               <h1 className="text-white text-2xl ml-3 font-bold">Movies</h1>
               {movie.length !== 0 ? (
@@ -95,7 +92,7 @@ export default function Watchlist() {
                                 {mov.name}
                               </h3>
                               <button
-                                className="h-10 items-center w-10 bg-red-500 flex justify-center mx-3 rounded-lg border-2"
+                                className="h-8 items-center w-12 bg-red-500 flex justify-center rounded-lg border-2"
                                 onClick={async () => {
                                   const { data, error } = await supabase
                                     .from("mwatchlist")
@@ -116,7 +113,7 @@ export default function Watchlist() {
                                   viewBox="0 0 24 24"
                                   strokeWidth="1.5"
                                   stroke="currentColor"
-                                  className="w-6 h-6"
+                                  className="w-5 h-5"
                                 >
                                   <path
                                     strokeLinecap="round"
@@ -166,7 +163,11 @@ export default function Watchlist() {
                               <button
                                 className="h-10 items-center w-10 bg-red-500 flex justify-center rounded-lg border-2"
                                 onClick={async () => {
-                                  const { data, error } = await supabase.from("swatchlist").delete().eq("user_id", `${user.id}`).eq("serie_id", mov.id);
+                                  const { data, error } = await supabase
+                                    .from("swatchlist")
+                                    .delete()
+                                    .eq("user_id", `${user.id}`)
+                                    .eq("serie_id", mov.id);
                                   fetchSWatchlist();
                                   if (data) {
                                     console.log(data);
@@ -197,11 +198,18 @@ export default function Watchlist() {
                   </main>
                 </div>
               ) : (
-                <div className="w-screen h-20 flex items-end px-6 text-md lg:text-xl xl:text-2xl text-gray-400 mb-96">
-                  Nothing to see here
+                <div>
+                  <div className="w-screen h-20 flex items-center px-6 text-md lg:text-xl xl:text-2xl text-gray-400">
+                    Nothing to see here
+                  </div>
+                  <div className="bg-black pb-[60vh]"></div>
                 </div>
               )}
             </>
+          ) : (
+            <div className="h-screen bg-black flex justify-center items-center">
+              Loading...
+            </div>
           )}
         </div>
       ) : (

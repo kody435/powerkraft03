@@ -5,6 +5,7 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 const Home = () => {
   const user = useUser();
@@ -133,11 +134,11 @@ const Home = () => {
             </>
           )}
           <br />
-          <button className="text-white mt-20 mb-10 rounded-full ">
+          <Link href="/account/watchlist" className="text-white mt-20 mb-10 rounded-full ">
             <div className="rounded-full font-bold px-12 py-2 bg-gradient-to-r from-indigo-600 from-10% via-sky-600 via-30% to-emerald-600 to-90%">
               My Watchlist
             </div>
-          </button>
+          </Link>
           <br />
           <button
             className="bg-red-500 rounded-full px-16 py-2 font-bold"
