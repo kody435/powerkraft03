@@ -64,11 +64,7 @@ export default function Watchlist() {
           <h1 className="text-white text-3xl font-bold ml-2 mb-14">
             Your Watchlist
           </h1>
-          {loading ? (
-            <div className="h-screen bg-black flex justify-center items-center">
-              Loading...
-            </div>
-          ) : (
+          {!loading ? (
             <>
               <h1 className="text-white text-2xl ml-3 font-bold">Movies</h1>
               {movie.length !== 0 ? (
@@ -205,13 +201,15 @@ export default function Watchlist() {
                 <div>
                   <div className="w-screen h-20 flex items-center px-6 text-md lg:text-xl xl:text-2xl text-gray-400">
                     Nothing to see here
-                      </div>
-                      <div className="bg-black pb-[60vh]">
-
-                      </div>
+                  </div>
+                  <div className="bg-black pb-[60vh]"></div>
                 </div>
               )}
             </>
+          ) : (
+            <div className="h-screen bg-black flex justify-center items-center">
+              Loading...
+            </div>
           )}
         </div>
       ) : (
