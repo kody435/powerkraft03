@@ -61,8 +61,9 @@ export default function Watchlist() {
       <Toaster />
       {user ? (
         <div className="bg-black text">
-
-          <h1 className="text-white text-3xl font-bold ml-2 mb-14">Your Watchlist</h1>
+          <h1 className="text-white text-3xl font-bold ml-2 mb-14">
+            Your Watchlist
+          </h1>
           {loading ? (
             <div className="h-screen bg-black flex justify-center items-center">
               Loading...
@@ -166,7 +167,11 @@ export default function Watchlist() {
                               <button
                                 className="h-10 items-center w-10 bg-red-500 flex justify-center rounded-lg border-2"
                                 onClick={async () => {
-                                  const { data, error } = await supabase.from("swatchlist").delete().eq("user_id", `${user.id}`).eq("serie_id", mov.id);
+                                  const { data, error } = await supabase
+                                    .from("swatchlist")
+                                    .delete()
+                                    .eq("user_id", `${user.id}`)
+                                    .eq("serie_id", mov.id);
                                   fetchSWatchlist();
                                   if (data) {
                                     console.log(data);
@@ -197,8 +202,13 @@ export default function Watchlist() {
                   </main>
                 </div>
               ) : (
-                <div className="w-screen h-20 flex items-end px-6 text-md lg:text-xl xl:text-2xl text-gray-400 mb-96">
-                  Nothing to see here
+                <div>
+                  <div className="w-screen h-20 flex items-center px-6 text-md lg:text-xl xl:text-2xl text-gray-400">
+                    Nothing to see here
+                      </div>
+                      <div className="bg-black pb-[60vh]">
+
+                      </div>
                 </div>
               )}
             </>
