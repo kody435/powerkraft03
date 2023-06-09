@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write ."
@@ -31,6 +31,7 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.4.4",
     "@types/react": "18.2.6"
   }
 }
