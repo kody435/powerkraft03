@@ -25,10 +25,10 @@ function NavList() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className={`text-lg font-semibold w-6 h-6 rounded-sm hover:text-white ${
+          className={`text-lg font-bold w-6 h-6 rounded-sm hover:text-emerald-500 ${
             router.pathname === "/search"
               ? "text-emerald-400 "
-              : "text-blue-500 z-50"
+              : "text-white font-bold z-50"
           }}`}
         >
           <path
@@ -41,9 +41,9 @@ function NavList() {
 
       <Link
         href="/"
-        className={`text-lg font-semibold w-fit text-blue-500 hover:text-white hover:border-b-4 hover:border-emerald-400 rounded-sm ${
+        className={`text-lg font-semibold w-fit text-white hover:text-white hover:border-b-4 hover:border-emerald-400 rounded-sm ${
           router.pathname === "/"
-            ? "border-b-4 border-orange-500"
+            ? "border-b-4 "
             : "hover:border-b-4 border-emerald-400"
         }`}
       >
@@ -61,9 +61,9 @@ function NavList() {
           </Link> */}
       <Link
         href="/serie"
-        className={`text-lg font-semibold w-fit text-blue-500 hover:text-white active:border-emerald-400 rounded-sm ${
+        className={`text-lg font-semibold w-fit text-white hover:text-white active:border-emerald-400 rounded-sm ${
           router.pathname === "/serie"
-            ? "border-b-4 border-orange-500"
+            ? "border-b-4 "
             : "hover:border-b-4 border-emerald-400"
         }`}
       >
@@ -72,7 +72,7 @@ function NavList() {
       {userData && (
         <Link
           href="/account/watchlist"
-          className={`text-lg font-semibold w-fit text-blue-500 hover:text-white active:border-emerald-400 rounded-sm ${
+          className={`text-lg font-semibold w-fit text-white hover:text-white active:border-emerald-400 rounded-sm ${
             router.pathname === "/account/watchlist"
               ? "border-b-4 border-orange-500"
               : "hover:border-b-4 border-emerald-400"
@@ -83,7 +83,7 @@ function NavList() {
       )}
       <Link
         href="/request"
-        className={`text-lg font-semibold bg-clip-text w-fit text-blue-500 hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
+        className={`text-lg font-semibold bg-clip-text w-fit text-white hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
           router.pathname === "/request"
             ? "border-b-4 border-orange-500 hover:text-transparent"
             : "hover:border-b-4 border-emerald-400"
@@ -144,9 +144,9 @@ export default function Header() {
   }, []);
 
   return (
-    <navbar className="bg-black sticky inset-0 z-10 ">
-      <div className="flex items-center justify-between inset-12 text-black backdrop-blur-3xl py-5 md:py-6 pl-3 pr-5">
-        <h1 className="text-3xl md:text-4xl font-extralight text-blue-500 py-1 cursor-pointer ">
+    <navbar className="bg-transparent sticky inset-0 z-10  backdrop-blur-xl backdrop-brightness-50">
+      <div className="flex justify-between inset-0 text-black backdrop-blur-xl backdrop-brightness-50 py-3 md:py-4 pl-3 pr-5">
+        <h1 className="text-3xl md:text-4xl font-light text-white py-1 cursor-pointer ">
           The <span className="font-extrabold">OCTULUS</span>
         </h1>
         <div className="hidden lg:block">
@@ -159,14 +159,14 @@ export default function Header() {
           onClick={() => setOpenNav(!openNav)}
         >
           {openNav ? (
-            <XMarkIcon className="h-6 w-6 text-blue-500" strokeWidth={2} />
+            <XMarkIcon className="h-6 w-6 text-white" strokeWidth={2} />
           ) : (
-            <Bars3Icon className="h-6 w-6 text-blue-500" strokeWidth={2} />
+            <Bars3Icon className="h-6 w-6 text-white" strokeWidth={2} />
           )}
         </IconButton>
       </div>
-      <Collapse open={openNav} className="bg-black pl-5">
-        <div className="pb-10 pt-5">
+      <Collapse open={openNav} className="">
+        <div className="pb-10 pt-5 pl-5">
           <NavList />
         </div>
       </Collapse>
