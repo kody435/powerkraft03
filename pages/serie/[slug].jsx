@@ -116,6 +116,21 @@ export default function Post({ series }) {
 
   return (
     <div className="flex flex-col bg-black">
+      <Head>
+        <title>OCTULUS | {series.name}</title>
+        <meta
+          name="description"
+          content="Watch Movies, Series and Animes for free"
+        />
+        <meta property="og:title" content="Watch Movies, Series and Animes" />
+        <meta
+          property="og:description"
+          content="Only go-to site for watching Movies, Series and Animes"
+        />
+        <meta property="og:url" content="https://theoctulus.vercel.app/" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div
         style={{
           backgroundImage: `url("https://image.tmdb.org/t/p/w1280/${data.backdrop_path}")`,
