@@ -74,7 +74,7 @@ function NavList() {
           href="/account/watchlist"
           className={`text-lg font-semibold w-fit text-white hover:text-white active:border-emerald-400 rounded-sm ${
             router.pathname === "/account/watchlist"
-              ? "border-b-4 border-orange-500"
+              ? "border-b-4 "
               : "hover:border-b-4 border-emerald-400"
           }`}
         >
@@ -85,7 +85,7 @@ function NavList() {
         href="/request"
         className={`text-lg font-semibold bg-clip-text w-fit text-white hover:text-white hover:border-b-4 active:border-emerald-400 rounded-sm ${
           router.pathname === "/request"
-            ? "border-b-4 border-orange-500 hover:text-transparent"
+            ? "border-b-4 "
             : "hover:border-b-4 border-emerald-400"
         }`}
       >
@@ -145,7 +145,7 @@ export default function Header() {
 
   return (
     <navbar className="bg-transparent sticky inset-0 z-10  backdrop-blur-xl backdrop-brightness-50">
-      <div className="flex justify-between inset-0 text-black backdrop-blur-xl backdrop-brightness-50 py-3 md:py-4 pl-3 pr-5">
+      <div className="flex justify-between lg:items-center inset-0 text-black backdrop-blur-xl backdrop-brightness-50 py-3 md:py-4 pl-3 pr-5">
         <h1 className="text-3xl md:text-4xl font-light text-white py-1 cursor-pointer ">
           The <span className="font-extrabold">OCTULUS</span>
         </h1>
