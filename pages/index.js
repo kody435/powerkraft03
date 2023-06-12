@@ -7,7 +7,7 @@ function Page({ movies }) {
   return (
     <div className="flex flex-col bg-black">
       <Head>
-        <title>OCTULUS</title>
+        <title>OCTULUS | Home</title>
         <meta
           name="description"
           content="Watch Movies, Series and Animes for free"

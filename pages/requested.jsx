@@ -1,9 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
+import Head from "next/head";
 
 export default function Requests(requests) {
   return (
     <div className="bg-black h-screen">
+      <Head>
+        <title>OCTULUS | Requested</title>
+        <meta
+          name="description"
+          content="Watch Movies, Series and Animes for free"
+        />
+        <meta property="og:title" content="Watch Movies, Series and Animes" />
+        <meta
+          property="og:description"
+          content="Only go-to site for watching Movies, Series and Animes"
+        />
+        <meta property="og:url" content="https://theoctulus.vercel.app/" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <h1 className="mx-2 md:mx-4 pt-6 mb-9 w-fit text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-l from-sky-400 to-emerald-400 py-1 ">
         Requested Films and Series
       </h1>

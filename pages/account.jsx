@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
+import Head from "next/head";
 
 const Home = () => {
   const user = useUser();
@@ -68,6 +69,21 @@ const Home = () => {
 
   return (
     <div className="bg-black h-screen w-screen text-white py-2">
+      <Head>
+        <title>OCTULUS | Account</title>
+        <meta
+          name="description"
+          content="Watch Movies, Series and Animes for free"
+        />
+        <meta property="og:title" content="Watch Movies, Series and Animes" />
+        <meta
+          property="og:description"
+          content="Only go-to site for watching Movies, Series and Animes"
+        />
+        <meta property="og:url" content="https://theoctulus.vercel.app/" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Toaster />
       {!user ? (
         <div className="mx-10 sm:mx-36 md:mx-44 lg:mx-80 xl:mx-96 2xl:mx-96">
@@ -134,7 +150,10 @@ const Home = () => {
             </>
           )}
           <br />
-          <Link href="/account/watchlist" className="text-white mt-20 mb-10 rounded-full ">
+          <Link
+            href="/account/watchlist"
+            className="text-white mt-20 mb-10 rounded-full "
+          >
             <div className="rounded-full font-bold px-12 py-2 bg-gradient-to-r from-indigo-600 from-10% via-sky-600 via-30% to-emerald-600 to-90%">
               My Watchlist
             </div>

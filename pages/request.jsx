@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { supabase } from "../lib/supabaseClient";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import Head from "next/head";
 
 export default function Request() {
   const router = useRouter();
@@ -38,6 +39,21 @@ export default function Request() {
 
   return (
     <div className="isolate bg-black h-screen px-6 py-24 -z-10 sm:py-32 lg:px-8">
+      <Head>
+        <title>OCTULUS | Request</title>
+        <meta
+          name="description"
+          content="Watch Movies, Series and Animes for free"
+        />
+        <meta property="og:title" content="Watch Movies, Series and Animes" />
+        <meta
+          property="og:description"
+          content="Only go-to site for watching Movies, Series and Animes"
+        />
+        <meta property="og:url" content="https://theoctulus.vercel.app/" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div
         className="absolute inset-x-10 top-[110rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
         aria-hidden="true"

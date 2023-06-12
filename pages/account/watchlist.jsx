@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { supabase } from "../../lib/supabaseClient";
+import Head from "next/head";
 
 export default function Watchlist() {
   const router = useRouter();
@@ -58,6 +59,21 @@ export default function Watchlist() {
 
   return (
     <div className="bg-black text-white md-screen">
+      <Head>
+        <title>OCTULUS | Watchlist</title>
+        <meta
+          name="description"
+          content="Watch Movies, Series and Animes for free"
+        />
+        <meta property="og:title" content="Watch Movies, Series and Animes" />
+        <meta
+          property="og:description"
+          content="Only go-to site for watching Movies, Series and Animes"
+        />
+        <meta property="og:url" content="https://theoctulus.vercel.app/" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Toaster />
       {user ? (
         <div className="bg-black text">
