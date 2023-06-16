@@ -5,7 +5,7 @@ import Head from "next/head";
 
 function Page({ movies }) {
   return (
-    <div className="flex flex-col bg-black h-fit md:h-screen">
+    <div className="flex flex-col bg-black h-fit">
       <Head>
         <title>OCTULUS | TV Shows</title>
         <meta
