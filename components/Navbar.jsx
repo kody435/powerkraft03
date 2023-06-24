@@ -144,8 +144,8 @@ export default function Header() {
   }, []);
 
   return (
-    <navbar className="bg-transparent sticky inset-0 z-10  backdrop-blur-xl backdrop-brightness-50">
-      <div className="flex justify-between lg:items-center inset-0 text-black backdrop-blur-xl backdrop-brightness-50 py-3 md:py-4 pl-3 pr-5">
+    <navbar className="sticky inset-0 z-10">
+      <div className="bg-transparent flex justify-between lg:items-center inset-0 text-black backdrop-blur-xl backdrop-brightness-[.1] py-3 md:py-4 pl-3 pr-5">
         <h1 className="text-3xl md:text-4xl font-light text-white py-1 cursor-pointer ">
           The <span className="font-extrabold">OCTULUS</span>
         </h1>
