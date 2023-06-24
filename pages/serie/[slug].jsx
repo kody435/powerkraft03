@@ -230,7 +230,7 @@ export default function Post({ series }) {
       <div className="mb-8 md:mb-5 mx-6 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-5 lg:gap-8">
         <div className="flex flex-row items-center w-fit h-fit">
           <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
-            Select season &nbsp;
+            Season &nbsp;
           </h3>
           <select
             value={select}
@@ -245,7 +245,7 @@ export default function Post({ series }) {
         {select && (
           <div className="flex flex-row items-center w-fit h-fit">
             <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
-              Select episode &nbsp;
+      Episode &nbsp;
             </h3>
             <select
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit h-fit p-1 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
