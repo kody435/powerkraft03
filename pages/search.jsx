@@ -35,13 +35,16 @@ function Page() {
 
   async function searchResults() {
     searchQuery = searchQuery.split(" ").join("|");
-      const modifiedQuery = searchQuery
-        .replace(/[^a-zA-Z0-9\s]/g, "")
-        .replace(/\s/g, "");
-    
-    const { data, error } = await supabase.from(searchType).select(`mainImage, slug, name, slugType`).textSearch("name", modifiedQuery)
-    console.log(data)
-    setSearchData(data)
+    const modifiedQuery = searchQuery
+      .replace(/[^a-zA-Z0-9\s]/g, "")
+      .replace(/\s/g, "");
+
+    const { data, error } = await supabase
+      .from(searchType)
+      .select(`mainImage, slug, name, slugType`)
+      .textSearch("name", modifiedQuery);
+    console.log(data);
+    setSearchData(data);
   }
 
   return (
@@ -56,46 +59,49 @@ function Page() {
         />
 
         <div className="flex flex-row justify-center gap-5 ">
-          <select className="text-center px-5 rounded-full" value={searchType} onChange={(e) => {
-            setSearchType(e.target.value)
-          }}
+          <select
+            className="text-center px-5 rounded-full"
+            value={searchType}
+            onChange={(e) => {
+              setSearchType(e.target.value);
+            }}
           >
-          <option value="movies">Movie</option>
-          <option value="series">Series</option>
-        </select>
+            <option value="movies">Movie</option>
+            <option value="series">Series</option>
+          </select>
 
-        <div
-          onClick={searchResults}
-          className="text-black bg-white rounded-full w-fit px-5 py-2 flex flex-row justify-center items-center"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className={`text-lg text-black z-50 bg-white font-bold w-4 h-4 flex items-center rounded-sm `}
+          <div
+            onClick={searchResults}
+            className="text-black bg-white rounded-full w-fit px-5 py-2 flex flex-row justify-center items-center"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-          &nbsp; Search
-        </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className={`text-lg text-black z-50 bg-white font-bold w-4 h-4 flex items-center rounded-sm `}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+            &nbsp; Search
+          </div>
         </div>
       </div>
       <div className="container mx-auto my-10 px-4">
         {searchData &&
           searchData.map((movie, idx) => {
             return (
-              <div key={idx} >
+              <div key={idx}>
                 {movie.slugType === "movie" && (
-                    <div
+                  <div
                     className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6"
                     key={movie.id}
-                    >
+                  >
                     <Link
                       href={`/${movie.slugType}/${movie.slug}`}
                       className="shadow-lg rounded-lg"
@@ -115,9 +121,9 @@ function Page() {
                         </h3>
                       </div>
                     </Link>
-                    </div>
-                  )}
-                </div>
+                  </div>
+                )}
+              </div>
             );
           })}
       </div>

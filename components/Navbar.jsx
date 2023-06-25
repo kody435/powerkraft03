@@ -1,4 +1,9 @@
-import { IconButton, Navbar, Collapse, Typography } from "@material-tailwind/react";
+import {
+  IconButton,
+  Navbar,
+  Collapse,
+  Typography,
+} from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
@@ -139,25 +144,25 @@ export default function Example() {
 
   return (
     <nav className="sticky inset-0 z-50 bg-gradient-to-r from-gray-600 via-blue-gray-700 to-cyan-900 py-4 px-5">
-      <div className="flex justify-between lg:items-center gap-y-4 text-white">
+      <div className="flex justify-between items-center lg:gap-y-4 text-white">
         <h1 className="cursor-pointer text-3xl font-normal">
           The <span className="font-bold">OCTULUS</span>
         </h1>
         <div className="hidden lg:block">
           <NavList />
         </div>
-          <IconButton
-            variant="text"
-            className="h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-            ripple={false}
-            onClick={() => setOpenNav(!openNav)}
-          >
-            {openNav ? (
-              <XMarkIcon className="h-6 w-6 text-white" strokeWidth={2} />
-            ) : (
-              <Bars3Icon className="h-6 w-6 text-white" strokeWidth={2} />
-            )}
-          </IconButton>
+        <IconButton
+          variant="text"
+          className="h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          ripple={true}
+          onClick={() => setOpenNav(!openNav)}
+        >
+          {openNav ? (
+            <XMarkIcon className="h-6 w-6 text-white" strokeWidth={2} />
+          ) : (
+            <Bars3Icon className="h-6 w-6 text-white" strokeWidth={2} />
+          )}
+        </IconButton>
       </div>
       <Collapse open={openNav} className="">
         <div className="pt-5 ">
