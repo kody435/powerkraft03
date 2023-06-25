@@ -19,7 +19,7 @@ export default function Post({ series }) {
   const [director, setDirector] = useState([]);
   const [cast, setCast] = useState([]);
   const [videos, setVideos] = useState([]);
-  const [runTime, setRunTime] = useState("");
+  const [runTime, setRunTime] = useState("N/A");
   const [relDate, setRelDate] = useState("N/A");
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function Post({ series }) {
             // cast
             let cast = jsonData.credits.cast;
             cast = cast.filter((cast) => {
-              return cast.order < 12;
+              return cast.order < 30;
             });
             setCast(cast);
 
@@ -231,7 +231,7 @@ export default function Post({ series }) {
 
       <div className="mb-8 md:mb-5 mx-6 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-5 lg:gap-8">
         <div className="flex flex-row items-center w-fit h-fit">
-          <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="block text-lg font-semibold text-white">
             Season &nbsp;
           </h3>
           <select
@@ -246,7 +246,7 @@ export default function Post({ series }) {
         </div>
         {select && (
           <div className="flex flex-row items-center w-fit h-fit">
-            <h3 className="block text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="block text-lg font-semibold text-white">
               Episode &nbsp;
             </h3>
             <select

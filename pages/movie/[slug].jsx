@@ -45,7 +45,7 @@ export default function Post({ movies }) {
             // cast
             let cast = jsonData.credits.cast;
             cast = cast.filter((cast) => {
-              return cast.order < 12;
+              return cast.order < 30;
             });
             setCast(cast);
 
