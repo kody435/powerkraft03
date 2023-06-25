@@ -271,7 +271,7 @@ export default function Post({ series }) {
             setIsOpen(true);
           }}
         >
-          <div className="bg-lime-500 flex flex-row rounded-full py-2.5 px-7 cursor-pointer">
+          <div className="bg-green-400 flex flex-row rounded-full py-2.5 px-7 cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
