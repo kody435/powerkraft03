@@ -145,9 +145,9 @@ export default function Header() {
 
   return (
     <navbar className="sticky inset-0 z-10">
-      <div className="bg-transparent flex justify-between lg:items-center inset-0 text-black backdrop-blur-xl backdrop-brightness-[.1] py-3 md:py-4 pl-3 pr-5">
-        <h1 className="text-3xl md:text-4xl font-light text-white py-1 cursor-pointer ">
-          The <span className="font-extrabold">OCTULUS</span>
+      <div className="bg-transparent flex justify-between lg:items-center inset-0 text-black backdrop-blur-xl py-3 md:py-4 pl-3 pr-5">
+        <h1 className="text-3xl md:text-4xl font-light text-white py-1 cursor-pointer bg-transparent">
+          The <span className="font-extrabold bg-transparent">OCTULUS</span>
         </h1>
         <div className="hidden lg:block">
           <NavList />
