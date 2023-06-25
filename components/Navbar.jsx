@@ -1,14 +1,8 @@
-import React from "react";
-import {
-  Navbar,
-  Collapse,
-  Typography,
-  IconButton,
-} from "@material-tailwind/react";
+import { IconButton, Navbar, Collapse, Typography } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
-import { use, useState } from "react";
+import React, { use, useState } from "react";
 import { useRouter } from "next/router";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
@@ -17,7 +11,7 @@ function NavList() {
   const userData = useUser();
 
   return (
-    <ul className="text-lg flex flex-col gap-2 lg:flex-row lg:items-center text-black lg:gap-6 mr-10">
+    <ul className="text-lg flex flex-col gap-2 lg:flex-row lg:items-center text-black lg:gap-6 ">
       <Link href="/search">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -93,10 +87,10 @@ function NavList() {
       </Link>
       <Link
         href="/account"
-        className={`text-lg font-semibold w-fit bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-emerald-500 hover:text-white active:border-emerald-400 ${
+        className={`text-lg font-semibold w-fit bg-clip-text text-transparent bg-gradient-to-r text-white hover:text-gray-200 active:border-emerald-400 ${
           router.pathname === "/login" || router.pathname === "/signup"
-            ? ""
-            : ""
+            ? "border-b-4 "
+            : "hover:border-b-4 border-emerald-400"
         }`}
       >
         {userData ? (
@@ -129,7 +123,7 @@ function NavList() {
   );
 }
 
-export default function Header() {
+export default function Example() {
   const [openNav, setOpenNav] = React.useState(false);
 
   const handleWindowResize = () =>
@@ -144,32 +138,32 @@ export default function Header() {
   }, []);
 
   return (
-    <navbar className="sticky inset-0 z-10">
-      <div className="bg-transparent flex justify-between lg:items-center inset-0 text-black backdrop-blur-xl py-3 md:py-4 pl-3 pr-5">
-        <h1 className="text-3xl md:text-4xl font-light text-white py-1 cursor-pointer bg-transparent">
-          The <span className="font-extrabold bg-transparent">OCTULUS</span>
+    <nav className="sticky inset-0 z-50 bg-gradient-to-r from-gray-600 via-blue-gray-700 to-cyan-900 py-4 px-5">
+      <div className="flex justify-between lg:items-center gap-y-4 text-white">
+        <h1 className="cursor-pointer text-3xl font-normal">
+          The <span className="font-bold">OCTULUS</span>
         </h1>
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <IconButton
-          variant="text"
-          className="h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-          ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6 text-white" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6 text-white" strokeWidth={2} />
-          )}
-        </IconButton>
+          <IconButton
+            variant="text"
+            className="h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+            ripple={false}
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6 text-white" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6 text-white" strokeWidth={2} />
+            )}
+          </IconButton>
       </div>
       <Collapse open={openNav} className="">
-        <div className="pb-10 pt-5 pl-5">
+        <div className="pt-5 ">
           <NavList />
         </div>
       </Collapse>
-    </navbar>
+    </nav>
   );
 }
