@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabaseClient";
 import Image from "next/image";
 import Head from "next/head";
-import styles from "../../styles/Home.module.css";
 import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import { useUser } from "@supabase/auth-helpers-react";
@@ -19,8 +18,8 @@ export default function Post({ series }) {
   const [director, setDirector] = useState([]);
   const [cast, setCast] = useState([]);
   const [videos, setVideos] = useState([]);
-  const [runTime, setRunTime] = useState("N/A");
-  const [relDate, setRelDate] = useState("N/A");
+  const [runTime, setRunTime] = useState("");
+  const [relDate, setRelDate] = useState("");
 
   useEffect(() => {
     if (series.tmdb) {
@@ -33,7 +32,6 @@ export default function Post({ series }) {
           if (response.ok) {
             const jsonData = await response.json();
             setData(jsonData);
-            console.log(jsonData);
 
             // director
             let director = jsonData.credits.crew;
@@ -83,21 +81,18 @@ export default function Post({ series }) {
 
     let runtime = data.episode_run_time;
     if (runtime === undefined) {
-      setRunTime("N/A");
+      setRunTime("");
     } else if (typeof runtime === "string") {
       let hours = Math.floor(runtime / 60);
       let minutes = runtime % 60;
       let runtimeString = `${hours}h ${minutes}m`;
       setRunTime(runtimeString);
     } else if (Array.isArray(runtime)) {
-      setRunTime("N/A");
+      setRunTime("");
     }
   }, [series, tmdb, user]);
   const router = useRouter();
-  // so, what we re waiting
-  // ! message: 'new row violates row-level security policy for table "mwatchlist"'
   async function watchLater() {
-    console.log(user.id, series.id);
     const { data, error } = await supabase
       .from("swatchlist")
       .insert({ user_id: `${user.id}`, serie_id: `${series.id}` });
@@ -165,12 +160,14 @@ export default function Post({ series }) {
               {series.name}
               <br />
             </h1>
-            <div className="text-white text-md font-light italic text-center md:text-left">
+            {data.tagline && (
+              <div className="text-white text-md font-light italic text-center md:text-left">
               {`"` + data.tagline + `"`}
-            </div>
+              </div>
+            )}
 
             <div className="flex justify-center flex-row my-3 gap-5 md:justify-start">
-              {relDate !== "N/A" && (
+              {relDate === null && (
                 <div className="font-medium text-md text-white">{relDate}</div>
               )}
               {runTime === null ? (

@@ -146,12 +146,18 @@ export default function Post({ movies }) {
             </div>
 
             <div className="flex justify-center flex-row my-3 gap-5 md:justify-start">
-              <div className="font-medium text-md text-white">
+              {data.releaseDate ? (
+                <div className="font-medium text-md text-white">
                 {releaseDate}
-              </div>
-              <div className="font-medium text-md text-white">
+                </div>
+              ) : (<></>)}
+              {data.runtime !== 0 ? (
+                <div className="font-medium text-md text-white">
                 {runtimeString}
-              </div>
+                </div>
+              ) : (
+                  <></>
+              )}
             </div>
             <div className="flex text-white justify-center text-center md:justify-start flex-row">
               {data &&
