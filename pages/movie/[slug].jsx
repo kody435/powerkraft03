@@ -141,9 +141,11 @@ export default function Post({ movies }) {
               {movies.name}
               <br />
             </h1>
-            <div className="text-white text-md font-light italic text-center md:text-left">
+            {data.tagline && (
+              <div className="text-white text-md font-light italic text-center md:text-left">
               {`"` + data.tagline + `"`}
-            </div>
+              </div>
+            )}
 
             <div className="flex justify-center flex-row my-3 gap-5 md:justify-start">
               {data.releaseDate ? (
