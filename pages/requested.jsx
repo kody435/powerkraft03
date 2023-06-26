@@ -20,7 +20,7 @@ export default function Requests(requests) {
         <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="mx-2 md:mx-4 pt-6 mb-9 w-fit text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-l from-sky-400 to-emerald-400 py-1 ">
+      <h1 className="mx-2 md:mx-4 pt-6 mb-9 w-fit text-3xl md:text-4xl font-bold text-white py-1 ">
         Requested Films and Series
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">

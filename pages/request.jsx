@@ -146,7 +146,7 @@ export default function Request() {
           <div>Check if already requested? &nbsp;</div>
           <Link
             href="/requested"
-            className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
+            className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 from-10% to-blue-400"
           >
             REQUESTED ↗
           </Link>
