@@ -109,6 +109,7 @@ export default function Post({ movies }) {
         />
         <meta property="og:url" content="https://theoctulus.vercel.app/" />
         <meta property="og:type" content="website" />
+        <meta name="view-transition" content-"same-origin" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div
