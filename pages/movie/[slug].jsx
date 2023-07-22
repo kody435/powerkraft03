@@ -75,6 +75,7 @@ export default function Post({ movies }) {
   let runtimeString = `${hours}h ${minutes}m`;
 
   async function watchLater() {
+    console.log(user);
     const { data, error } = await supabase
       .from("mwatchlist")
       .insert({ user_id: `${user.id}`, movie_id: `${movies.id}` });
