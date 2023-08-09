@@ -134,7 +134,7 @@ const Home = () => {
                     type="text"
                     placeholder="username"
                     value={newUsername}
-                    className="rounded-full px-4 w-72 ring-1 ring-white py-1"
+                    className="rounded-full px-4 w-72 ring-1 ring-white py-1 text-black"
                     onChange={(e) => {
                       setNewUsername(e.target.value);
                     }}
