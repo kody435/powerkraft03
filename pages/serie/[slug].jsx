@@ -29,9 +29,11 @@ export default function Post({ series }) {
           const response = await fetch(
             `https://api.themoviedb.org/3/tv/${tmdb}?api_key=9a6cc794e0d32ccd83dc9b5bebda750b&append_to_response=videos,credits`
           );
+          
           if (response.ok) {
             const jsonData = await response.json();
             setData(jsonData);
+            console.log(jsonData)
 
             // director
             let director = jsonData.credits.crew;
@@ -70,7 +72,7 @@ export default function Post({ series }) {
             }
           }
         } catch (error) {
-          console.error(error);
+          console.log(error);
         }
       };
       fetchData();
