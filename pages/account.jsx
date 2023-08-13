@@ -23,7 +23,22 @@ const Home = () => {
     if (!user) {
       return;
     } else {
-      console.log(user);
+      console.log(user); //
+
+      try {
+        let {data, error} = await supabase.from('profiles').select('teacher').single();
+
+        if (data) {
+          console.log("Teacher: " + data)
+        } else if (error) {
+          console.log('Error' + eror);
+        } else {
+          console.log('hit the else')
+        }
+      } catch {
+        console.log("Can't fetch data")
+      }
+      
       try {
         setLoading(true);
         let { data, error } = await supabase
