@@ -30,7 +30,7 @@ const Home = () => {
 
         if (data) {
           console.log("Teacher")
-          console.log(data)
+          console.log(data.teacher)
         } else if (error) {
           console.log('Error' + eror);
         } else {
