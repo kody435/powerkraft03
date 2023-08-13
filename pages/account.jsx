@@ -26,7 +26,7 @@ const Home = () => {
       console.log(user); //
 
       try {
-        let {data, error} = await supabase.from('profiles').select('teacher').single();
+        let {data, error} = await supabase.from('profiles').select('teacher').eq("id", user.id).single();
 
         if (data) {
           console.log("Teacher: " + data)
