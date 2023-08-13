@@ -23,6 +23,7 @@ const Home = () => {
     if (!user) {
       return;
     } else {
+      console.log(user);
       try {
         setLoading(true);
         let { data, error } = await supabase
